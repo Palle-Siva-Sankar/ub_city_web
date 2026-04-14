@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activity Monitor</title>
+    <style>
+      body { font-family: Arial, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+      .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { border-bottom: 1px solid #30363d; padding: 10px; text-align: left; font-size: 14px; }
+      button { background: #d0ae5f; color: #111; border: none; border-radius: 8px; padding: 8px 12px; font-weight: 700; cursor: pointer; }
+      .muted { color: #8b949e; }
+      .badge { background: #21262d; border: 1px solid #30363d; border-radius: 999px; padding: 2px 8px; font-size: 12px; }
+      pre { white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>User Activity Monitor</h1>
+      <p class="muted">Standalone dashboard to track login users and their activities.</p>
+
+      <div class="card">
+        <button id="refreshUsers">Refresh Users</button>
+      </div>
+
+      <div class="card">
+        <h3>Users</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Activities</th>
+              <th>Last Login</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="usersTable"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Selected User Activities</h3>
+        <div id="eventsBox" class="muted">Select a user to view activity timeline.</div>
+      </div>
+    </div>
+
+    <script>
+      const usersTable = document.getElementById("usersTable");
+      const eventsBox = document.getElementById("eventsBox");
+
+      async function loadUsers() {
+        const res = await fetch("/api/users");
+        const data = await res.json();
+        usersTable.innerHTML = "";
+        for (const user of data.users || []) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${user.userId}</td>
+            <td>${user.username || "-"}</td>
+            <td>${user.email || "-"}</td>
+            <td>${user.phone || "-"}</td>
+            <td><span class="badge">${user.activities}</span></td>
+            <td>${user.lastLoginAt || "-"}</td>
+            <td><button data-user="${encodeURIComponent(user.userId)}">View</button></td>
+          `;
+          usersTable.appendChild(tr);
+        }
+        usersTable.querySelectorAll("button[data-user]").forEach((btn) => {
+          btn.addEventListener("click", () => loadUserEvents(btn.dataset.user));
+        });
+      }
+
+      async function loadUserEvents(encodedUserId) {
+        const res = await fetch(`/api/user/${encodedUserId}`);
+        const data = await res.json();
+        const events = data.events || [];
+        if (!events.length) {
+          eventsBox.textContent = "No events found.";
+          return;
+        }
+        eventsBox.innerHTML = events
+          .map((e) => `<pre>[${e.timestamp}] ${e.action}\n${JSON.stringify(e.details || {}, null, 2)}</pre>`)
+          .join("<hr style='border-color:#30363d'/>");
+      }
+
+      document.getElementById("refreshUsers").addEventListener("click", loadUsers);
+      loadUsers();
+    </script>
+  </body>
+  </html>

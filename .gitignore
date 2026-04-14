@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Lighthouse / profiling
+.lighthouse-tmp/
+.lighthouse-chrome-profile/
+lighthouse-reports/
+lighthouse-desktop.json
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+
+# Builds
+dist/
+build/
+.next/
