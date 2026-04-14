@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Sun, Moon, Search, Globe, User, ChevronDown, Heart, ShoppingCart, MapPin, ArrowLeft, Package, ArrowRight } from "lucide-react";
+import { Menu, X, Sun, Moon, Search, Globe, User, ChevronDown, Heart, ShoppingCart, MapPin, ArrowLeft, Package, ArrowRight, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { SearchOverlay } from "./SearchOverlay";
 import { OrdersHub } from "./OrdersHub";
@@ -69,13 +69,19 @@ export function Layout() {
         }
     }, [location, lenis]);
 
+    // Advanced Scroll Control: Synchronize Lenis with menu & overlay state
     useEffect(() => {
-        if (isMenuOpen) {
+        if (!lenis) return;
+        if (isMenuOpen || isSearchOpen || isOrdersOpen) {
+            lenis.stop();
             document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
         } else {
+            lenis.start();
             document.body.style.overflow = "";
+            document.body.style.touchAction = "";
         }
-    }, [isMenuOpen]);
+    }, [isMenuOpen, isSearchOpen, isOrdersOpen, lenis]);
 
     return (
         <div className="relative min-h-screen">
@@ -195,13 +201,13 @@ export function Layout() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="fixed inset-0 z-40 lg:hidden h-[100dvh] w-screen overflow-y-auto overflow-x-hidden bg-page/98 dark:bg-black/98 custom-scrollbar overscroll-contain touch-pan-y pt-32 px-8 pb-32"
+                        className="fixed inset-0 z-40 lg:hidden h-[100dvh] w-screen overflow-y-auto overflow-x-hidden bg-page/98 dark:bg-black/98 custom-scrollbar mobile-nav-physics pt-32 px-8 pb-32"
                         style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 blur-[120px] pointer-events-none" />
                         
                         <nav className="relative z-10 flex flex-col gap-12">
-                            <div className="space-y-6">
+                            <div className="space-y-6 mobile-nav-section">
                                  <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Navigation</p>
                                 <div className="grid grid-cols-1 gap-4">
                                     {navItems.map((item) => (
@@ -217,7 +223,7 @@ export function Layout() {
                                 </div>
                             </div>
 
-                            <div className="space-y-6">
+                            <div className="space-y-6 mobile-nav-section">
                                  <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Categories</p>
                                 <div className="grid grid-cols-2 gap-4">
                                     {SHOPPING_CATEGORIES.slice(0, 6).map((cat) => (
@@ -233,7 +239,7 @@ export function Layout() {
                                 </div>
                             </div>
 
-                            <div className="space-y-6">
+                            <div className="space-y-6 mobile-nav-section">
                                  <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Order Management</p>
                                 <button 
                                     onClick={() => { setIsMenuOpen(false); setIsOrdersOpen(true); }}

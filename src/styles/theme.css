@@ -477,6 +477,18 @@
     animation: fluidScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
+  .mobile-nav-physics {
+    scroll-snap-type: y proximity;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .mobile-nav-section {
+    scroll-snap-align: start;
+    scroll-margin-top: 8rem;
+  }
+
   /* 3D Orb Background (Subtle) */
   .bg-glow {
     position: absolute;
