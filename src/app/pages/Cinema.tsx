@@ -76,7 +76,8 @@ export function Cinema() {
         <div className="video-gradient-mask" />
       </section>
 
-      <section className="py-40 px-6 md:px-12 bg-page transition-colors duration-500">
+      {/* MOVIE GRID (Universal Style) */}
+      <section className="py-24 px-6 md:px-12 bg-page relative virtual-section">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-24 pb-12 border-b border-[var(--border)]">
             <div className="flex items-center gap-8">
@@ -109,13 +110,13 @@ export function Cinema() {
           
           <div className="grid gap-12">
             {filteredMovies.map((movie, i) => (
-              <motion.div
-                key={movie.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 1.2 }}
-                className="glass-pane active-card lighting-card p-8 md:p-14 rounded-[3rem] border border-[var(--border)] group hover:border-accent/40 shadow-xl transition-all duration-700 relative overflow-hidden"
+              <motion.div 
+                key={movie.id} 
+                initial={{ opacity: 0, y: 30 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.1 }}
+                className="scroll-reveal compositor-layer glass-pane active-card lighting-card p-8 md:p-14 rounded-[3rem] border border-[var(--border)] group hover:border-accent/40 shadow-xl transition-all duration-700 relative overflow-hidden"
               >
                 <Link to={`/cinema/movie/${movie.id}`} className="absolute inset-0 z-0" />
                 <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] pointer-events-none" />

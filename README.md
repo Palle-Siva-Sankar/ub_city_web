@@ -55,9 +55,9 @@ Consumer-style ecommerce modules remain in the codebase but are intentionally de
 - React + TypeScript
 - React Router (v7 structured)
 - Tailwind CSS v4 + custom design tokens/theme layer
-- Motion (`motion/react`) for section and card transitions
-- Vite build pipeline
-- `@studio-freight/lenis` for cinematic smooth scrolling
+- Motion (`motion/react`) for core state transitions
+- `@studio-freight/lenis` for liquid-smooth inertial scrolling
+- **Native Motion Engine**: CSS Scroll-Driven Animations (`animation-timeline: view()`) for GPU-offloaded scroll reveals.
 
 ## Project Structure
 
@@ -152,8 +152,12 @@ mall-website/
 
 - **Dark-Luxe Aesthetic**: Chosen to align with Apple and Hermès positioning, using deep shadows, translucent glassmorphism panes (`glass-pane`), and `Outfit`/`Inter` typography pairings.
 - **Cinematic Pacing**: Implement autoplaying background videos and scroll-triggered reveals to ensure the tool acts as an immersive narrative rather than a static spreadsheet.
+- **Native Motion architecture**: High-performance transition to CSS Scroll-Driven Animations. This offloads visual reveals from the Javascript thread to the GPU compositor thread, matching the scroll performance of industry leaders like Apple.com.
 - **Non-Linear Navigation**: Implemented via a persistent floating `<SalesDock>` and Mega Menu, allowing executives to pivot the pitch based on the prospect's interests.
-- **Performance Hardening**: Expensive animations degrade gracefully using `useReducedMotion`, and heavy 3D Spline assets are isolated to keep the Lighthouse score high.
+- **Performance Hardening (Apple Standard)**: 
+  - **Section Virtualization**: Implementing `content-visibility: auto` to bypass layout/paint work for off-screen elements.
+  - **GPU Layer Promotion**: Universal use of `translateZ(0)` to force hardware acceleration for all UI sections.
+  - **Blur Optimization**: Dynamic scaling of backdrop filters to maintain 60FPS on high-DPI and mobile displays.
 
 ## Setup Instructions
 

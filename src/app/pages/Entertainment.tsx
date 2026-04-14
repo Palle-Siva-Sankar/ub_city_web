@@ -40,7 +40,7 @@ export function Entertainment() {
       </section>
 
       {/* DUAL SCROLLING EXPERIENTIAL PANELS */}
-      <section ref={containerRef} className="relative h-[190vh] lg:h-[250vh] bg-page">
+      <section ref={containerRef} className="relative h-[190vh] lg:h-[250vh] bg-page virtual-section">
         <div className="sticky-presentation bg-page-alt overflow-hidden">
           
           {/* PANEL 1: Nickelodeon */}
@@ -48,8 +48,8 @@ export function Entertainment() {
             <div className="md:w-1/2 p-4 sm:p-6 md:p-20 flex flex-col justify-center relative z-10">
               <motion.div style={{ opacity: opacityText1 }} className="glass-pane p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3rem] shadow-2xl">
                 <span className="text-pink-500 text-sm font-bold tracking-[0.3em] uppercase mb-4 block">7 Acres of Thrills</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold font-['Outfit'] text-page mb-5 md:mb-6">Nickelodeon<br/>Universe</h2>
-                <p className="text-lg text-muted-custom font-light mb-8 max-w-md">24 rides, rollercoasters, and attractions under a spectacular glass ceiling.</p>
+                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold font-['Outfit'] text-ink-gradient mb-5 md:mb-6">Nickelodeon<br/>Universe</h2>
+                <p className="text-lg text-ink-gradient/70 font-light mb-8 max-w-md">24 rides, rollercoasters, and attractions under a spectacular glass ceiling.</p>
                 <Link to="/opportunity/venue-rotunda" className="inline-block px-8 py-4 bg-pink-500 text-white font-bold rounded-full hover:scale-105 transition-transform uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(236,72,153,0.4)]">Book Activation Slot</Link>
               </motion.div>
             </div>
@@ -68,8 +68,8 @@ export function Entertainment() {
             <div className="md:w-1/2 p-4 sm:p-6 md:p-20 flex flex-col justify-center md:items-end text-left md:text-right relative z-10">
               <motion.div style={{ opacity: opacityText2 }} className="glass-pane p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3rem] shadow-2xl">
                 <span className="text-blue-500 text-sm font-bold tracking-[0.3em] uppercase mb-4 block">1.2 Million Gallons</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold font-['Outfit'] text-page mb-5 md:mb-6">SEA LIFE<br/>Aquarium</h2>
-                <p className="text-lg text-muted-custom font-light mb-8 max-w-md md:ml-auto">Walk beneath the ocean inside a 300-foot curved glass tunnel. Host events surrounded by sharks.</p>
+                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold font-['Outfit'] text-ink-gradient mb-5 md:mb-6">SEA LIFE<br/>Aquarium</h2>
+                <p className="text-lg text-ink-gradient/70 font-light mb-8 max-w-md md:ml-auto">Walk beneath the ocean inside a 300-foot curved glass tunnel. Host events surrounded by sharks.</p>
                 <Link to="/opportunity/venue-concert-spaces" className="inline-block px-8 py-4 bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-transform uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(59,130,246,0.4)]">Book Immersive Event</Link>
               </motion.div>
             </div>
@@ -79,21 +79,27 @@ export function Entertainment() {
       </section>
 
       {/* GRID FOR OTHER ATTRACTIONS */}
-      <section className="py-32 px-6 md:px-10 bg-page relative z-20">
+      <section className="py-32 px-6 md:px-10 bg-page relative z-20 virtual-section">
         <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="text-5xl font-['Outfit'] font-bold text-page mb-16">The Magic <span className="text-accent">Continues</span></h2>
+          <h2 className="text-5xl font-['Outfit'] font-bold text-ink-gradient mb-16">The Magic <span className="text-accent">Continues</span></h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: Plane, color: "text-orange-500", title: "FlyOver America", desc: "A breathtaking flight simulation ride that takes guests soaring over iconic landscapes.", to: "/opportunity/venue-concert-spaces" },
               { icon: Film, color: "text-purple-500", title: "CMX Cinemas", desc: "Premium movie theatre with reclining leather seats and in-theatre dining.", to: "/opportunity/venue-concert-spaces" },
               { icon: Fish, color: "text-cyan-500", title: "Crayola Experience", desc: "Interactive creative zones for families and kids of all ages.", to: "/opportunity/venue-concert-spaces" }
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} 
-                className="h-full">
-                <Link to={item.to} className="glass-pane glass-pane-hover p-10 rounded-[2rem] text-left transition-all block h-full">
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 30 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.1 }} 
+                className="h-full scroll-reveal compositor-layer"
+              >
+                <Link to={item.to} className="glass-pane glass-pane-hover p-10 rounded-[2.5rem] text-left transition-all block h-full border border-accent/20 bg-page-alt/40">
                   <item.icon className={`w-12 h-12 mb-6 ${item.color}`} />
-                  <h3 className="text-2xl font-bold text-page mb-4">{item.title}</h3>
-                  <p className="text-muted-custom">{item.desc}</p>
+                  <h3 className="text-2xl font-bold text-ink-gradient mb-4 uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-ink-gradient/60 font-medium">{item.desc}</p>
                 </Link>
               </motion.div>
             ))}

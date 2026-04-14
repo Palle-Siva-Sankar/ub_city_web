@@ -71,12 +71,12 @@ export function Events() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {visibleEvents.map((event, i) => (
               <motion.div 
-                key={event.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.8 }}
-                className="glass-pane lighting-card group flex flex-col rounded-[3.5rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all duration-700 shadow-sm"
+                key={event.id} 
+                initial={{ opacity: 0, y: 30 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.1 }}
+                className="scroll-reveal compositor-layer glass-pane lighting-card group flex flex-col rounded-[3.5rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all duration-700 shadow-sm"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.3] group-hover:grayscale-0" />
@@ -122,7 +122,8 @@ export function Events() {
       </section>
 
       {/* Commercial Section (Elevated) */}
-      <section className="py-40 px-6 md:px-12 bg-page-bg-alt relative border-t border-[var(--border)]">
+      {/* EVENTS GRID (Universal Style) */}
+      <section className="py-24 px-6 md:px-12 bg-page relative virtual-section">
         <div className="max-w-[1400px] mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-[var(--border)] glass-pane mb-12">
              <Star className="w-4 h-4 text-accent fill-accent" />

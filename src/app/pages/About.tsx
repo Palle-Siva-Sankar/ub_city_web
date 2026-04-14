@@ -36,7 +36,7 @@ export function About() {
         <div className="video-gradient-mask" />
       </section>
 
-      <section className="py-40 px-6 md:px-12 bg-page transition-colors duration-500">
+      <section className="py-40 px-6 md:px-12 bg-page transition-colors duration-500 virtual-section">
         <div className="max-w-[1400px] mx-auto">
             <div className="mb-24 text-center">
                 <div className="flex items-center justify-center gap-6 mb-8">
@@ -55,7 +55,14 @@ export function About() {
               { title: "Art Gallery", desc: "Immersive gallery visuals and non-linear experiential content streams.", to: "/gallery", icon: Brush, label: "Cultural Vault" },
               { title: "Events", desc: "Upcoming sector events, highlights, and global brand activations.", to: "/events", icon: CalendarDays, label: "Deployments" },
             ].map((item, index) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1, duration: 1 }}>
+              <motion.div 
+                key={item.title} 
+                initial={{ opacity: 0, y: 50 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: index * 0.1, duration: 1 }}
+                className="scroll-reveal compositor-layer"
+              >
                 <Link to={item.to} className="glass-pane lighting-card rounded-[4rem] p-12 block h-full border border-[var(--border)] group hover:border-accent hover:shadow-gold transition-all duration-700 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-[60px] pointer-events-none" />
                   <div className="w-20 h-20 rounded-[1.8rem] bg-accent/10 border border-accent/20 flex items-center justify-center mb-10 group-hover:bg-accent group-hover:text-black transition-all shadow-lg relative z-10">

@@ -19,7 +19,7 @@ export function Venues() {
 
   return (
     <div className="page-wrapper bg-page transition-colors duration-500">
-      <section ref={containerRef} className="relative h-[120vh] lg:h-[150vh] px-6 md:px-12 pt-24">
+      <section ref={containerRef} className="relative h-[120vh] lg:h-[150vh] px-6 md:px-12 pt-24 virtual-section">
         <div className="sticky top-24 h-[80vh] w-full overflow-hidden rounded-[4rem] premium-card">
           <img
             src={moaEvent}
@@ -47,11 +47,11 @@ export function Venues() {
         </div>
       </section>
 
-      <section className="py-32 px-6 md:px-12 bg-page relative z-20">
+      <section className="py-32 px-6 md:px-12 bg-page relative z-20 virtual-section">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12">
             {/* Massive Parallax Featured Venue */}
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[var(--border)] lighting-card min-h-[600px]">
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[var(--border)] lighting-card min-h-[600px] scroll-reveal compositor-layer">
               <img src={moaEvent} alt="The Rotunda" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60" />
               <div className="absolute inset-0 bg-gradient-to-t from-page via-page/40 to-transparent" />
               <div className="absolute bottom-0 left-0 p-12 md:p-16">
@@ -70,7 +70,7 @@ export function Venues() {
               {venues.slice(1).map((v, i) => (
                 <Link to="/opportunity/venue-concert-spaces" key={i}>
                   <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="glass-pane lighting-card p-10 rounded-[2.5rem] flex items-center justify-between transition-all group cursor-pointer border border-[var(--border)] h-full">
+                    className="glass-pane lighting-card p-10 rounded-[2.5rem] flex items-center justify-between transition-all group cursor-pointer border border-[var(--border)] h-full scroll-reveal compositor-layer">
                     <div className="flex items-center gap-8">
                       <div className="w-16 h-16 rounded-[1.2rem] bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all duration-500">
                         <v.icon className="w-8 h-8" />

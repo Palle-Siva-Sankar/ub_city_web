@@ -117,7 +117,7 @@ export function BrandDetail() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative h-[90vh] w-full flex items-end overflow-hidden hero-readable">
+      <section className="relative h-[90vh] w-full flex items-end overflow-hidden hero-readable virtual-section compositor-layer">
         <div className="absolute inset-0 z-0">
           {heroVideo ? (
             <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.2]">
@@ -193,7 +193,7 @@ export function BrandDetail() {
       </section>
 
       {/* Immersive Info section */}
-      <section className="py-56 bg-page relative overflow-hidden transition-colors duration-500">
+      <section className="py-56 bg-page relative overflow-hidden transition-colors duration-500 virtual-section">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.8fr] gap-32 items-center">
             <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -234,7 +234,7 @@ export function BrandDetail() {
 
       {/* Related Destinations section */}
       {related.length > 0 && (
-        <section className="py-56 border-t border-[var(--border)] bg-page-bg-alt relative overflow-hidden">
+        <section className="py-56 border-t border-[var(--border)] bg-page-bg-alt relative overflow-hidden virtual-section">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32 px-10">
                <div className="max-w-3xl">
@@ -270,7 +270,7 @@ export function BrandDetail() {
       )}
 
       {/* Premium Review Section */}
-      <section className="py-56 bg-page relative border-t border-[var(--border)] transition-colors duration-500">
+      <section className="py-56 bg-page relative border-t border-[var(--border)] transition-colors duration-500 virtual-section">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-16 mb-40">
             <div className="max-w-4xl">
@@ -345,7 +345,7 @@ export function BrandDetail() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-pane lighting-card rounded-[4rem] p-16 border border-[var(--border)] hover:bg-accent/5 transition-all duration-1000 relative group/review shadow-lg"
+                className="scroll-reveal compositor-layer glass-pane lighting-card rounded-[4rem] p-16 border border-[var(--border)] hover:bg-accent/5 transition-all duration-1000 relative group/review shadow-lg"
               >
                 <div className="flex items-center gap-8 mb-12">
                   <div className="w-20 h-20 rounded-[2rem] bg-accent/20 flex items-center justify-center text-accent font-black text-2xl shadow-gold border border-accent/20">
