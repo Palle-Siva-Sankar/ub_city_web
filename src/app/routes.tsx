@@ -1,47 +1,48 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import { lazy, Suspense } from "react";
 import { Layout } from "./components/Layout";
-import { Overview } from "./pages/Overview";
-import { Retail } from "./pages/Retail";
-import { Luxury } from "./pages/Luxury";
-import { Dining } from "./pages/Dining";
-import { Entertainment } from "./pages/Entertainment";
-import { Events } from "./pages/Events";
-import { Sponsorship } from "./pages/Sponsorship";
-import { Leasing } from "./pages/Leasing";
-import { Venues } from "./pages/Venues";
-import { Login } from "./pages/Login";
 
-import { Inquire } from "./pages/Inquire";
-import { BrandDetail } from "./pages/BrandDetail";
-import { Demographics } from "./pages/Demographics";
-import { StrategyDeck } from "./pages/StrategyDeck";
+// Lazy-loaded pages for Apple-style performance
+const Overview = lazy(() => import("./pages/Overview").then(m => ({ default: m.Overview })));
+const Shopping = lazy(() => import("./pages/Shopping").then(m => ({ default: m.Shopping })));
+const ShoppingCategory = lazy(() => import("./pages/ShoppingCategory").then(m => ({ default: m.ShoppingCategory })));
+const BrandStore = lazy(() => import("./pages/BrandStore").then(m => ({ default: m.BrandStore })));
+const Dine = lazy(() => import("./pages/DinePage").then(m => ({ default: m.Dine })));
+const DiningDetail = lazy(() => import("./pages/DiningDetail").then(m => ({ default: m.DiningDetail })));
+const Cinema = lazy(() => import("./pages/Cinema").then(m => ({ default: m.Cinema })));
+const CinemaMovieDetail = lazy(() => import("./pages/CinemaMovieDetail").then(m => ({ default: m.CinemaMovieDetail })));
+const Gallery = lazy(() => import("./pages/Gallery").then(m => ({ default: m.Gallery })));
+const ReachUs = lazy(() => import("./pages/ReachUs").then(m => ({ default: m.ReachUs })));
+const Wishlist = lazy(() => import("./pages/Wishlist").then(m => ({ default: m.Wishlist })));
+const About = lazy(() => import("./pages/About").then(m => ({ default: m.About })));
+const Cart = lazy(() => import("./pages/Cart").then(m => ({ default: m.Cart })));
+const Checkout = lazy(() => import("./pages/Checkout").then(m => ({ default: m.Checkout })));
+const Profile = lazy(() => import("./pages/Profile").then(m => ({ default: m.Profile })));
+const Leasing = lazy(() => import("./pages/Leasing").then(m => ({ default: m.Leasing })));
+const Sponsorship = lazy(() => import("./pages/Sponsorship").then(m => ({ default: m.Sponsorship })));
+const Venues = lazy(() => import("./pages/Venues").then(m => ({ default: m.Venues })));
+const Events = lazy(() => import("./pages/Events").then(m => ({ default: m.Events })));
+const Terms = lazy(() => import("./pages/Terms").then(m => ({ default: m.Terms })));
 
-// New MOA-style pages
-import { Shopping } from "./pages/Shopping";
-import { Dine } from "./pages/DinePage";
-import { Cinema } from "./pages/Cinema";
-import { Gallery } from "./pages/Gallery";
-import { ReachUs } from "./pages/ReachUs";
-import { Wishlist } from "./pages/Wishlist";
+const StrategyDeck = lazy(() => import("./pages/StrategyDeck").then(m => ({ default: m.StrategyDeck })));
+const Login = lazy(() => import("./pages/Login").then(m => ({ default: m.Login })));
+const BrandStyleGuide = lazy(() => import("./pages/BrandStyleGuide").then(m => ({ default: m.BrandStyleGuide })));
+const AcquisitionIntel = lazy(() => import("./pages/preferences/AcquisitionIntel").then(m => ({ default: m.AcquisitionIntel })));
+const CurationAlerts = lazy(() => import("./pages/preferences/CurationAlerts").then(m => ({ default: m.CurationAlerts })));
+const ProximitySync = lazy(() => import("./pages/preferences/ProximitySync").then(m => ({ default: m.ProximitySync })));
 
-// E-commerce Evolution Pages
-import { Cart } from "./pages/Cart";
-import { Checkout } from "./pages/Checkout";
-import { Profile } from "./pages/Profile";
-import { BrandStore } from "./pages/BrandStore";
-import { ShoppingCategory } from "./pages/ShoppingCategory";
-import { DiningDetail } from "./pages/DiningDetail";
-import { About } from "./pages/About";
-import { EntertainmentDetail } from "./pages/EntertainmentDetail";
-import { CinemaMovieDetail } from "./pages/CinemaMovieDetail";
-import { ProfilePreferencePage } from "./pages/ProfilePreferencePage";
-import { ProfileActionPage } from "./pages/ProfileActionPage";
-import { Terms } from "./pages/Terms";
-import { OpportunityDetail } from "./pages/OpportunityDetail";
-import { BrandStyleGuide } from "./pages/BrandStyleGuide";
-import { AcquisitionIntel } from "./pages/preferences/AcquisitionIntel";
-import { CurationAlerts } from "./pages/preferences/CurationAlerts";
-import { ProximitySync } from "./pages/preferences/ProximitySync";
+// Fallbacks for specific details
+const BrandDetail = lazy(() => import("./pages/BrandDetail").then(m => ({ default: m.BrandDetail })));
+const Dining = lazy(() => import("./pages/Dining").then(m => ({ default: m.Dining })));
+const Entertainment = lazy(() => import("./pages/Entertainment").then(m => ({ default: m.Entertainment })));
+const EntertainmentDetail = lazy(() => import("./pages/EntertainmentDetail").then(m => ({ default: m.EntertainmentDetail })));
+const Inquire = lazy(() => import("./pages/Inquire").then(m => ({ default: m.Inquire })));
+const Demographics = lazy(() => import("./pages/Demographics").then(m => ({ default: m.Demographics })));
+const OpportunityDetail = lazy(() => import("./pages/OpportunityDetail").then(m => ({ default: m.OpportunityDetail })));
+const ProfilePreferencePage = lazy(() => import("./pages/ProfilePreferencePage").then(m => ({ default: m.ProfilePreferencePage })));
+const ProfileActionPage = lazy(() => import("./pages/ProfileActionPage").then(m => ({ default: m.ProfileActionPage })));
+const Retail = lazy(() => import("./pages/Retail").then(m => ({ default: m.Retail })));
+const Luxury = lazy(() => import("./pages/Luxury").then(m => ({ default: m.Luxury })));
 
 export const router = createBrowserRouter([
   {

@@ -443,6 +443,38 @@
       padding-top: 4rem;
       padding-bottom: 4rem;
     }
+    
+    /* Performance: Reduce blur on mobile for 60fps */
+    .backdrop-blur-3xl {
+      backdrop-filter: blur(20px) !important;
+    }
+    .backdrop-blur-2xl {
+      backdrop-filter: blur(14px) !important;
+    }
+    .shine-effect::after {
+      display: none !important;
+    }
+    .shadow-gold {
+      box-shadow: 0 4px 20px rgba(198, 163, 95, 0.15) !important;
+    }
+  }
+
+  /* Performance Hardening (Apple-Style) */
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    will-change: transform, opacity;
+  }
+
+  /* Optimized animations */
+  @keyframes fluidScale {
+    from { transform: scale(0.98); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .animate-fluid {
+    animation: fluidScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   /* 3D Orb Background (Subtle) */

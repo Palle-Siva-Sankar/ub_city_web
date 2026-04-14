@@ -11,6 +11,8 @@ import { SalesDock } from "./SalesDock";
 import { SHOPPING_CATEGORIES } from "../data/mallData";
 import { useWishlist, useCart, useOrders, useUserSession } from "../hooks/useFeatures";
 import { useLenis } from "lenis/react";
+import { Suspense } from "react";
+import { AIAgent } from "./AIAgent";
 
 
 const navItems = [
@@ -290,10 +292,26 @@ export function Layout() {
                 )}
             </AnimatePresence>
 
-            <main className="relative">
-                <Outlet />
+            <main className="relative min-h-[60vh]">
+                <Suspense fallback={
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-page">
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="flex flex-col items-center gap-6"
+                        >
+                            <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center animate-pulse border border-accent/40 shadow-gold">
+                                <Sparkles className="w-8 h-8 text-accent" />
+                            </div>
+                            <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent animate-pulse">Synchronizing Architecture</p>
+                        </motion.div>
+                    </div>
+                }>
+                    <Outlet />
+                </Suspense>
             </main>
 
+            <AIAgent />
             <SalesDock />
             <Footer />
             <CookieBanner />

@@ -193,7 +193,7 @@ export function Overview() {
                 transition={{ delay: i * 0.2, duration: 0.8 }}
               >
                 <Link to={path.to} className="group block h-full">
-                  <div className="glass-pane active-card lighting-card p-10 md:p-14 h-full flex flex-col transition-all duration-700 rounded-[3rem] border border-[var(--border)] shadow-2xl shine-effect !bg-black/40">
+                  <div className="glass-pane active-card lighting-card gpu-accelerated p-10 md:p-14 h-full flex flex-col transition-all duration-700 rounded-[3rem] border border-[var(--border)] shadow-2xl shine-effect !bg-black/40">
                     <div className="w-16 h-16 rounded-2xl bg-accent/20 backdrop-blur-3xl flex items-center justify-center mb-10 border border-accent/30 group-hover:bg-accent group-hover:text-black transition-all shadow-gold group-hover:scale-110">
                       <path.icon className="w-8 h-8" />
                     </div>
