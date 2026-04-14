@@ -18,28 +18,28 @@ export function Venues() {
   const videoOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.3]);
 
   return (
-    <div className="page-wrapper bg-page">
-      <section ref={containerRef} className="relative h-[120vh] lg:h-[150vh]">
-        <div className="sticky-presentation bg-page overflow-hidden">
+    <div className="page-wrapper bg-page transition-colors duration-500">
+      <section ref={containerRef} className="relative h-[120vh] lg:h-[150vh] px-6 md:px-12 pt-24">
+        <div className="sticky top-24 h-[80vh] w-full overflow-hidden rounded-[4rem] premium-card">
           <img
             src={moaEvent}
             alt="Venues hero"
-            className="absolute inset-0 w-full h-full object-cover opacity-35"
+            className="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale"
           />
-          <motion.div className="video-bg-container" style={{ opacity: videoOpacity }}>
-            <video autoPlay loop muted playsInline className="video-bg opacity-80">
+          <motion.div className="absolute inset-0" style={{ opacity: videoOpacity }}>
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-50">
               <source src={VIDEOS.citySkyline} type="video/mp4" />
             </video>
             <div className="video-gradient-mask" />
           </motion.div>
           
-          <div className="relative z-10 w-full px-6 flex flex-col items-center justify-center text-center pointer-events-none">
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-              <p className="text-accent text-sm tracking-[0.4em] font-bold mb-6 uppercase drop-shadow-md">Not A Mall. A Commercial District.</p>
-              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-bold font-['Outfit'] text-page mb-6 drop-shadow-2xl">
-                Global <span className="text-gold-gradient">Venues.</span>
+          <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-8 pointer-events-none">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
+              <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8">Not A Mall. A Commercial District.</p>
+              <h1 className="text-6xl md:text-9xl font-black font-['Outfit'] text-ink-gradient uppercase leading-none tracking-tighter mb-8 shadow-2xl">
+                Global <span className="text-gradient">Venues.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-page drop-shadow-md max-w-2xl mx-auto font-light">
+              <p className="text-xl md:text-2xl text-[color:var(--text-dim)] max-w-2xl mx-auto font-medium leading-relaxed">
                 12 customizable environments for launches, culture, and business events across Bengaluru’s premium core.
               </p>
             </motion.div>
@@ -47,36 +47,40 @@ export function Venues() {
         </div>
       </section>
 
-      <section className="py-32 px-6 md:px-10 bg-page relative z-20 -mt-20">
+      <section className="py-32 px-6 md:px-12 bg-page relative z-20">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12">
             {/* Massive Parallax Featured Venue */}
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative rounded-[3rem] overflow-hidden group shadow-2xl">
-              <img src={moaEvent} alt="The Rotunda" className="w-full h-full object-cover min-h-[600px] group-hover:scale-110 transition-transform duration-1000" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-12">
-                <h2 className="text-5xl font-['Outfit'] font-bold text-white mb-4">The Rotunda</h2>
-                <p className="text-white/70 text-lg mb-8 max-w-sm">The heartbeat of UB City. Unmatched visibility for major brand activations.</p>
-                <Link to="/opportunity/venue-rotunda" className="inline-block bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all outline-none border-none">Book Venue</Link>
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[var(--border)] lighting-card min-h-[600px]">
+              <img src={moaEvent} alt="The Rotunda" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-page via-page/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-12 md:p-16">
+                <p className="text-accent text-[10px] font-black tracking-[0.4em] uppercase mb-4">The Flagship Stage</p>
+                <h2 className="text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient mb-6 uppercase tracking-tight">The Rotunda</h2>
+                <p className="text-[color:var(--text-dim)] text-lg mb-10 max-w-sm font-medium leading-relaxed">The heartbeat of UB City. Unmatched visibility for major brand activations and global cultural summits.</p>
+                <Link to="/opportunity/venue-rotunda" className="btn-luxe">Book Venue</Link>
               </div>
             </motion.div>
 
             {/* List of other venues */}
-            <div className="grid grid-rows-3 gap-8">
+            <div className="flex flex-col gap-8">
+              <div className="pb-6 border-b border-[var(--border)]">
+                 <h3 className="text-accent text-[10px] font-black tracking-[0.5em] uppercase">Executive Spaces</h3>
+              </div>
               {venues.slice(1).map((v, i) => (
                 <Link to="/opportunity/venue-concert-spaces" key={i}>
                   <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="glass-pane p-8 rounded-[2rem] flex items-center justify-between transition-all group cursor-pointer shadow-lg hover:-translate-x-2 h-full">
-                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center group-hover:bg-accent transition-colors duration-500">
-                        <v.icon className="w-8 h-8 text-accent group-hover:text-[var(--btn-text-on-accent)]" />
+                    className="glass-pane lighting-card p-10 rounded-[2.5rem] flex items-center justify-between transition-all group cursor-pointer border border-[var(--border)] h-full">
+                    <div className="flex items-center gap-8">
+                      <div className="w-16 h-16 rounded-[1.2rem] bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all duration-500">
+                        <v.icon className="w-8 h-8" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-page mb-1">{v.name}</h3>
-                        <p className="text-muted-custom font-light">{v.desc}</p>
+                        <h3 className="text-2xl font-black font-['Outfit'] text-ink-gradient uppercase mb-2 leading-none tracking-tight">{v.name}</h3>
+                        <p className="text-[color:var(--text-dim)] font-medium text-sm leading-relaxed">{v.desc}</p>
                       </div>
                     </div>
-                    <ArrowRight className="w-6 h-6 text-muted-custom group-hover:text-accent group-hover:translate-x-2 transition-all opacity-0 md:opacity-100" />
+                    <ArrowRight className="w-6 h-6 text-accent group-hover:translate-x-3 transition-transform opacity-0 md:opacity-100" />
                   </motion.div>
                 </Link>
               ))}
@@ -85,6 +89,7 @@ export function Venues() {
         </div>
       </section>
     </div>
+
   );
 }
 

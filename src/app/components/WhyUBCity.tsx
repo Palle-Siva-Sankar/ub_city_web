@@ -21,13 +21,13 @@ export function WhyUBCity() {
   const catchmentMax = 10;
 
   return (
-    <section className="digideck-slide overflow-hidden">
+    <section className="overflow-hidden bg-page">
       <div className="relative z-10 px-6 max-w-[1400px] mx-auto py-18 md:py-24">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-10 md:mb-14">
             <div className="max-w-3xl">
               <p className="text-[10px] font-black tracking-[0.5em] uppercase text-accent mb-4">Why This Property</p>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-['Outfit'] text-page uppercase tracking-tighter leading-[0.95]">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-[0.95]">
                 UB City is a <span className="text-gradient">CBD destination</span>, not a strip.
               </h2>
               <p className="mt-5 text-base sm:text-lg text-[color:var(--text-dim)] max-w-2xl">
@@ -36,7 +36,7 @@ export function WhyUBCity() {
             </div>
 
             <div className="glass-pane rounded-3xl border p-5 sm:p-6 w-full lg:w-[420px]" style={{ borderColor: "var(--card-border)" }}>
-              <p className="text-[10px] font-black tracking-[0.4em] uppercase text-page/50 mb-4">Snapshot</p>
+              <p className="text-[10px] font-black tracking-[0.4em] uppercase text-ink-gradient/50 mb-4">Snapshot</p>
               <div className="space-y-3">
                 <Bar label="Footfall/mo" value={500} max={footfallMax} />
                 <Bar label="Peak/mo" value={650} max={footfallMax} />
@@ -55,8 +55,8 @@ export function WhyUBCity() {
               { k: "Footfall", v: "500k+ / month", d: "Consistent traffic with weekend & festive peaks." },
             ].map((c) => (
               <div key={c.k} className="glass-pane lighting-card rounded-[2.2rem] p-6 sm:p-8 border border-[var(--border)]">
-                <p className="text-[10px] font-black tracking-[0.35em] uppercase text-page/50">{c.k}</p>
-                <p className="mt-2 text-3xl sm:text-4xl font-black font-['Outfit'] text-page tracking-tight">{c.v}</p>
+                <p className="text-[10px] font-black tracking-[0.35em] uppercase text-ink-gradient/50">{c.k}</p>
+                <p className="mt-2 text-3xl sm:text-4xl font-black font-['Outfit'] text-ink-gradient tracking-tight">{c.v}</p>
                 <p className="mt-3 text-sm text-[color:var(--text-dim)]">{c.d}</p>
               </div>
             ))}

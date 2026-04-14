@@ -28,19 +28,16 @@ export function SalesDock() {
           transition={{ duration: reduceMotion ? 0.1 : 0.25 }}
           className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[min(760px,calc(100vw-20px))]"
         >
-          <div
-            className="glass-pane rounded-[1.2rem] sm:rounded-[1.4rem] border flex items-center justify-between gap-2 px-1.5 sm:px-2 py-1.5 sm:py-2 shadow-2xl"
-            style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--card-border)" }}
-          >
-            <div className="flex items-center gap-1 min-w-0 overflow-x-auto no-scrollbar">
+          <div className="glass-pane lighting-card rounded-[2rem] border border-accent/20 flex items-center justify-between gap-4 px-3 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent pointer-events-none" />
+            <div className="flex items-center gap-2 min-w-0 overflow-x-auto no-scrollbar scroll-smooth">
               {ACTIONS.map((a) => (
                 <Link
                   key={a.to}
                   to={a.to}
-                  className="group inline-flex items-center gap-1.5 rounded-full px-2.5 sm:px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.14em] sm:tracking-[0.18em] transition-colors min-w-0"
-                  style={{ border: "1px solid var(--card-border)", backgroundColor: "var(--card-bg)", color: "var(--text-main)" }}
+                  className="group relative inline-flex items-center gap-3 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-[0.25em] transition-all min-w-0 border border-transparent hover:border-accent/40 bg-accent/5 hover:bg-accent hover:text-black shadow-lg"
                 >
-                  <a.icon className="w-4 h-4 text-accent shrink-0" />
+                  <a.icon className="w-4 h-4 text-accent group-hover:text-black shrink-0 transition-colors" />
                   <span className="truncate">{a.label}</span>
                 </Link>
               ))}
@@ -49,11 +46,10 @@ export function SalesDock() {
             <button
               type="button"
               onClick={() => setHidden(true)}
-              className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors"
-              style={{ border: "1px solid var(--card-border)", backgroundColor: "var(--card-bg)" }}
-              aria-label="Hide actions"
+              className="shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-2xl border border-accent/20 bg-accent/5 hover:bg-accent hover:text-black transition-all group"
+              aria-label="Terminate Dock"
             >
-              <X className="w-4 h-4 text-[color:var(--text-dim)]" />
+              <X className="w-5 h-5 text-accent group-hover:text-black transition-colors" />
             </button>
           </div>
         </motion.div>

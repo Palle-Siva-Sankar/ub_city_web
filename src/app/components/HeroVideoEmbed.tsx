@@ -110,46 +110,50 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
   }, [isVisible]);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-[#050608]">
-      {slides.map((slide, index) => (
-        <img
-          key={`${slide}-${index}`}
-          src={slide}
-          alt={title}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            activeSlide === index ? "opacity-40" : "opacity-0"
-          }`}
-          loading="lazy"
-        />
-      ))}
-      {(!isMobile && videoSrc) ? (
+    <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      {/* Background Poster (visible while video loads or on mobile) */}
+      {/* Background Poster (visible while video loads) */}
+      <img
+        src={posterImage}
+        alt={title}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          isVideoReady ? "opacity-0" : "opacity-100"
+        }`}
+        loading="eager"
+      />
+
+      {videoSrc ? (
         <video
           ref={videoRef}
-          className={`absolute inset-0 w-full h-full object-cover scale-[1.01] brightness-110 contrast-105 saturate-110 transition-opacity duration-700 ${
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
             isVideoReady && !hasVideoError ? "opacity-100" : "opacity-0"
           }`}
           src={videoSrc}
           muted
           loop
           playsInline
-          preload="metadata"
-          onCanPlay={() => setIsVideoReady(true)}
+          autoPlay
+          onLoadedData={() => setIsVideoReady(true)}
+          onPlaying={() => setIsVideoReady(true)}
           onError={() => {
             setHasVideoError(true);
             setIsVideoReady(false);
           }}
         />
-      ) : (!isMobile && embedUrl) ? (
-        <iframe
-          className="absolute inset-0 w-full h-full scale-[1.01] brightness-110 contrast-105 saturate-110"
-          src={isVisible ? optimizedEmbedUrl : ""}
-          title={title}
-          allow="autoplay; encrypted-media; picture-in-picture"
-          loading="lazy"
-          allowFullScreen
-        />
+      ) : embedUrl ? (
+        <div className="absolute inset-x-0 inset-y-0 scale-[1.35] pointer-events-none origin-center">
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={optimizedEmbedUrl}
+            title={title}
+            allow="autoplay; encrypted-media; picture-in-picture"
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
       ) : null}
-      <div className="absolute inset-0 video-gradient-mask opacity-60" />
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/40" />
     </div>
   );
 }

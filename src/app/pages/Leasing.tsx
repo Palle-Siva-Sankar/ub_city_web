@@ -2,24 +2,24 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import { ShieldCheck, Download, Store, Zap, Handshake } from "lucide-react";
 import { VIDEOS } from "../data/mediaAssets";
+import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
 export function Leasing() {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper bg-page transition-colors duration-500">
       {/* REAL CINEMATIC VIDEO HERO */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-page">
-        <div className="video-bg-container">
-          <video autoPlay loop muted playsInline className="video-bg opacity-70">
-            <source src={VIDEOS.citySkyline} type="video/mp4" />
-          </video>
-          <div className="video-gradient-mask" />
-        </div>
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-page hero-readable">
+        <HeroVideoEmbed
+          title="Leasing Experience"
+          posterImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000"
+          videoSrc={VIDEOS.citySkyline}
+        />
         
-        <div className="relative z-10 text-center pointer-events-none">
-          <motion.h1 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="text-7xl md:text-9xl font-bold font-['Outfit'] text-page tracking-tighter mb-6 drop-shadow-2xl">
-            Leasing <span className="text-gold-gradient">Paths.</span>
+        <div className="relative z-10 text-center pointer-events-none px-6">
+          <motion.h1 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }} className="text-7xl md:text-9xl font-black font-['Outfit'] text-ink-gradient tracking-tighter mb-8 uppercase leading-none shadow-2xl">
+            Leasing <span className="text-gradient">Paths.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-xl md:text-2xl text-page drop-shadow-md font-light max-w-2xl mx-auto">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium max-w-2xl mx-auto leading-relaxed">
             From temporary pop-ups to flagship anchors, structure your global presence here.
           </motion.p>
         </div>

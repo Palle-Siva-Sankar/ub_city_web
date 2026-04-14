@@ -3,10 +3,11 @@ import { Link } from "react-router";
 import { ShieldCheck, Eye, Sparkles } from "lucide-react";
 
 import { VIDEOS } from "../data/mediaAssets";
+import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
 export function Sponsorship() {
   return (
-    <div className="page-wrapper bg-page">
+    <div className="page-wrapper bg-page transition-colors duration-500">
       {/* REAL CINEMATIC HERO */}
       <section className="relative min-h-[76vh] md:h-screen flex items-center justify-center overflow-hidden bg-page hero-readable">
         <HeroVideoEmbed
@@ -16,44 +17,51 @@ export function Sponsorship() {
         />
 
         <div className="relative z-10 text-center pointer-events-none px-6">
-          <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="text-[var(--text-hero)] font-black font-['Outfit'] text-page mb-6 drop-shadow-2xl leading-[0.9] tracking-tighter">
-            Own The <span className="text-accent">Moment.</span>
+          <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="text-[var(--text-hero)] font-black font-['Outfit'] text-ink-gradient mb-8 leading-none tracking-tighter uppercase drop-shadow-2xl">
+            Own The <br/><span className="text-gradient">Moment.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-2xl text-page drop-shadow-lg font-light max-w-2xl mx-auto">
-            A premium, high-intent audience. Unprecedented brand integrations.
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-xl md:text-3xl text-[color:var(--text-dim)] font-medium max-w-2xl mx-auto leading-relaxed">
+            A premium, high-intent audience.<br/>Unprecedented brand integrations.
           </motion.p>
         </div>
       </section>
 
-      {/* SPLINE INTERACTIVE SPONSORSHIP TIERS */}
-      <section className="py-32 px-6 md:px-10 bg-page relative z-20">
+      {/* PARTNERSHIP TIERS */}
+      <section className="py-40 px-6 md:px-12 bg-page relative z-20 shadow-[0_-50px_100px_rgba(0,0,0,0.1)]">
         <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="text-6xl font-['Outfit'] font-bold text-page mb-20">Partnership Tiers</h2>
-          <div className="grid md:grid-cols-2 gap-12 text-left">
+            <div className="mb-24">
+                <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-6">Strategic Alliances</p>
+                <h2 className="text-5xl md:text-8xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter">Partnership <span className="text-gradient">Tiers.</span></h2>
+            </div>
+            
+          <div className="grid md:grid-cols-2 gap-10">
             {[
               { t: "Presenting Partner", sub: "Premier", features: ["Exclusive category ownership across the entire footprint", "Naming rights on world-class major activations", "Premium digital signage blockouts", "VIP Hospitality Suites for 365 days"] },
               { t: "Official Partner", sub: "Signature", features: ["Category affiliation in core digital directories", "Digital signage block in specific retail zones", "2 massive branded pop-up events annually", "Dedicated account sponsorship integration setup"] }
             ].map((p, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-pane glass-pane-hover rounded-[3rem] p-16 text-left relative overflow-hidden group">
-                {/* 3D Spline embedded functionally directly as a card background */}
-
-                
+              <motion.div key={i} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-pane lighting-card rounded-[4rem] p-12 md:p-20 text-left relative overflow-hidden group border border-[var(--border)]">
                 <div className="relative z-10">
-                  <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-40 transition-opacity">
-                    {i === 0 ? <ShieldCheck className="w-32 h-32 text-accent" /> : <Eye className="w-32 h-32 text-accent" />}
+                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
+                    {i === 0 ? <ShieldCheck className="w-48 h-48 text-accent" /> : <Eye className="w-48 h-48 text-accent" />}
                   </div>
-                  <span className="text-xs font-bold tracking-[0.3em] bg-accent text-[var(--btn-text-on-accent)] px-6 py-2 rounded-full mb-8 inline-block uppercase shadow-lg">{p.sub}</span>
-                  <h3 className="text-4xl lg:text-5xl font-['Outfit'] font-bold text-page mb-10">{p.t}</h3>
-                  <ul className="space-y-6 mb-16">
-                    {p.features.map((f, j) => (
-                      <li key={j} className="flex items-start gap-4 text-page font-light text-lg">
-                        <Sparkles className="w-5 h-5 text-accent shrink-0 mt-1" /> {f}
+                  <div className="flex items-center gap-4 mb-10">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${i === 0 ? "bg-accent text-black" : "bg-accent/10 text-accent"}`}>
+                      {i === 0 ? <ShieldCheck className="w-7 h-7" /> : <Eye className="w-7 h-7" />}
+                    </div>
+                    <div>
+                      <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-1">{p.sub}</p>
+                      <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none">{p.t}</h3>
+                    </div>
+                  </div>
+                  <ul className="space-y-4 mb-12">
+                    {p.features.map((f, idx) => (
+                      <li key={idx} className="flex items-start gap-4 text-sm font-medium text-[color:var(--text-dim)] leading-relaxed">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                        {f}
                       </li>
                     ))}
                   </ul>
-                  <Link to={i === 0 ? "/opportunity/sponsorship-presenting" : "/opportunity/sponsorship-signature"} className="bg-page text-page border border-[var(--card-border)] font-bold uppercase tracking-widest text-sm px-10 py-5 rounded-full w-full hover:bg-accent hover:border-accent hover:text-[var(--btn-text-on-accent)] transition-all outline-none shadow-xl inline-flex items-center justify-center">
-                    Start Sponsorship Inquiry
-                  </Link>
+                  <Link to="/inquire/sponsorship" className="btn-luxe w-full py-5 text-[10px]">Secure Invitation</Link>
                 </div>
               </motion.div>
             ))}
@@ -61,18 +69,47 @@ export function Sponsorship() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-10 bg-page-bg-alt">
-        <div className="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-6">
+      {/* Metrics / Tiers */}
+      <section className="py-24 md:py-32 bg-page px-6 md:px-12 relative z-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
           {[
-            { title: "Audience Reach", value: "500k+ monthly footfall", note: "High-intent traffic across premium, lifestyle, and destination visits." },
-            { title: "Activation Surfaces", value: "12 key zones", note: "Rotunda, atriums, lifestyle corridors, and venue overlays." },
-            { title: "Campaign Modes", value: "Always-on + Event Burst", note: "Mix long-term branding with high-impact launch windows." },
-          ].map((metric) => (
-            <div key={metric.title} className="glass-pane rounded-[2rem] p-6 border border-white/10">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-accent mb-2">{metric.title}</p>
-              <p className="text-2xl font-black font-['Outfit']">{metric.value}</p>
-              <p className="text-sm text-[color:var(--text-dim)] mt-2">{metric.note}</p>
-            </div>
+            { 
+              title: "Digital Dominance", 
+              icon: Eye, 
+              desc: "10M+ annual impressions across our premium high-resolution digital network and immersive LED arrays.",
+              metric: "10M+",
+              tag: "Coverage"
+            },
+            { 
+              title: "Event Signature", 
+              icon: Sparkles, 
+              desc: "Own the stage at our world-class event plazas for exclusive launches, galas, and brand activations.",
+              metric: "Top Tier",
+              tag: "Visibility"
+            },
+            { 
+              title: "Integrated Rights", 
+              icon: ShieldCheck, 
+              desc: "A sovereign brand partnership with priority access to demographics and first-right for key activations.",
+              metric: "VIP Scale",
+              tag: "Ownership"
+            }
+          ].map((tier, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              className="glass-pane lighting-card rounded-[3.5rem] p-12 border border-[var(--border)] group hover:border-accent transition-all duration-700">
+              <div className="flex items-center justify-between mb-10">
+                <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all">
+                    <tier.icon className="w-8 h-8" />
+                </div>
+                <div className="text-right">
+                    <p className="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-1">{tier.tag}</p>
+                    <p className="text-ink-gradient text-3xl font-black font-['Outfit'] tracking-tighter leading-none">{tier.metric}</p>
+                </div>
+              </div>
+              <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase mb-6 tracking-tight leading-none">{tier.title}</h3>
+              <p className="text-[color:var(--text-dim)] font-medium leading-relaxed mb-10 text-lg">{tier.desc}</p>
+              <Link to="/sponsorship/details" className="inline-flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest hover:gap-4 transition-all">Download Deck →</Link>
+            </motion.div>
           ))}
         </div>
       </section>

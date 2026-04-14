@@ -14,74 +14,73 @@ export function Wishlist() {
   ].filter(item => wishlist.includes(item.slug));
 
   return (
-    <div className="page-wrapper bg-page">
+    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 md:px-10">
+      <section className="pt-40 md:pt-56 pb-20 px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-6">
-              <Heart className="w-8 h-8 text-red-500 fill-red-500" />
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-red-500/10 border border-red-500/20 mb-10 shadow-gold rotate-3">
+              <Heart className="w-10 h-10 text-red-500 fill-red-500" />
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold font-['Outfit'] text-page mb-6">
-              My <span className="text-red-500">Wishlist</span>
+            <h1 className="text-6xl md:text-[9rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-10">
+              Your <span className="text-red-500">Selection.</span>
             </h1>
-            <p className="text-xl text-muted-custom font-light max-w-2xl mx-auto">
-              Your curated collection of favorite stores and dining destinations at UB City. Saved for your next visit.
+            <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium max-w-3xl mx-auto italic leading-relaxed">
+              A private catalog of your favorite UB City destinations. Curated by you, secured for your next executive visit.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Grid */}
-      <section className="pb-32 px-6 md:px-10 min-h-[40vh]">
+      <section className="pb-40 px-6 md:px-12 min-h-[50vh]">
         <div className="max-w-[1400px] mx-auto">
           {savedItems.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-16">
               <AnimatePresence mode="popLayout">
                 {savedItems.map((item) => (
                   <motion.div
                     key={item.slug}
                     layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.4 }}
-                    className="glass-pane group relative rounded-[2.5rem] overflow-hidden border border-[var(--glass-border)] hover:border-red-500/30 transition-all duration-500"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="glass-pane lighting-card group relative rounded-[3.5rem] overflow-hidden border border-[var(--border)] hover:border-red-500/30 transition-all duration-700 shadow-sm"
                   >
-                    <div className="aspect-[16/10] overflow-hidden">
+                    <div className="aspect-[16/11] overflow-hidden grayscale-[0.4] group-hover:grayscale-0 transition-all duration-1000">
                       <img 
                         src={item.image} 
                         alt={item.name} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
                     </div>
 
-                    <div className="p-8">
-                      <div className="flex items-start justify-between mb-4">
+                    <div className="p-10">
+                      <div className="flex items-start justify-between mb-8">
                         <div>
-                           <h3 className="text-2xl font-bold font-['Outfit'] text-page mb-1 group-hover:text-red-500 transition-colors uppercase tracking-tight">{item.name}</h3>
-                           <div className="flex items-center gap-2 text-xs text-muted-custom font-medium">
-                             <MapPin className="w-3 h-3 text-red-500" /> {item.floor}
+                           <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient mb-2 group-hover:text-red-500 transition-colors uppercase tracking-tight leading-none">{item.name}</h3>
+                           <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-accent">
+                             <MapPin className="w-4 h-4" /> {item.floor}
                            </div>
                         </div>
                         <button 
                           onClick={() => toggle(item.slug)}
-                          className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-lg"
+                          className="w-14 h-14 rounded-full glass-pane flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 transition-all shadow-gold"
                         >
-                          <Heart className="w-5 h-5 fill-current" />
+                          <Heart className="w-6 h-6 fill-current" />
                         </button>
                       </div>
 
-                      <p className="text-sm text-page/60 line-clamp-2 font-light leading-relaxed mb-8 h-10">
-                        {item.description}
+                      <p className="text-sm font-medium text-[color:var(--text-dim)] leading-relaxed mb-10 h-12 line-clamp-2 italic">
+                        "{item.description}"
                       </p>
 
                       <Link 
                         to={`/brand/${item.slug}`}
-                        className="flex items-center justify-between w-full p-4 bg-page/50 border border-[var(--border)] rounded-2xl text-xs font-bold tracking-widest uppercase text-page hover:bg-red-500 hover:text-white hover:border-red-500 transition-all"
+                        className="btn-luxe w-full py-5 flex items-center justify-center gap-4 text-[10px]"
                       >
-                        Explore Store <ArrowRight className="w-4 h-4" />
+                        Explore Sanctuary <ArrowRight className="w-5 h-5" />
                       </Link>
                     </div>
                   </motion.div>
@@ -90,17 +89,17 @@ export function Wishlist() {
             </div>
           ) : (
             <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              className="text-center py-20 glass-pane rounded-[3rem] border border-dashed border-[var(--border)] max-w-lg mx-auto"
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              className="text-center py-32 glass-pane lighting-card rounded-[4rem] border border-dashed border-[var(--border)] border-2 max-w-2xl mx-auto shadow-2xl"
             >
-              <div className="w-20 h-20 bg-page/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                 <Search className="w-8 h-8 text-page opacity-20" />
+              <div className="w-32 h-32 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-10 border border-accent/10">
+                 <Search className="w-12 h-12 text-accent opacity-30" />
               </div>
-              <h3 className="text-2xl font-bold font-['Outfit'] text-page mb-4">Your wishlist is empty</h3>
-              <p className="text-muted-custom mb-8 px-10">Start saving your favorite brands and restaurants while exploring the directory.</p>
-              <Link to="/shopping" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-[var(--btn-text-on-accent)] font-bold tracking-widest uppercase text-xs rounded-full hover:scale-105 transition-all">
-                Browse Directory
+              <h3 className="text-4xl font-black font-['Outfit'] text-ink-gradient mb-6 uppercase tracking-tighter leading-none">Catalog Dormant</h3>
+              <p className="text-[color:var(--text-dim)] text-lg font-medium mb-12 px-16 leading-relaxed">Your private selections are currently vacant. Discover the directory to secure your favorites.</p>
+              <Link to="/shopping" className="btn-luxe px-16 py-6 inline-flex uppercase">
+                Browse Discovery
               </Link>
             </motion.div>
           )}

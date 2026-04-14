@@ -10,110 +10,118 @@ export function Cart() {
   const recentOrders = orders.slice(0, 3);
 
   return (
-    <div className="page-wrapper bg-page min-h-screen pt-24 md:pt-40">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pb-20 md:pb-40">
-        <div className="flex flex-col lg:flex-row gap-16">
+    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500 pt-24 md:pt-40">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-32">
+        <div className="flex flex-col lg:flex-row gap-16 md:gap-24">
           
           {/* Cart Items */}
           <div className="flex-1">
-            <div className="flex items-center gap-4 mb-12">
-               <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                  <ShoppingBag className="w-6 h-6 text-accent" />
+            <div className="flex items-center gap-6 mb-16">
+               <div className="w-16 h-16 rounded-3xl bg-accent/20 border border-accent/30 flex items-center justify-center shadow-gold">
+                  <ShoppingBag className="w-8 h-8 text-accent" />
                </div>
-               <h1 className="text-4xl font-black font-['Outfit'] text-white uppercase tracking-tighter">Your Collection</h1>
-               <span className="px-4 py-1.5 rounded-full bg-white/5 text-white/40 text-[10px] font-black uppercase tracking-widest border border-white/10">
-                 {count} Items
-               </span>
+               <div>
+                  <h1 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-2">Collection</h1>
+                  <span className="text-[10px] font-black uppercase tracking-[0.5em] text-accent">
+                    {count} Curated Pieces
+                  </span>
+               </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               <AnimatePresence mode="popLayout">
                 {cart.map((item) => (
                   <motion.div 
                     key={item.id}
                     layout
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="glass-pane p-4 sm:p-8 rounded-[2.5rem] border border-white/5 flex flex-col sm:flex-row items-center gap-4 sm:gap-10"
+                    className="glass-pane active-card lighting-card p-4 md:p-8 rounded-[3rem] border border-[var(--border)] flex flex-col md:flex-row items-center gap-8 shadow-sm"
                   >
-                    <div className="w-28 h-28 sm:w-40 sm:h-40 rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 shrink-0">
-                       <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
-                    </div>
+                    <Link to={`/shopping/${item.storeSlug}`} className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] overflow-hidden bg-accent/5 border border-accent/10 shrink-0 block hover:scale-105 transition-transform duration-500">
+                       <img src={item.image} className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" alt={item.name} />
+                    </Link>
                     
-                    <div className="flex-1 text-center sm:text-left">
-                       <p className="text-accent text-[8px] font-black uppercase tracking-[0.4em] mb-1">{item.storeSlug}</p>
-                       <h3 className="text-2xl font-black font-['Outfit'] text-white uppercase tracking-tighter mb-4">{item.name}</h3>
-                       <div className="flex items-center justify-center sm:justify-start gap-6">
-                          <div className="flex items-center bg-black/40 rounded-full border border-white/10 p-1">
+                    <div className="flex-1 text-center md:text-left">
+                       <Link to={`/shopping/${item.storeSlug}`} className="group/link block">
+                         <p className="text-accent text-[8px] font-black uppercase tracking-[0.6em] mb-3">{item.storeSlug}</p>
+                         <h3 className="text-2xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-6 leading-none group-hover/link:text-accent transition-colors">{item.name}</h3>
+                       </Link>
+                       
+                       <div className="flex flex-wrap items-center justify-center md:justify-start gap-8">
+                          <div className="flex items-center glass-pane border border-[var(--border)] rounded-full p-1.5 bg-page/40">
                              <button 
                                 onClick={() => updateQuantity(item.id, -1)}
-                                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white/40"
+                                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all font-black text-lg"
                              >
                                 <Minus className="w-4 h-4" />
                              </button>
-                             <span className="w-10 text-center text-sm font-black text-white">{item.quantity}</span>
+                             <span className="w-12 text-center text-xl font-black text-ink-gradient">{item.quantity}</span>
                              <button 
                                 onClick={() => updateQuantity(item.id, 1)}
-                                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white/40"
+                                className="w-12 h-12 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all font-black text-lg"
                              >
-                                <Plus className="w-4 h-4" />
+                                <Plus className="w-5 h-5" />
                              </button>
                           </div>
-                          <span className="text-2xl font-black text-accent">{formatINR(item.price * item.quantity * 83)}</span>
+                          <div className="flex flex-col">
+                             <span className="text-[9px] font-black tracking-widest text-accent uppercase mb-1">Valuation</span>
+                             <span className="text-3xl font-black text-accent font-['Outfit'] tracking-tighter">{formatINR(item.price * item.quantity * 83)}</span>
+                          </div>
                        </div>
                     </div>
 
                     <button 
                         onClick={() => removeFromCart(item.id)}
-                        className="w-14 h-14 rounded-full bg-white/5 hover:bg-red-500/10 hover:text-red-500 border border-white/10 flex items-center justify-center transition-all group"
+                        className="w-20 h-20 rounded-full glass-pane hover:bg-red-500/10 hover:text-red-500 border border-[var(--border)] flex items-center justify-center transition-all group shrink-0"
                     >
-                        <Trash2 className="w-5 h-5 opacity-40 group-hover:opacity-100" />
+                        <Trash2 className="w-6 h-6 opacity-30 group-hover:opacity-100 transition-opacity" />
                     </button>
                   </motion.div>
                 ))}
               </AnimatePresence>
 
               {cart.length === 0 && (
-                <div className="py-20 text-center bg-white/5 rounded-[3rem] border border-white/5 border-dashed">
-                   <p className="text-white/20 font-black uppercase tracking-[0.4em] mb-4">Your collection is empty</p>
-                   <Link to="/shopping" className="text-accent hover:text-white transition-colors text-xs font-black uppercase tracking-widest">Start Exploring <ArrowRight className="inline w-4 h-4 ml-2" /></Link>
+                <div className="py-32 text-center glass-pane rounded-[4rem] border border-[var(--border)] border-dashed border-2">
+                   <p className="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-8">Atmosphere Empty</p>
+                   <Link to="/shopping" className="btn-luxe py-5 px-12 inline-flex">Explore Catalog <ArrowRight className="w-5 h-5 ml-4" /></Link>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Sumary */}
-          <div className="lg:w-[450px]">
-            <div className="sticky top-40 bg-white/5 rounded-[3.5rem] border border-white/10 p-10 overflow-hidden relative">
-               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-[80px]" />
+          {/* Summary */}
+          <div className="lg:w-[480px]">
+            <div className="sticky top-40 glass-pane lighting-card rounded-[4rem] border border-[var(--border)] p-12 md:p-16 overflow-hidden shadow-2xl">
+               <div className="absolute top-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-[100px]" />
                
-               <h2 className="text-2xl font-black font-['Outfit'] text-white uppercase tracking-tighter mb-10 pb-6 border-b border-white/10">Order Insights</h2>
+               <h2 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-12 pb-8 border-b border-[var(--border)] leading-none text-center">Summary</h2>
                
-               <div className="space-y-6 mb-10">
-                  <div className="flex justify-between items-center text-white/40 text-xs font-black uppercase tracking-widest">
-                     <span>Subtotal</span>
-                     <span className="text-white">{formatINR(total * 83)}</span>
+               <div className="space-y-8 mb-12">
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.4em] text-[color:var(--text-dim)]">
+                     <span>Base Acquisition</span>
+                     <span className="text-ink-gradient font-black">{formatINR(total * 83)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-white/40 text-xs font-black uppercase tracking-widest">
-                     <span>Shipping</span>
-                     <span className="text-accent underline">Complimentary</span>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.4em] text-[color:var(--text-dim)]">
+                     <span>Elite Logistics</span>
+                     <span className="text-accent">Complimentary</span>
                   </div>
-                  <div className="flex justify-between items-center text-white/40 text-xs font-black uppercase tracking-widest">
-                     <span>Bespoke Tax</span>
-                     <span className="text-white">{formatINR(total * 0.08 * 83)}</span>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.4em] text-[color:var(--text-dim)]">
+                     <span>Executive Tax</span>
+                     <span className="text-ink-gradient font-black">{formatINR(total * 0.08 * 83)}</span>
                   </div>
                </div>
 
-               <div className="flex justify-between items-center mb-10">
-                  <span className="text-sm font-black text-white uppercase tracking-widest text-shadow-glow">Total Valuation</span>
-                  <span className="text-4xl font-black text-white">{formatINR(total * 1.08 * 83)}</span>
+               <div className="flex flex-col items-center mb-16 pt-10 border-t border-[var(--border)]">
+                  <span className="text-[10px] font-black text-accent uppercase tracking-[0.6em] mb-4">Total Consideration</span>
+                  <span className="text-5xl md:text-6xl font-black text-ink-gradient font-['Outfit'] tracking-tighter">{formatINR(total * 1.08 * 83)}</span>
                </div>
 
                {cart.length > 0 ? (
                 <Link 
                   to="/checkout"
-                  className="w-full btn-luxe flex items-center justify-center gap-3"
+                  className="btn-luxe w-full py-6 flex items-center justify-center gap-4 text-sm"
                 >
                     Finalize Acquisition <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -121,42 +129,48 @@ export function Cart() {
                 <button
                   type="button"
                   disabled
-                  className="w-full btn-luxe flex items-center justify-center gap-3 opacity-50 cursor-not-allowed grayscale"
+                  className="btn-luxe w-full py-6 flex items-center justify-center gap-4 text-sm opacity-30 grayscale cursor-not-allowed"
                 >
-                  Finalize Acquisition <ArrowRight className="w-5 h-5" />
+                  Finalize Acquisition
                 </button>
                )}
 
-               <div className="mt-8 rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[color:var(--text-dim)]">Orders & Updates</p>
-                    <Link to="/profile#orders" className="text-[10px] font-black uppercase tracking-[0.16em] text-accent">
-                      Open
+               <div className="mt-12 rounded-[2.5rem] border border-[var(--border)] bg-page-bg-alt p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Order Heritage</p>
+                    <Link to="/profile#orders" className="text-[10px] font-black uppercase tracking-widest text-ink-gradient hover:text-accent transition-colors">
+                      Archives
                     </Link>
                   </div>
                   {recentOrders.length > 0 ? (
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       {recentOrders.map((order) => (
-                        <div key={order.id} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                          <p className="text-[11px] font-black break-all">{order.id}</p>
-                          <p className="text-[10px] text-[color:var(--text-dim)]">
-                            {order.items.length} item(s) • {order.status}
-                          </p>
+                        <div key={order.id} className="glass-pane rounded-2xl border border-[var(--border)] p-4 hover:border-accent transition-all">
+                          <p className="text-[10px] font-black text-ink-gradient break-all mb-1">{order.id}</p>
+                          <div className="flex justify-between items-center">
+                            <p className="text-[9px] font-black uppercase tracking-widest text-[color:var(--text-dim)]">
+                               {order.items.length} Curated Pieces
+                            </p>
+                            <span className="px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[8px] font-black uppercase tracking-widest">
+                               {order.status}
+                            </span>
+                          </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-xs text-[color:var(--text-dim)]">No orders yet. Place from cart to track updates.</p>
+                    <p className="text-xs text-[color:var(--text-dim)] italic font-medium">No previous records found.</p>
                   )}
                </div>
 
-               <div className="mt-10 pt-10 border-t border-white/10 flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
-                  <Sparkles className="w-4 h-4" />
-                  Secured by UB City Elite Systems
+               <div className="mt-12 pt-10 border-t border-[var(--border)] text-center">
+                  <div className="inline-flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.6em] text-accent/40">
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    UB City Elite Protocol
+                  </div>
                </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

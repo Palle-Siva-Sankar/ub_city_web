@@ -23,6 +23,13 @@ const businessNav = [
   { label: "Leasing", to: "/leasing" },
   { label: "Venues", to: "/venues" },
   { label: "Demographics", to: "/demographics" },
+];
+
+const designNav = [
+  { label: "Design System", to: "/brand-style-guide" },
+  { label: "Cards & Grids", to: "/brand-style-guide#cards" },
+  { label: "Buttons & CTAs", to: "/brand-style-guide#buttons" },
+  { label: "Typography", to: "/brand-style-guide#typography" },
   { label: "Strategy Deck", to: "/strategy" },
 ];
 
@@ -35,34 +42,36 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative mt-12" style={{ backgroundColor: "var(--page-bg)", borderTop: "1px solid var(--card-border)" }}>
+    <footer className="relative mt-24 border-t border-[var(--border)] transition-colors duration-500 bg-page">
       {/* CTA Banner */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-transparent" />
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-20 relative z-10">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Outfit'] mb-3 text-page">
-                Ready to Be Part of <span className="text-gold-gradient">Something Extraordinary</span>?
+      <div className="relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-16 text-center lg:text-left">
+            <div className="max-w-3xl">
+              <div className="flex items-center justify-center lg:justify-start gap-4 mb-8">
+                 <div className="w-12 h-px bg-accent" />
+                 <p className="text-accent text-[11px] font-black tracking-[0.6em] uppercase">Sector Opportunities</p>
+              </div>
+              <h2 className="text-4xl sm:text-6xl md:text-7xl font-black font-['Outfit'] mb-8 text-ink-gradient uppercase tracking-tighter leading-none">
+                Initialize Your <span className="text-gradient">Legacy Presence.</span>
               </h2>
-              <p className="text-muted-custom text-base sm:text-lg max-w-xl">
-                Join premium global brands at Bengaluru's iconic luxury destination.
+              <p className="text-2xl text-[color:var(--text-dim)] font-medium italic border-l-2 border-accent/20 pl-8 leading-relaxed">
+                Join premium global brands at Bengaluru's iconic luxury nexus. Deploy your vision within our curated ecosystem.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6 w-full lg:w-auto shrink-0">
               <Link
                 to="/leasing"
-                className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold bg-accent rounded-full hover:bg-accent/90 transition-all duration-300 cta-shadow"
-                style={{ color: "var(--btn-text-on-accent)" }}
+                className="btn-luxe px-12 py-5"
               >
-                Explore Opportunities <ArrowRight className="w-4 h-4" />
+                Explore Nexus <ArrowRight className="w-5 h-5 ml-4" />
               </Link>
               <a
                 href="mailto:contact@ubcitybangalore.in"
-                className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-page rounded-full hover:bg-accent/5 transition-all duration-300"
-                style={{ border: "1px solid var(--card-border)" }}
+                className="px-12 py-5 rounded-full glass-pane border border-[var(--border)] text-ink-gradient font-black tracking-[0.4em] uppercase text-[10px] hover:border-accent hover:text-accent transition-all duration-500"
               >
-                Contact Us
+                Secure Dialogue
               </a>
             </div>
           </div>
@@ -70,37 +79,46 @@ export function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div style={{ borderTop: "1px solid var(--card-border)" }}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <div>
-              <h3 className="text-lg font-bold tracking-[0.15em] font-['Outfit'] text-accent mb-4">
-                UB CITY BENGALURU
-              </h3>
-              <p className="text-muted-custom text-sm leading-relaxed mb-6">
-                The Collection at UB City - luxury shopping, dining, events, and lifestyle destination in Bengaluru.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm text-muted-custom">
-                  <MapPin className="w-4 h-4 text-accent/60 shrink-0" />
-                  <span>The Collection, UB City, Vittal Mallya Road, Bengaluru</span>
+      <div className="border-t border-[var(--border)] bg-page/50 backdrop-blur-3xl transition-colors duration-500">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
+            <div className="space-y-10">
+              <div>
+                <Link to="/" className="text-2xl font-black tracking-tighter text-ink-gradient flex items-center gap-3 mb-8">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-gold flex items-center justify-center text-black text-xs shadow-gold">UB</div>
+                    UB CITY BENGALURU
+                </Link>
+                <p className="text-[color:var(--text-dim)] text-sm font-black uppercase tracking-[0.1em] leading-relaxed mb-10 opacity-60">
+                  The Collection at UB City - high-fidelity luxury shopping, gastronomy, and cultural vault destination.
+                </p>
+              </div>
+              <div className="space-y-6">
+                <div className="flex items-center gap-5 group">
+                  <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
+                    <MapPin className="w-4 h-4 text-accent" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">The Collection, Vittal Mallya Road</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-muted-custom">
-                  <Phone className="w-4 h-4 text-accent/60 shrink-0" />
-                  <span>+91 80 4177 1111</span>
+                <div className="flex items-center gap-5 group">
+                  <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
+                    <Phone className="w-4 h-4 text-accent" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">+91 80 4177 1111</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-muted-custom">
-                  <Mail className="w-4 h-4 text-accent/60 shrink-0" />
-                  <span>contact@ubcitybangalore.in</span>
+                <div className="flex items-center gap-5 group">
+                  <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
+                    <Mail className="w-4 h-4 text-accent" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">concierge@ubcity.secure</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs font-semibold tracking-[0.2em] text-faint uppercase mb-6">Explore</h4>
-              <nav className="space-y-3">
+              <h4 className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-10">Sector Map</h4>
+              <nav className="space-y-4">
                 {footerNav.map((item) => (
-                  <Link key={item.to} to={item.to} className="block text-sm text-muted-custom hover:text-accent transition-colors duration-300">
+                  <Link key={item.to} to={item.to} className="block text-xs font-black uppercase tracking-[0.2em] text-ink-gradient opacity-60 hover:opacity-100 hover:text-accent transition-all duration-300">
                     {item.label}
                   </Link>
                 ))}
@@ -108,50 +126,54 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="text-xs font-semibold tracking-[0.2em] text-faint uppercase mb-6">Business</h4>
-              <nav className="space-y-3">
+              <h4 className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-10">Business Protocols</h4>
+              <nav className="space-y-4">
                 {businessNav.map((item) => (
-                  <Link key={item.to} to={item.to} className="block text-sm text-muted-custom hover:text-accent transition-colors duration-300">
+                  <Link key={item.to} to={item.to} className="block text-xs font-black uppercase tracking-[0.2em] text-ink-gradient opacity-60 hover:opacity-100 hover:text-accent transition-all duration-300">
                     {item.label}
                   </Link>
                 ))}
               </nav>
             </div>
 
-            <div>
-              <h4 className="text-xs font-semibold tracking-[0.2em] text-faint uppercase mb-6">Connect</h4>
-              <div className="flex flex-wrap gap-3 mb-4">
-                {socialLinks.map((platform) => (
-                  <motion.a
-                    key={platform.label}
-                    href={platform.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-muted-custom hover:text-accent transition-all duration-300"
-                    aria-label={platform.label}
-                    title={platform.label}
-                  >
-                    <platform.icon className="w-4 h-4" />
-                  </motion.a>
-                ))}
+            <div className="lg:col-span-2 space-y-12">
+              <div>
+                <h4 className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-10">Nexus Synchronize</h4>
+                <div className="flex flex-wrap gap-4 mb-8">
+                  {socialLinks.map((platform) => (
+                    <motion.a
+                      key={platform.label}
+                      href={platform.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      whileHover={{ scale: 1.1, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-12 h-12 rounded-2xl glass-pane border border-[var(--border)] flex items-center justify-center text-ink-gradient hover:border-accent hover:text-accent transition-all duration-500 shadow-lg"
+                      aria-label={platform.label}
+                    >
+                      <platform.icon className="w-5 h-5" />
+                    </motion.a>
+                  ))}
+                </div>
               </div>
-              <p className="text-xs text-muted-custom mb-6">
-                Follow UB City on its official channels.
-              </p>
-              <h4 className="text-xs font-semibold tracking-[0.2em] text-faint uppercase mb-4">Newsletter</h4>
-              <NewsletterSignup />
+              
+              <div className="max-w-xl">
+                <h4 className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-8">Intelligence Feed</h4>
+                <NewsletterSignup />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom */}
-      <div style={{ borderTop: "1px solid var(--card-border)" }}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-ghost">© {new Date().getFullYear()} UB City Bengaluru. Interactive Experience.</p>
-          <p className="text-xs text-ghost">Built for prospective partners, tenants, and sponsors.</p>
+      <div className="border-t border-[var(--border)] bg-page-bg-alt transition-colors duration-500">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <p className="text-[9px] font-black uppercase tracking-[0.5em] text-ink-gradient opacity-40">© {new Date().getFullYear()} UB CITY BENGALURU. HIGH-FIDELITY EXPERIENCE.</p>
+          <div className="flex items-center gap-8">
+             <p className="text-[9px] font-black uppercase tracking-[0.5em] text-ink-gradient opacity-40">Operational Status: Optimal</p>
+             <p className="text-[9px] font-black uppercase tracking-[0.5em] text-accent">Internal Registry Only</p>
+          </div>
         </div>
       </div>
     </footer>

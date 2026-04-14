@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Link } from "react-router";
-import { UtensilsCrossed, Wine, ChefHat, Coffee, ArrowRight } from "lucide-react";
-
+import { UtensilsCrossed, Wine, ChefHat, Coffee, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
 export function Dining() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,44 +11,73 @@ export function Dining() {
   const blurValue = useTransform(scrollYProgress, [0, 0.5, 1], ["0px", "10px", "20px"]);
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper bg-page transition-colors duration-500">
 
       {/* REAL CINEMATIC OVERLAY HERO */}
-      <section ref={containerRef} className="relative h-[120vh] lg:h-[160vh] bg-page">
-        <div className="sticky-presentation bg-page overflow-hidden">
+      <section ref={containerRef} className="relative h-[150vh] lg:h-[200vh]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <HeroVideoEmbed
+            title="Dining Experience"
+            posterImage="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000"
+            videoSrc="/videos/dining-hero.mp4"
+          />
+          <div className="absolute inset-0 bg-page/40 dark:bg-black/40 pointer-events-none" />
 
-          {/* Animated Video Background via Framer */}
-          <motion.div className="absolute inset-0" style={{ filter: `blur(${blurValue})` }}>
-            <video autoPlay loop muted playsInline className="video-bg opacity-70 scale-100 md:scale-[0.96] object-center md:object-[center_30%]">
-              <source src="/videos/dining-hero.mp4" type="video/mp4" />
-            </video>
-            <div className="video-gradient-mask" />
-          </motion.div>
-
-          <div className="relative z-10 w-full px-6 pointer-events-none">
+          <div className="relative z-10 w-full h-full flex items-center justify-center px-6 pointer-events-none">
             {/* STAGE 1: Hero Titles */}
-            <motion.div className="text-center" style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]), y: useTransform(scrollYProgress, [0, 0.3], [0, -100]) }}>
-              <p className="text-accent tracking-[0.4em] text-sm uppercase mb-6 drop-shadow-md font-bold">Culinary Excellence</p>
-              <h1 className="text-7xl md:text-9xl font-['Outfit'] font-bold text-page leading-tight drop-shadow-2xl">
-                Taste.<br />Elevated.
-              </h1>
+            <motion.div 
+                className="text-center" 
+                style={{ 
+                    opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0]), 
+                    y: useTransform(scrollYProgress, [0, 0.2], [0, -150]),
+                    scale: useTransform(scrollYProgress, [0, 0.2], [1, 0.85]),
+                    filter: useTransform(scrollYProgress, [0, 0.2], ["blur(0px)", "blur(20px)"])
+                }}
+            >
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
+                <div className="mb-12">
+                   <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto">
+                      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
+                   </Link>
+                </div>
+                <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-2xl border border-accent/30 mb-10 mx-auto shadow-gold">
+                   <Sparkles className="w-4 h-4 text-accent" />
+                   <span className="text-[10px] font-black tracking-[0.4em] uppercase">The Gastronomy Portfolio</span>
+                </div>
+                <h1 className="text-5xl md:text-8xl font-['Outfit'] font-black text-ink-gradient uppercase leading-[0.9] tracking-tighter drop-shadow-2xl mb-8">
+                  Taste.<br /><span className="text-gradient">Elevated.</span>
+                </h1>
+                <p className="text-lg md:text-xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-widest opacity-60">Fine Dining & Artisan Spirits</p>
+              </motion.div>
             </motion.div>
 
             {/* STAGE 2: Menu/Categories Reveal */}
-            <motion.div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
-              style={{ opacity: useTransform(scrollYProgress, [0.4, 0.6, 1], [0, 1, 1]) }}
+            <motion.div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-auto px-6"
+              style={{ 
+                opacity: useTransform(scrollYProgress, [0.3, 0.5, 0.9, 1], [0, 1, 1, 0]),
+                y: useTransform(scrollYProgress, [0.3, 0.5], [200, 0]),
+                scale: useTransform(scrollYProgress, [0.8, 1], [1, 0.9])
+              }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[1200px] pointer-events-auto mt-32">
+              <div className="text-center mb-12 px-4">
+                 <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-4">Explore the Registry</p>
+                 <h2 className="text-4xl md:text-7xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter leading-none shadow-2xl">Culinary <span className="text-gradient">Sectors.</span></h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-[1400px]">
                 {[
-                  { icon: ChefHat, title: "Fine Dining", desc: "Award-winning chef concepts", inquiry: "/opportunity/inline-retail" },
-                  { icon: Wine, title: "Lounges & Bars", desc: "Craft cocktails & late night", inquiry: "/opportunity/inline-retail" },
-                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International food courts", inquiry: "/opportunity/inline-retail" },
-                  { icon: Coffee, title: "Caf�s", desc: "Artisanal coffee & pastries", inquiry: "/opportunity/inline-retail" }
+                  { icon: ChefHat, title: "Fine Dining", desc: "Award-winning chef concepts", inquiry: "/dining/category/fine-dining" },
+                  { icon: Wine, title: "Lounges & Bars", desc: "Craft cocktails & late night", inquiry: "/dining/category/bars" },
+                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International food courts", inquiry: "/dining/category/fast-food" },
+                  { icon: Coffee, title: "Cafés", desc: "Artisanal coffee & pastries", inquiry: "/dining/category/cafes" }
                 ].map((item, i) => (
-                  <Link key={i} to={item.inquiry} className="glass-pane p-8 rounded-[2rem] text-center hover:bg-white/10 dark:hover:bg-white/5 transition-all cursor-pointer group shadow-2xl block">
-                    <item.icon className="w-12 h-12 text-accent mx-auto mb-6 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-xl font-bold font-['Outfit'] text-page mb-2">{item.title}</h3>
-                    <p className="text-muted-custom text-sm">{item.desc}</p>
+                  <Link key={i} to={item.inquiry} className="glass-pane active-card lighting-card p-8 md:p-14 rounded-[3rem] text-center transition-all cursor-pointer group shadow-2xl block border border-[var(--border)] hover:border-accent hover:shadow-gold duration-700 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="w-16 h-16 rounded-[1.5rem] bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-8 group-hover:bg-accent group-hover:text-black transition-all shadow-lg relative z-10">
+                        <item.icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-black font-['Outfit'] text-ink-gradient uppercase mb-4 tracking-tighter leading-none relative z-10 group-hover:text-accent transition-colors">{item.title}</h3>
+                    <p className="text-[color:var(--text-dim)] text-[10px] font-black uppercase tracking-[0.2em] leading-relaxed relative z-10 opacity-70 group-hover:opacity-100">{item.desc}</p>
                   </Link>
                 ))}
               </div>
@@ -58,17 +87,26 @@ export function Dining() {
       </section>
 
       {/* CTA WITH SPLINE */}
-      <section className="relative h-[60vh] flex items-center justify-center bg-page overflow-hidden z-20">
-        {/* Integrating a very subtle Spline background just for the CTA section */}
-
-        <div className="relative z-10 text-center">
-          <h2 className="text-5xl font-['Outfit'] font-bold text-page mb-8">Ready to <span className="text-gold-gradient">Serve?</span></h2>
-          <Link to="/opportunity/inline-retail" className="inline-flex items-center gap-3 bg-accent text-[var(--btn-text-on-accent)] font-bold uppercase tracking-widest text-sm px-10 py-5 rounded-full hover:scale-105 transition-all shadow-2xl hover:brightness-110">
-            F&B Leasing Opportunities <ArrowRight className="w-5 h-5" />
+      <section className="relative h-[80vh] flex items-center justify-center bg-page-bg-alt overflow-hidden z-20 border-t border-[var(--border)] transition-colors duration-500">
+        <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
+        <div className="relative z-10 text-center px-6 max-w-4xl">
+          <div className="flex items-center justify-center gap-6 mb-12">
+             <div className="w-20 h-px bg-accent" />
+             <p className="text-accent text-[11px] font-black tracking-[0.8em] uppercase leading-none">Global Expansion</p>
+             <div className="w-20 h-px bg-accent" />
+          </div>
+          <h2 className="text-6xl md:text-[8rem] font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter mb-12 leading-none">
+            Ready to <span className="text-gradient">Serve?</span>
+          </h2>
+          <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic mb-16 leading-relaxed px-10">Join the world's most prestigious culinary destination at UB City.</p>
+          <Link to="/opportunity/inline-retail" className="btn-luxe !px-20 !py-8 text-sm">
+            F&B Leasing Opportunities <ArrowRight className="w-6 h-6 ml-4" />
           </Link>
         </div>
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent shadow-gold" />
       </section>
     </div>
+
   );
 }
 

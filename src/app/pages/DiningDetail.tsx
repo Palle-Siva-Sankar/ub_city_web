@@ -61,119 +61,191 @@ export function DiningDetail() {
   }
 
   return (
-    <div className="page-wrapper bg-page min-h-screen pt-24 md:pt-32">
-      <section className="px-6 md:px-12 mb-10">
-        <div className="max-w-[1300px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden relative h-[220px] sm:h-[280px] md:h-[320px]">
-          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500">
+      <section className="px-6 md:px-12 pt-32 mb-10">
+        <div className="max-w-[1400px] mx-auto rounded-[4rem] overflow-hidden relative h-[450px] shadow-gold lighting-card group">
+          <img src={item.image} alt={item.name} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-1000" />
           <div className="video-gradient-mask absolute inset-0" />
-          <div className="absolute inset-0 p-5 sm:p-8 md:p-12 flex flex-col justify-end">
-            <Link to="/dine" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/85 mb-5">
-              <ArrowLeft className="w-4 h-4" /> Back to Dining
+          <div className="absolute inset-0 p-10 md:p-20 flex flex-col justify-end relative z-10">
+            <Link to="/dine" className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-10 w-fit">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" /> Return to Gastronomy Vector
             </Link>
-            <h1 className="text-2xl sm:text-4xl md:text-6xl font-black font-['Outfit'] text-white uppercase tracking-tight">{item.name}</h1>
-            <div className="mt-3 flex flex-wrap gap-3 text-xs">
-              <span className="px-3 py-1 rounded-full bg-black/30 border border-white/10 text-white/90">{item.cuisine}</span>
-              <span className="px-3 py-1 rounded-full bg-black/30 border border-white/10 text-white/90"><Clock className="w-3 h-3 inline mr-1" /> {item.prepTime}</span>
-              <span className="px-3 py-1 rounded-full bg-black/30 border border-white/10 text-white/90"><MapPin className="w-3 h-3 inline mr-1" /> {locationInfo.loading ? "Detecting..." : `${locationInfo.city}, ${locationInfo.region}`}</span>
+            <div className="flex items-center gap-4 mb-8">
+               <Clock className="w-6 h-6 text-accent" />
+               <p className="text-[10px] font-black tracking-[0.6em] text-accent uppercase leading-none">Curated Cuisine</p>
+            </div>
+            <h1 className="text-5xl md:text-8xl font-black font-['Outfit'] text-white uppercase tracking-tighter leading-none mb-10 shadow-2xl">
+              {item.name}
+            </h1>
+            
+            <div className="flex flex-wrap gap-4 text-[10px] font-black tracking-widest uppercase items-center">
+              <span className="px-6 py-2 rounded-full glass-pane border border-white/10 text-white/90 shadow-sm">{item.cuisine}</span>
+              <span className="px-6 py-2 rounded-full glass-pane border border-white/10 text-white/90 shadow-sm">{item.prepTime}</span>
+              <span className="px-6 py-2 rounded-full glass-pane border border-white/10 text-white/90 shadow-sm">{locationInfo.loading ? "Locating..." : `${locationInfo.city}, ${locationInfo.region}`}</span>
             </div>
           </div>
         </div>
       </section>
 
       <section className="px-6 md:px-12 pb-24">
-        <div className="max-w-[1300px] mx-auto grid lg:grid-cols-[1.2fr_1fr] gap-8">
-          <div className="glass-pane rounded-[2rem] p-5 sm:p-8">
-            <p className="card-text-contrast text-base leading-relaxed">{item.description}</p>
-            <div className="mt-6 flex items-center gap-4">
-              <span className="text-3xl font-black text-accent">{formatINR(item.price * 83)}</span>
-              <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-2">
-                <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="px-3">-</button>
-                <span className="font-bold">{qty}</span>
-                <button onClick={() => setQty((q) => q + 1)} className="px-3">+</button>
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1.2fr_1fr] gap-12 sm:gap-16">
+          <div className="glass-pane lighting-card rounded-[3.5rem] p-10 md:p-16 border border-[var(--border)] shadow-sm">
+            <p className="text-ink-gradient text-2xl md:text-3xl font-light italic leading-relaxed mb-12">"{item.description}"</p>
+            
+            <div className="flex flex-wrap items-center gap-8 mb-12 pt-10 border-t border-[var(--border)]">
+              <div className="spark-highlight p-6 rounded-[2rem] bg-accent/10 border border-accent/20">
+                <span className="text-4xl md:text-5xl font-black text-accent font-['Outfit'] tracking-tighter">{formatINR(item.price * 83)}</span>
+              </div>
+              <div className="flex items-center gap-4 glass-pane border border-[var(--border)] rounded-full px-6 py-3">
+                <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all font-black text-lg">-</button>
+                <span className="font-black text-xl min-w-[2rem] text-center">{qty}</span>
+                <button onClick={() => setQty((q) => q + 1)} className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all font-black text-lg">+</button>
               </div>
             </div>
-            <div className="mt-5 grid sm:grid-cols-2 gap-3">
+
+            <div className="grid sm:grid-cols-2 gap-6 mb-12">
               <button
                 onClick={() => toggle(diningWishlistKey)}
-                className="rounded-xl py-3 border border-white/10 bg-white/5 inline-flex items-center justify-center gap-2 text-xs font-black uppercase tracking-[0.14em]"
+                className="btn-glass py-5 flex items-center justify-center gap-3"
               >
-                <Heart className={`w-4 h-4 ${wishlist.includes(diningWishlistKey) ? "text-accent fill-accent" : "text-[color:var(--text-dim)]"}`} />
-                Add to Wishlist
+                <Heart className={`w-5 h-5 ${wishlist.includes(diningWishlistKey) ? "text-accent fill-accent" : "text-[color:var(--text-dim)]"}`} />
+                Wishlist
               </button>
               <button
                 onClick={addDiningToCart}
-                className="rounded-xl py-3 bg-accent text-black inline-flex items-center justify-center gap-2 text-xs font-black uppercase tracking-[0.14em]"
+                className="btn-luxe py-5 flex items-center justify-center gap-3"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
             </div>
-            <div className="mt-8 space-y-4">
-              <label className="text-xs uppercase tracking-[0.2em] font-bold">Delivery address</label>
-              <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter full delivery address" className="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" />
+
+            <div className="space-y-4">
+              <label className="text-[10px] font-black tracking-[0.4em] uppercase text-accent ml-6">Delivery Destination</label>
+              <div className="relative">
+                 <MapPin className="absolute left-8 top-1/2 -translate-y-1/2 w-5 h-5 text-accent" />
+                 <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter full delivery coordinates" className="w-full rounded-[2.5rem] glass-pane border border-[var(--border)] pl-16 pr-10 py-6 text-ink-gradient font-bold placeholder:opacity-30 focus:border-accent outline-none" />
+              </div>
             </div>
           </div>
 
-          <div className="glass-pane rounded-[2rem] p-5 sm:p-8">
-            <h3 className="text-2xl font-black mb-6 flex items-center gap-2"><CreditCard className="w-5 h-5 text-accent" /> Payment</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-5">
+          <div className="glass-pane lighting-card rounded-[3.5rem] p-10 md:p-16 border border-[var(--border)] flex flex-col shadow-sm">
+            <div className="flex items-center gap-4 mb-10">
+               <div className="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center">
+                  <CreditCard className="w-6 h-6 text-accent" />
+               </div>
+               <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter">Secure Checkout</h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
               {(["upi", "card", "netbanking"] as PaymentMethod[]).map((method) => (
                 <button
                   key={method}
                   onClick={() => setPaymentMethod(method)}
-                  className={`rounded-xl py-2 text-xs uppercase tracking-[0.2em] ${paymentMethod === method ? "bg-accent text-black font-black" : "bg-white/5 border border-white/10"}`}
+                  className={`rounded-2xl py-4 text-[10px] font-black uppercase tracking-widest transition-all ${paymentMethod === method ? "bg-accent text-black shadow-gold" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)]"}`}
                 >
                   {method}
                 </button>
               ))}
             </div>
+
             <input
               value={paymentValue}
               onChange={(e) => setPaymentValue(e.target.value)}
               placeholder={paymentMethod === "upi" ? "UPI ID (name@bank)" : paymentMethod === "card" ? "Card Number" : "Bank Account / UPI Ref"}
-              className="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 mb-5"
+              className="w-full rounded-2xl glass-pane border border-[var(--border)] px-8 py-5 mb-8 text-ink-gradient font-bold placeholder:opacity-30 outline-none focus:border-accent"
             />
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-4 mb-5">
-              <p className="text-sm">Subtotal: <strong>{formatINR(total * 83)}</strong></p>
-              <p className="text-sm">Taxes & charges: <strong>{formatINR(total * 0.08 * 83)}</strong></p>
-              <p className="text-lg font-black text-accent mt-2">Total: {formatINR(total * 1.08 * 83)}</p>
+
+            <div className="rounded-[2.5rem] bg-accent/10 border border-accent/20 p-8 mb-10 space-y-4">
+              <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest text-[color:var(--text-dim)]">
+                 <span>Subtotal</span>
+                 <span className="text-ink-gradient">{formatINR(total * 83)}</span>
+              </div>
+              <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest text-[color:var(--text-dim)]">
+                 <span>Taxes & Service</span>
+                 <span className="text-ink-gradient">{formatINR(total * 0.08 * 83)}</span>
+              </div>
+              <div className="h-[1px] bg-accent/20" />
+              <div className="flex justify-between items-center">
+                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Total Payable</span>
+                 <span className="text-3xl font-black text-accent font-['Outfit'] tracking-tighter">{formatINR(total * 1.08 * 83)}</span>
+              </div>
             </div>
+
             <button
               onClick={() => setOrderPlaced(true)}
               disabled={!address || !paymentValue}
-              className="btn-luxe w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-luxe w-full py-6 disabled:opacity-30 disabled:grayscale transition-all"
             >
-              Place Order
+              Confirm Purchase
             </button>
 
-            {orderPlaced && (
-              <div className="mt-6 rounded-2xl bg-white/5 border border-white/10 p-4">
-                <p className="text-sm font-bold mb-3">Order placed successfully. Need to cancel?</p>
-                <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 mb-3">
-                  {CANCEL_REASONS.map((reason) => (
-                    <option key={reason} value={reason}>{reason}</option>
-                  ))}
-                </select>
-                <button onClick={() => setCancelled(true)} className="w-full rounded-xl py-2 border border-red-400/40 text-red-400 hover:bg-red-500/10">
-                  Cancel Order
-                </button>
-                {cancelled && <p className="text-xs text-red-400 mt-3">Order cancelled: {cancelReason}</p>}
-              </div>
+            {orderPlaced && !cancelled && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8 rounded-[2.5rem] bg-green-500/10 border border-green-500/20 p-8">
+                <p className="text-xs font-black uppercase tracking-widest text-green-500 mb-6 text-center">Order Live & Tracking</p>
+                <div className="space-y-4">
+                  <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full rounded-xl glass-pane border border-[var(--border)] px-5 py-3 text-xs font-bold text-ink-gradient outline-none">
+                    {CANCEL_REASONS.map((reason) => (
+                      <option key={reason} value={reason}>{reason}</option>
+                    ))}
+                  </select>
+                  <button onClick={() => setCancelled(true)} className="w-full rounded-xl py-3 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500/10 transition-all">
+                    Request Cancellation
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {cancelled && (
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-8 rounded-[2.5rem] bg-red-500/10 border border-red-500/20 p-8 text-center text-red-500 text-[10px] font-black uppercase tracking-widest">
+                Order Revoked: {cancelReason}
+              </motion.div>
             )}
           </div>
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-24">
-        <div className="max-w-[1300px] mx-auto">
-          <h3 className="text-2xl font-black mb-5">More Dining Options</h3>
-          <div className="grid md:grid-cols-4 gap-4">
+      <section className="px-6 md:px-12 pb-32">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-6 mb-12">
+             <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[var(--border)]" />
+             <h3 className="text-[10px] font-black tracking-[0.5em] text-accent uppercase">Curated Pairings</h3>
+             <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[var(--border)]" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {DINING_VARIETIES.filter((v) => v.slug !== item.slug).slice(0, 8).map((v) => (
-              <Link key={v.slug} to={`/dine/menu/${v.slug}`} className="glass-pane rounded-2xl overflow-hidden">
-                <img src={v.image} alt={v.name} className="w-full h-28 object-cover" />
-                <div className="p-3">
-                  <p className="font-bold text-sm">{v.name}</p>
-                  <p className="text-xs text-accent">{formatINR(v.price * 83)}</p>
+              <Link 
+                key={v.slug} 
+                to={`/dine/menu/${v.slug}`} 
+                className="glass-pane lighting-card active-card rounded-[2rem] overflow-hidden border border-[var(--border)] hover:border-accent group transition-all duration-700 relative p-0"
+              >
+                <div className="h-40 overflow-hidden relative">
+                   <img src={v.image} alt={v.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.5] group-hover:grayscale-0" />
+                   <div className="absolute top-3 right-3 z-20">
+                     <button
+                       onClick={(e) => {
+                         e.preventDefault();
+                         e.stopPropagation();
+                         addToCart({
+                           id: `dine-${v.slug}`,
+                           storeSlug: "dining",
+                           name: v.name,
+                           price: v.price,
+                           description: v.description,
+                           image: v.image,
+                           category: v.cuisine.toLowerCase().replace(/\s+/g, "-"),
+                         });
+                         toast.success(`${v.name} Added to Collection`);
+                       }}
+                       className="w-10 h-10 rounded-xl bg-accent text-white flex items-center justify-center shadow-gold hover:scale-110 transition-transform"
+                     >
+                       <ShoppingCart className="w-4 h-4" />
+                     </button>
+                   </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-ink-gradient font-black text-base font-['Outfit'] uppercase tracking-tight mb-1 leading-none group-hover:text-accent transition-colors">{v.name}</p>
+                  <p className="text-[10px] font-black text-accent uppercase tracking-widest leading-none">{formatINR(v.price * 83)}</p>
                 </div>
               </Link>
             ))}

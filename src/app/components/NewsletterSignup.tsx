@@ -14,32 +14,32 @@ export function NewsletterSignup() {
 
   if (status === "success") {
     return (
-      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center gap-3 py-4">
-        <CheckCircle2 className="w-6 h-6 text-green-500" />
-        <p className="text-page font-medium text-sm">You're subscribed! Thank you.</p>
+      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4 py-4 px-8 rounded-full glass-pane border border-accent/30 shadow-gold">
+        <CheckCircle2 className="w-6 h-6 text-accent" />
+        <p className="text-ink-gradient font-black text-xs uppercase tracking-widest">Successfully Subscribed. Welcome to UB City.</p>
       </motion.div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3 w-full max-w-md">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 w-full">
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
+        placeholder="Your Email Address"
         required
-        className="flex-1 bg-page border border-[var(--border)] text-page rounded-full px-5 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+        className="flex-1 min-w-0 bg-page border border-[var(--border)] text-ink-gradient rounded-full px-10 py-5 text-base focus:outline-none focus:border-accent transition-all font-black uppercase tracking-widest placeholder:opacity-20 shadow-sm"
       />
       <button
         type="submit"
         disabled={status === "loading"}
-        className="px-6 py-3 bg-accent text-[var(--btn-text-on-accent)] font-bold tracking-widest uppercase text-xs rounded-full hover:scale-105 transition-all flex items-center gap-2 shrink-0"
+        className="px-12 py-5 bg-accent text-black font-black tracking-[0.3em] uppercase text-[11px] rounded-full hover:shadow-gold hover:scale-105 transition-all flex items-center justify-center gap-3 shrink-0 whitespace-nowrap !text-black shadow-lg"
       >
         {status === "loading" ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
+          <Loader2 className="w-5 h-5 animate-spin" />
         ) : (
-          <>Subscribe <ArrowRight className="w-3 h-3" /></>
+          <>Subscribe <ArrowRight className="w-4 h-4" /></>
         )}
       </button>
     </form>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import {
@@ -7,7 +7,6 @@ import {
   CreditCard,
   Bell,
   ShieldCheck,
-  History,
   Package,
   Sparkles,
   Phone,
@@ -17,9 +16,9 @@ import {
   Trash2,
   LogOut,
 } from "lucide-react";
-import { useOrders, useUserSession } from "../hooks/useFeatures";
-import { toast } from "sonner";
+import { useUserSession } from "../hooks/useFeatures";
 import { formatINR } from "../utils/currency";
+import { toast } from "sonner";
 
 type AddressBookItem = {
   id: string;
@@ -51,15 +50,15 @@ function loadJson<T>(key: string, fallback: T): T {
 }
 
 export function Profile() {
-  const { orders, cancelOrder, orderStats } = useOrders();
   const { user, login, logout } = useUserSession();
-  const activeStatuses = ["Pending", "Processing", "Shipped", "Out for Delivery"] as const;
 
-  const [profileForm, setProfileForm] = useState({
-    name: user?.name || "UB City Member",
-    email: user?.email || "member@ubcity.com",
-    phone: user?.phone || "",
-  });
+  const [profileForm, setProfileForm] = useState(() => 
+    loadJson(PROFILE_FORM_KEY, {
+      name: user?.name || "UB City Member",
+      email: user?.email || "member@ubcity.com",
+      phone: user?.phone || "",
+    })
+  );
 
   const [addressBook, setAddressBook] = useState<AddressBookItem[]>(() =>
     loadJson<AddressBookItem[]>(ADDRESS_KEY, []),
@@ -77,73 +76,15 @@ export function Profile() {
   const [profilePhoto, setProfilePhoto] = useState<string>(() => localStorage.getItem(PROFILE_PHOTO_KEY) || "");
 
   const [newAddress, setNewAddress] = useState({ label: "", line1: "", city: "", pin: "" });
-  const [newPayment, setNewPayment] = useState<{ type: "card" | "upi"; value: string }>({ type: "card", value: "" });
-  const [cancelReasonByOrder, setCancelReasonByOrder] = useState<Record<string, string>>({});
-  const [orderFilter, setOrderFilter] = useState<"all" | "active" | "cancelled" | "delivered">("all");
-  const profileSectionRef = useRef<HTMLElement | null>(null);
-  const securitySectionRef = useRef<HTMLElement | null>(null);
-  const preferenceSectionRef = useRef<HTMLElement | null>(null);
-  const orderSectionRef = useRef<HTMLElement | null>(null);
+  const [newPayment, setNewPayment] = useState<Omit<PaymentMethodItem, "id">>({ type: "card", value: "" });
 
-  const visibleOrders = useMemo(() => {
-    if (orderFilter === "active") return orders.filter((order) => activeStatuses.includes(order.status as (typeof activeStatuses)[number]));
-    if (orderFilter === "cancelled") return orders.filter((order) => order.status === "Cancelled");
-    if (orderFilter === "delivered") return orders.filter((order) => order.status === "Delivered");
-    return orders;
-  }, [activeStatuses, orderFilter, orders]);
-
-  const getOrderProgress = (status: string) => {
-    switch (status) {
-      case "Pending":
-        return 20;
-      case "Processing":
-        return 40;
-      case "Shipped":
-        return 65;
-      case "Out for Delivery":
-        return 85;
-      case "Delivered":
-        return 100;
-      case "Cancelled":
-        return 100;
-      default:
-        return 0;
-    }
-  };
-
-  useEffect(() => {
-    const savedProfile = loadJson(PROFILE_FORM_KEY, null as { name: string; email: string; phone: string } | null);
-    if (savedProfile) {
-      setProfileForm(savedProfile);
-      return;
-    }
-    if (user) {
-      setProfileForm({
-        name: user.name || "UB City Member",
-        email: user.email || "member@ubcity.com",
-        phone: user.phone || "",
-      });
-    }
-  }, [user]);
-
-  useEffect(() => {
-    localStorage.setItem(PROFILE_FORM_KEY, JSON.stringify(profileForm));
-  }, [profileForm]);
-
-  useEffect(() => {
-    if (window.location.hash === "#orders") {
-      orderSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, []);
+  const profileSectionRef = useRef<HTMLDivElement>(null);
+  const securitySectionRef = useRef<HTMLDivElement>(null);
+  const preferenceSectionRef = useRef<HTMLDivElement>(null);
 
   const saveProfile = () => {
-    login({
-      name: profileForm.name.trim() || "UB City Member",
-      email: profileForm.email.trim() || "member@ubcity.com",
-      phone: profileForm.phone.trim(),
-      role: user?.role || "visitor",
-    });
-    toast.success("Profile updated");
+    localStorage.setItem(PROFILE_FORM_KEY, JSON.stringify(profileForm));
+    toast.success("Profile saved successfully");
   };
 
   const handleLogout = () => {
@@ -154,7 +95,7 @@ export function Profile() {
 
   const addAddress = () => {
     if (!newAddress.label || !newAddress.line1 || !newAddress.city || !newAddress.pin) {
-      toast.error("Fill all address fields");
+      toast.error("Please fill all address fields");
       return;
     }
     const next = [...addressBook, { id: crypto.randomUUID(), ...newAddress }];
@@ -172,7 +113,7 @@ export function Profile() {
 
   const addPaymentMethod = () => {
     if (!newPayment.value.trim()) {
-      toast.error("Enter card/UPI details");
+      toast.error("Please enter card or UPI details");
       return;
     }
     const next = [...payments, { id: crypto.randomUUID(), ...newPayment }];
@@ -192,16 +133,7 @@ export function Profile() {
     const next = { ...preferences, [key]: !preferences[key] };
     setPreferences(next);
     localStorage.setItem(PREFS_KEY, JSON.stringify(next));
-  };
-
-  const handleCancelOrder = (orderId: string) => {
-    const reason = cancelReasonByOrder[orderId]?.trim();
-    if (!reason) {
-      toast.error("Add cancellation reason");
-      return;
-    }
-    cancelOrder(orderId, reason);
-    toast.error(`Order ${orderId} cancelled`);
+    toast.success(`${next[key] ? "Enabled" : "Disabled"}: ${key === "orderUpdates" ? "Order Updates" : key === "promoAlerts" ? "Promo Alerts" : "Location Offers"}`);
   };
 
   const handleProfilePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -221,296 +153,173 @@ export function Profile() {
     reader.readAsDataURL(file);
   };
 
-  const removeProfilePhoto = () => {
-    setProfilePhoto("");
-    localStorage.removeItem(PROFILE_PHOTO_KEY);
-    toast.success("Profile photo removed");
-  };
-
-  const jumpToSection = (section: "profile" | "security" | "notifications" | "orders") => {
-    const sectionMap = {
-      profile: profileSectionRef.current,
-      security: securitySectionRef.current,
-      notifications: preferenceSectionRef.current,
-      orders: orderSectionRef.current,
-    };
-    sectionMap[section]?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
-    <div className="page-wrapper bg-page min-h-screen pt-20 md:pt-40">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pb-20 md:pb-28 space-y-6 md:space-y-8">
-        <section ref={profileSectionRef} className="glass-pane rounded-[2rem] p-6 md:p-8">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 md:gap-6 mb-6">
-            <div className="flex items-center gap-3 md:gap-4 min-w-0">
-              <div className="w-16 h-16 rounded-2xl bg-accent/15 border border-accent/25 overflow-hidden flex items-center justify-center">
+    <div className="page-wrapper bg-page min-h-screen pt-32 md:pt-48 transition-colors duration-500 relative">
+      {/* ─── Cinematic Background ─── */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div 
+          className="absolute inset-0 bg-cover bg-center scale-110 blur-3xl opacity-20 dark:opacity-10"
+          style={{ backgroundImage: `url(${POSTERS.citySkyline})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-page via-page/90 to-page" />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-32 space-y-12 md:space-y-20 relative z-10">
+        
+        {/* Profile Header */}
+        <section ref={profileSectionRef} className="glass-pane lighting-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-2xl overflow-hidden relative">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10 mb-16">
+            <div className="flex items-center gap-8 min-w-0">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-[2.5rem] bg-accent/10 border border-accent/20 overflow-hidden flex items-center justify-center shadow-gold shrink-0">
                 {profilePhoto ? (
                   <img src={profilePhoto} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-7 h-7 text-accent" />
+                  <User className="w-10 h-10 md:w-14 md:h-14 text-accent" />
                 )}
               </div>
-              <div>
-                <h2 className="text-xl md:text-2xl font-black font-['Outfit'] break-words">{profileForm.name}</h2>
-                <p className="text-[color:var(--text-dim)] text-sm break-all">{profileForm.email}</p>
+              <div className="min-w-0">
+                <h2 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient break-words leading-none mb-4 uppercase tracking-tighter">{profileForm.name}</h2>
+                <div className="flex items-center gap-4 text-sm font-bold text-accent uppercase tracking-widest opacity-60">
+                   <ShieldCheck className="w-4 h-4" /> Verified User
+                </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <label className="px-3 md:px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[10px] font-black uppercase tracking-[0.14em] md:tracking-[0.18em] cursor-pointer hover:border-accent transition-all">
-                Add Photo
+            
+            <div className="flex flex-wrap items-center gap-4">
+              <label className="px-8 py-3 rounded-full glass-pane border border-[var(--border)] text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-accent hover:text-black transition-all shadow-sm">
+                 Change Photo
                 <input type="file" accept="image/*" className="hidden" onChange={handleProfilePhotoChange} />
               </label>
-              {profilePhoto && (
-                <button
-                  onClick={removeProfilePhoto}
-                  className="px-3 md:px-4 py-2 rounded-full border border-red-500/30 text-red-400 text-[9px] md:text-[10px] font-black uppercase tracking-[0.14em] md:tracking-[0.18em]"
-                >
-                  Remove
-                </button>
-              )}
-              <button onClick={saveProfile} className="btn-luxe !py-2.5 !px-4 md:!px-6 !text-[9px]">
-                <Save className="w-4 h-4 mr-1" /> Save Profile
+              <button onClick={saveProfile} className="btn-luxe px-8 py-3 text-[10px]">
+                <Save className="w-4 h-4 mr-2" /> Save Profile
               </button>
-              <button
-                onClick={handleLogout}
-                className="hidden md:inline-flex items-center gap-1 px-3 md:px-4 py-2 rounded-full border border-red-500/30 text-red-300 text-[9px] md:text-[10px] font-black uppercase tracking-[0.14em] md:tracking-[0.18em]"
-              >
-                <LogOut className="w-4 h-4" /> Logout
+              <button onClick={handleLogout} className="px-8 py-3 rounded-full border border-red-500/20 bg-red-500/5 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all">
+                Logout
               </button>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <label className="glass-pane rounded-2xl p-4 border border-white/10">
-              <p className="text-[10px] uppercase tracking-[0.2em] mb-2 text-[color:var(--text-dim)] inline-flex items-center gap-1"><User className="w-3 h-3" /> Name</p>
-              <input value={profileForm.name} onChange={(e) => setProfileForm((p) => ({ ...p, name: e.target.value }))} className="w-full bg-transparent outline-none text-[color:var(--text-main)]" />
-            </label>
-            <label className="glass-pane rounded-2xl p-4 border border-white/10">
-              <p className="text-[10px] uppercase tracking-[0.2em] mb-2 text-[color:var(--text-dim)] inline-flex items-center gap-1"><Mail className="w-3 h-3" /> Email</p>
-              <input value={profileForm.email} onChange={(e) => setProfileForm((p) => ({ ...p, email: e.target.value }))} className="w-full bg-transparent outline-none text-[color:var(--text-main)]" />
-            </label>
-            <label className="glass-pane rounded-2xl p-4 border border-white/10">
-              <p className="text-[10px] uppercase tracking-[0.2em] mb-2 text-[color:var(--text-dim)] inline-flex items-center gap-1"><Phone className="w-3 h-3" /> Phone</p>
-              <input value={profileForm.phone} onChange={(e) => setProfileForm((p) => ({ ...p, phone: e.target.value }))} className="w-full bg-transparent outline-none text-[color:var(--text-main)]" />
-            </label>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="space-y-3">
+               <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Full Name</label>
+               <input value={profileForm.name} onChange={(e) => setProfileForm((p) => ({ ...p, name: e.target.value }))} className="w-full glass-pane border border-[var(--input-border)] rounded-[2.5rem] px-8 py-5 text-ink-gradient font-bold outline-none focus:border-accent transition-all" />
+            </div>
+            <div className="space-y-3">
+               <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Email Address</label>
+               <input value={profileForm.email} onChange={(e) => setProfileForm((p) => ({ ...p, email: e.target.value }))} className="w-full glass-pane border border-[var(--input-border)] rounded-[2.5rem] px-8 py-5 text-ink-gradient font-bold outline-none focus:border-accent transition-all" />
+            </div>
+            <div className="space-y-3">
+               <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Phone Number</label>
+               <input value={profileForm.phone} onChange={(e) => setProfileForm((p) => ({ ...p, phone: e.target.value }))} className="w-full glass-pane border border-[var(--input-border)] rounded-[2.5rem] px-8 py-5 text-ink-gradient font-bold outline-none focus:border-accent transition-all" />
+            </div>
           </div>
         </section>
 
-        <section ref={securitySectionRef} className="grid lg:grid-cols-2 gap-6">
-          <div className="glass-pane rounded-[2rem] p-6">
-            <h3 className="text-xl font-black font-['Outfit'] mb-4 inline-flex items-center gap-2"><MapPin className="w-5 h-5 text-accent" /> Address Book</h3>
-            <div className="space-y-3 mb-4">
+        {/* Addresses & Payments */}
+        <section ref={securitySectionRef} className="grid lg:grid-cols-2 gap-12">
+          <div className="glass-pane lighting-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-xl">
+            <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient mb-10 inline-flex items-center gap-4 uppercase tracking-tighter leading-none">
+              <MapPin className="w-8 h-8 text-accent" /> My Addresses
+            </h3>
+            <div className="space-y-6 mb-12">
               {addressBook.map((addr) => (
-                <div key={addr.id} className="rounded-xl border border-white/10 p-3 flex items-start justify-between gap-4">
+                <div key={addr.id} className="glass-pane rounded-3xl border border-[var(--border)] p-8 flex items-start justify-between gap-6 hover:border-accent/30 transition-all group">
                   <div>
-                    <p className="font-bold">{addr.label}</p>
-                    <p className="text-sm text-[color:var(--text-dim)]">{addr.line1}, {addr.city} - {addr.pin}</p>
+                    <p className="text-[9px] font-black uppercase tracking-widest text-accent mb-2">{addr.label}</p>
+                    <p className="text-lg font-bold text-ink-gradient leading-relaxed">{addr.line1}, {addr.city} - {addr.pin}</p>
                   </div>
-                  <button onClick={() => removeAddress(addr.id)} className="text-red-400 hover:text-red-300"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => removeAddress(addr.id)} className="text-red-500/40 hover:text-red-500 transition-all mt-1"><Trash2 className="w-5 h-5" /></button>
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <input placeholder="Label" value={newAddress.label} onChange={(e) => setNewAddress((v) => ({ ...v, label: e.target.value }))} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2" />
-              <input placeholder="City" value={newAddress.city} onChange={(e) => setNewAddress((v) => ({ ...v, city: e.target.value }))} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2" />
-              <input placeholder="Address line" value={newAddress.line1} onChange={(e) => setNewAddress((v) => ({ ...v, line1: e.target.value }))} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 col-span-2" />
-              <input placeholder="PIN" value={newAddress.pin} onChange={(e) => setNewAddress((v) => ({ ...v, pin: e.target.value }))} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2" />
-              <button onClick={addAddress} className="rounded-xl bg-accent text-black font-black text-xs uppercase tracking-[0.2em] px-3 py-2 inline-flex items-center justify-center gap-2"><PlusCircle className="w-4 h-4" /> Add</button>
-            </div>
-            <div className="mt-4 pt-4 border-t border-white/10">
-              <Link
-                to="/profile/actions/security-controls"
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-red-300 hover:text-red-200"
-              >
-                Open Security Settings (Delete Account)
-              </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input placeholder="Label (e.g. Home)" value={newAddress.label} onChange={(e) => setNewAddress((v) => ({ ...v, label: e.target.value }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-6 py-4 text-sm font-bold text-ink-gradient outline-none focus:border-accent" />
+              <input placeholder="City" value={newAddress.city} onChange={(e) => setNewAddress((v) => ({ ...v, city: e.target.value }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-6 py-4 text-sm font-bold text-ink-gradient outline-none focus:border-accent" />
+              <input placeholder="Address Line" value={newAddress.line1} onChange={(e) => setNewAddress((v) => ({ ...v, line1: e.target.value }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-6 py-4 text-sm font-bold text-ink-gradient outline-none focus:border-accent col-span-2" />
+              <input placeholder="PIN Code" value={newAddress.pin} onChange={(e) => setNewAddress((v) => ({ ...v, pin: e.target.value }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-6 py-4 text-sm font-bold text-ink-gradient outline-none focus:border-accent" />
+              <button onClick={addAddress} className="btn-luxe py-4 text-[10px]"><PlusCircle className="w-4 h-4 mr-2" /> Add Address</button>
             </div>
           </div>
 
-          <div className="glass-pane rounded-[2rem] p-6">
-            <h3 className="text-xl font-black font-['Outfit'] mb-4 inline-flex items-center gap-2"><CreditCard className="w-5 h-5 text-accent" /> Payment Methods</h3>
-            <div className="space-y-3 mb-4">
+          <div className="glass-pane lighting-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-xl">
+            <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient mb-10 inline-flex items-center gap-4 uppercase tracking-tighter leading-none">
+              <CreditCard className="w-8 h-8 text-accent" /> Payment Methods
+            </h3>
+            <div className="space-y-6 mb-12">
               {payments.map((method) => (
-                <div key={method.id} className="rounded-xl border border-white/10 p-3 flex items-center justify-between gap-3">
-                  <p className="text-sm break-all">
-                    <span className="uppercase text-[10px] tracking-[0.2em] text-[color:var(--text-dim)] mr-2">{method.type}</span>
-                    {method.value}
-                  </p>
-                  <button onClick={() => removePaymentMethod(method.id)} className="text-red-400 hover:text-red-300"><Trash2 className="w-4 h-4" /></button>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-[110px_1fr_auto] gap-2">
-              <select value={newPayment.type} onChange={(e) => setNewPayment((v) => ({ ...v, type: e.target.value as "card" | "upi" }))} className="rounded-xl bg-white/5 border border-white/10 px-2 py-2">
-                <option value="card">Card</option>
-                <option value="upi">UPI</option>
-              </select>
-              <input placeholder={newPayment.type === "upi" ? "name@bank" : "Card last 4 / card label"} value={newPayment.value} onChange={(e) => setNewPayment((v) => ({ ...v, value: e.target.value }))} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2" />
-              <button onClick={addPaymentMethod} className="rounded-xl bg-accent text-black font-black text-xs uppercase tracking-[0.2em] px-3 py-2">Add</button>
-            </div>
-          </div>
-        </section>
-
-        <section ref={preferenceSectionRef} className="glass-pane rounded-[2rem] p-6">
-          <h3 className="text-xl font-black font-['Outfit'] mb-4 inline-flex items-center gap-2"><Bell className="w-5 h-5 text-accent" /> Preferences</h3>
-          <div className="grid md:grid-cols-3 gap-3">
-            {[
-              { key: "orderUpdates", label: "Order updates", icon: Package, path: "/profile/preferences/order-updates" },
-              { key: "promoAlerts", label: "Promotional alerts", icon: Sparkles, path: "/profile/preferences/promo-alerts" },
-              { key: "locationOffers", label: "Location-based offers", icon: MapPin, path: "/profile/preferences/location-offers" },
-            ].map((pref) => (
-              <Link
-                key={pref.key}
-                to={pref.path}
-                className={`rounded-2xl p-4 border text-left transition-all ${
-                  preferences[pref.key as "orderUpdates" | "promoAlerts" | "locationOffers"]
-                    ? "border-accent bg-accent/10"
-                    : "border-white/10 bg-white/5"
-                }`}
-              >
-                <pref.icon className="w-4 h-4 mb-2 text-accent" />
-                <p className="font-bold">{pref.label}</p>
-                <p className="text-xs text-[color:var(--text-dim)] mt-1">Manage settings</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section ref={orderSectionRef} className="glass-pane rounded-[2rem] p-6">
-          <h3 className="text-xl font-black font-['Outfit'] mb-4 inline-flex items-center gap-2"><History className="w-5 h-5 text-accent" /> Orders</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)]">Total</p>
-              <p className="text-xl font-black">{orderStats.total}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)]">Active</p>
-              <p className="text-xl font-black text-accent">{orderStats.active}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)]">Delivered</p>
-              <p className="text-xl font-black">{orderStats.delivered}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)]">Cancelled</p>
-              <p className="text-xl font-black text-red-400">{orderStats.cancelled}</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {[
-              { id: "all", label: "All Orders" },
-              { id: "active", label: "Active" },
-              { id: "delivered", label: "Delivered" },
-              { id: "cancelled", label: "Cancelled" },
-            ].map((chip) => (
-              <button
-                key={chip.id}
-                onClick={() => setOrderFilter(chip.id as "all" | "active" | "cancelled" | "delivered")}
-                className={`px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] border transition-all ${
-                  orderFilter === chip.id ? "bg-accent text-black border-accent" : "bg-white/5 border-white/10 text-[color:var(--text-main)]"
-                }`}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {visibleOrders.map((order) => (
-              <motion.div key={order.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-white/10 p-4">
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <p className="font-black break-all">{order.id}</p>
-                  <span className={`text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-full ${
-                    order.status === "Cancelled" ? "bg-red-500/10 text-red-400" : "bg-accent/10 text-accent"
-                  }`}>
-                    {order.status}
-                  </span>
-                </div>
-                <p className="text-xs text-[color:var(--text-dim)] mb-3">{new Date(order.date).toLocaleString()}</p>
-                <p className="text-sm mb-3">{order.items.length} item(s) • <strong>{formatINR(order.total * 83)}</strong></p>
-                <div className="rounded-xl border border-white/10 bg-white/5 p-3 mb-3">
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)] mb-2">Products</p>
-                  <div className="space-y-1.5">
-                    {order.items.map((item) => (
-                      <div key={`${order.id}-${item.id}`} className="flex items-center justify-between gap-2 text-xs">
-                        <span className="truncate">{item.name} x {item.quantity}</span>
-                        <span className="text-accent whitespace-nowrap">{formatINR(item.price * item.quantity * 83)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                {order.updates && order.updates.length > 0 && (
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-3 mb-3">
-                    <p className="text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-dim)] mb-2">Latest Updates</p>
-                    <div className="space-y-2">
-                      {order.updates.slice(-3).reverse().map((update) => (
-                        <div key={update.id} className="text-xs">
-                          <p className={`font-bold ${update.tone === "danger" ? "text-red-400" : update.tone === "success" ? "text-emerald-400" : update.tone === "warning" ? "text-amber-300" : "text-accent"}`}>
-                            {update.label}
-                          </p>
-                          <p className="text-[color:var(--text-dim)]">{update.note}</p>
-                        </div>
-                      ))}
+                <div key={method.id} className="glass-pane rounded-3xl border border-[var(--border)] p-8 flex items-center justify-between gap-6 hover:border-accent/30 transition-all">
+                  <div className="flex items-center gap-6">
+                    <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                       {method.type === "card" ? <CreditCard className="w-6 h-6 text-accent" /> : <Sparkles className="w-6 h-6 text-accent" />}
+                    </div>
+                    <div>
+                       <p className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{method.type === "card" ? "Credit/Debit Card" : "UPI ID"}</p>
+                       <p className="text-lg font-black font-['Outfit'] text-ink-gradient tracking-widest">{method.value}</p>
                     </div>
                   </div>
-                )}
-                {activeStatuses.includes(order.status as (typeof activeStatuses)[number]) ? (
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <input
-                      value={cancelReasonByOrder[order.id] || ""}
-                      onChange={(e) => setCancelReasonByOrder((prev) => ({ ...prev, [order.id]: e.target.value }))}
-                      placeholder="Cancellation reason"
-                      className="flex-1 rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm"
-                    />
-                    <button onClick={() => handleCancelOrder(order.id)} className="rounded-xl px-3 py-2 border border-red-500/30 text-red-400 text-xs font-black uppercase tracking-[0.15em] whitespace-nowrap">
-                      Cancel
-                    </button>
-                  </div>
-                ) : order.status === "Delivered" ? (
-                  <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-2">
-                    <p className="text-xs text-emerald-300">Delivered successfully. You can place a new order from shopping/cart.</p>
-                  </div>
-                ) : (
-                  <p className="text-xs text-red-400">Reason: {order.cancellationReason || "Not specified"}</p>
-                )}
-                <div className="mt-3">
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-dim)] mb-1">
-                    <span>Order Progress</span>
-                    <span>{order.status === "Cancelled" ? "Stopped" : `${getOrderProgress(order.status)}%`}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-500 ${
-                        order.status === "Cancelled" ? "bg-red-400" : "bg-accent"
-                      }`}
-                      style={{ width: `${getOrderProgress(order.status)}%` }}
-                    />
-                  </div>
+                  <button onClick={() => removePaymentMethod(method.id)} className="text-red-500/40 hover:text-red-500 transition-all"><Trash2 className="w-5 h-5" /></button>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr_auto] gap-4">
+              <select value={newPayment.type} onChange={(e) => setNewPayment((v) => ({ ...v, type: e.target.value as "card" | "upi" }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-5 py-4 text-[10px] font-black uppercase tracking-widest outline-none bg-page">
+                <option value="card" className="bg-page">Card</option>
+                <option value="upi" className="bg-page">UPI</option>
+              </select>
+              <input placeholder={newPayment.type === "upi" ? "name@bank" : "XXXX XXXX XXXX XXXX"} value={newPayment.value} onChange={(e) => setNewPayment((v) => ({ ...v, value: e.target.value }))} className="rounded-[1.5rem] glass-pane border border-[var(--input-border)] px-6 py-4 text-sm font-bold text-ink-gradient outline-none focus:border-accent" />
+              <button onClick={addPaymentMethod} className="btn-luxe px-8 py-4 text-[10px]">Save</button>
+            </div>
           </div>
-          {visibleOrders.length === 0 && <p className="text-sm text-[color:var(--text-dim)]">No matching orders yet. Place an order from cart to see live updates here.</p>}
         </section>
 
-        <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Notifications */}
+        <section ref={preferenceSectionRef} className="glass-pane lighting-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-xl">
+          <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient mb-12 inline-flex items-center gap-4 uppercase tracking-tighter leading-none">
+            <Bell className="w-8 h-8 text-accent" /> Notifications
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { key: "orderUpdates", label: "Order Updates", icon: Package, desc: "Real-time order tracking notifications" },
+              { key: "promoAlerts", label: "Promo Alerts", icon: Sparkles, desc: "Exclusive UB City offers and news" },
+              { key: "locationOffers", label: "Location Offers", icon: MapPin, desc: "Nearby store discovery notifications" },
+            ].map((pref) => (
+              <button
+                key={pref.key}
+                onClick={() => togglePreference(pref.key as any)}
+                className={`group rounded-[2.5rem] p-10 border transition-all duration-700 text-left relative overflow-hidden ${
+                  preferences[pref.key as keyof typeof preferences]
+                    ? "border-accent bg-accent/5 shadow-gold"
+                    : "glass-pane border-[var(--border)]"
+                }`}
+              >
+                <pref.icon className={`w-10 h-10 mb-8 transition-transform group-hover:scale-110 ${preferences[pref.key as keyof typeof preferences] ? "text-accent" : "text-ink-gradient opacity-30"}`} />
+                <p className={`text-2xl font-black font-['Outfit'] uppercase tracking-tighter mb-2 ${preferences[pref.key as keyof typeof preferences] ? "text-ink-gradient" : "text-[color:var(--text-dim)]"}`}>{pref.label}</p>
+                <p className="text-xs font-medium italic text-[color:var(--text-dim)]">{pref.desc}</p>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* Bottom Actions */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { title: "Edit profile details", desc: "Update your identity and contact details.", icon: User, path: "/profile/actions/edit-profile" },
-            { title: "Security controls", desc: "Manage account privacy and protection settings.", icon: ShieldCheck, path: "/profile/actions/security-controls" },
-            { title: "Notification center", desc: "Configure all communication preferences.", icon: Bell, path: "/profile/actions/notification-center" },
+            { title: "Manage Security", desc: "Change password and manage privacy.", icon: ShieldCheck },
+            { title: "Activity Log", desc: "View your recent activity on the platform.", icon: Package },
+            { title: "Support", desc: "Get help from our concierge team.", icon: Sparkles },
           ].map((tile) => (
-            <Link
+            <div
               key={tile.title}
-              to={tile.path}
-              className="glass-pane rounded-2xl p-5 border border-white/10 text-left hover:border-accent hover:bg-white/10 transition-all"
+              className="glass-pane lighting-card rounded-[3rem] p-10 border border-[var(--border)] group hover:border-accent/40 shadow-xl transition-all duration-700"
             >
-              <tile.icon className="w-5 h-5 text-accent mb-2" />
-              <p className="font-black">{tile.title}</p>
-              <p className="text-sm text-[color:var(--text-dim)] mt-1">{tile.desc}</p>
-            </Link>
+              <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-8 transition-transform group-hover:scale-110 group-hover:rotate-3">
+                 <tile.icon className="w-8 h-8 text-accent" />
+              </div>
+              <p className="text-2xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-2">{tile.title}</p>
+              <p className="text-sm font-medium italic text-[color:var(--text-dim)] leading-relaxed">{tile.desc}</p>
+            </div>
           ))}
         </section>
       </div>
     </div>
   );
 }
-

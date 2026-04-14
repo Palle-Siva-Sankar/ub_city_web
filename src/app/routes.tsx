@@ -38,6 +38,10 @@ import { ProfilePreferencePage } from "./pages/ProfilePreferencePage";
 import { ProfileActionPage } from "./pages/ProfileActionPage";
 import { Terms } from "./pages/Terms";
 import { OpportunityDetail } from "./pages/OpportunityDetail";
+import { BrandStyleGuide } from "./pages/BrandStyleGuide";
+import { AcquisitionIntel } from "./pages/preferences/AcquisitionIntel";
+import { CurationAlerts } from "./pages/preferences/CurationAlerts";
+import { ProximitySync } from "./pages/preferences/ProximitySync";
 
 export const router = createBrowserRouter([
   {
@@ -61,14 +65,15 @@ export const router = createBrowserRouter([
       { path: "wishlist", element: <Wishlist /> },
       { path: "about", element: <About /> },
       { path: "terms", element: <Terms /> },
+      { path: "brand-style-guide", element: <BrandStyleGuide /> },
       
       // E-commerce Flow
       { path: "cart", element: <Cart /> },
       { path: "checkout", element: <Checkout /> },
       { path: "profile", element: <Profile /> },
-      { path: "profile/preferences/order-updates", element: <ProfilePreferencePage /> },
-      { path: "profile/preferences/promo-alerts", element: <ProfilePreferencePage /> },
-      { path: "profile/preferences/location-offers", element: <ProfilePreferencePage /> },
+      { path: "profile/preferences/order-updates", element: <AcquisitionIntel /> },
+      { path: "profile/preferences/promo-alerts", element: <CurationAlerts /> },
+      { path: "profile/preferences/location-offers", element: <ProximitySync /> },
       { path: "profile/preferences/:prefKey", element: <ProfilePreferencePage /> },
       { path: "profile/actions/edit-profile", element: <ProfileActionPage /> },
       { path: "profile/actions/security-controls", element: <ProfileActionPage /> },

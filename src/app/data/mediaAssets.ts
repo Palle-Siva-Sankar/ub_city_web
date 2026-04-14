@@ -12,7 +12,7 @@ export const VIDEOS = {
 
   // Shopping mall interior – used for Retail slide
   shoppingMall:
-    "https://videos.pexels.com/video-files/3249673/3249673-uhd_2560_1440_25fps.mp4",
+    "https://videos.pexels.com/video-files/3244199/3244199-uhd_2560_1440_30fps.mp4",
 
   // Fashion / luxury – used for Luxury slide & Login
   fashion:
@@ -20,7 +20,13 @@ export const VIDEOS = {
 
   // Ferris wheel / amusement – used for Entertainment / Attractions
   entertainment:
-    "https://videos.pexels.com/video-files/2795173/2795173-uhd_2560_1440_25fps.mp4",
+    "https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4",
+
+  // YouTube Hero (UB City Cinematic / Luxury Mall)
+  youtubeHero: "kYJ_8r5zU3k",
+  youtubeRetail: "O1UvFv5N_6I",
+  youtubeLuxury: "v_09aZ5A90M",
+  youtubeDining: "O1UvFv5N_6I",
 
   // Business district / walking – used for Final CTA
   businessDistrict:
@@ -39,14 +45,14 @@ export const VIDEOS = {
     "https://videos.pexels.com/video-files/6985575/6985575-uhd_2560_1440_25fps.mp4",
 } as const;
 
-// ─── Fallback poster images ───
+// ─── Fallback poster images (High-Fidelity Unsplash) ───
 export const POSTERS = {
   citySkyline:
     "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format",
   shoppingMall:
-    "https://images.unsplash.com/photo-1567449303078-57ad995bd329?q=80&w=2000&auto=format",
+    "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2000&auto=format",
   fashion:
-    "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=2000&auto=format",
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000&auto=format",
   entertainment:
     "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2000&auto=format",
   businessDistrict:

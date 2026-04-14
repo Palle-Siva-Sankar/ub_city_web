@@ -21,9 +21,9 @@ export function Retail() {
   const opacity3 = useTransform(scrollYProgress, [0.66, 0.85, 1], [0, 1, 1]);
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper bg-page transition-colors duration-500">
       {/* HERO CINEMATIC (Video-first) */}
-      <section className="relative min-h-[72vh] md:h-[82vh] flex items-center justify-center overflow-hidden bg-page hero-readable">
+      <section className="relative min-h-[72vh] md:h-screen flex items-center justify-center overflow-hidden bg-page hero-readable">
         <HeroVideoEmbed
           title="Retail Hero Video"
           posterImage={moaAerial}
@@ -35,31 +35,36 @@ export function Retail() {
           ]}
         />
         
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pointer-events-none">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }} className="text-6xl md:text-8xl font-bold font-['Outfit'] text-page mb-6 drop-shadow-2xl">
-            Retail <span className="text-gold-gradient">Redefined.</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }} className="text-xl text-page max-w-2xl mx-auto font-light drop-shadow-md">
-            A premium, high-intent retail environment in the heart of Bengaluru’s CBD—built for flagships, boutiques, and category leaders.
-          </motion.p>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pointer-events-none">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
+            <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8">Strategic Retail Environments</p>
+            <h1 className="text-6xl md:text-9xl font-black font-['Outfit'] text-ink-gradient uppercase leading-none tracking-tighter mb-8 shadow-2xl">
+              Retail <br/><span className="text-gradient">Redefined.</span>
+            </h1>
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-xl md:text-2xl text-[color:var(--text-dim)] max-w-2xl mx-auto font-medium leading-relaxed">
+              A premium, high-intent retail environment in the heart of Bengaluru’s CBD—built for flagships, boutiques, and category leaders.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
       {/* APPLE STYLE SCROLL PRESENTATION FOR LEASING PATHS */}
-      <section ref={containerRef} className="relative h-[280vh] lg:h-[360vh] bg-page">
-        <div className="sticky-presentation bg-page overflow-hidden">
+      <section ref={containerRef} className="relative h-[280vh] lg:h-[360vh]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
           
           {/* Flagship Anchors */}
           <motion.div className="absolute inset-0 w-full h-full" style={{ opacity: useTransform(scrollYProgress, [0, 0.33, 0.34], [1, 1, 0]) }}>
-            <motion.img style={{ scale: scale1 }} src={moaAerial} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" />
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <motion.div style={{ opacity: opacity1 }} className="max-w-2xl text-left px-6">
-                <div className="glass-pane p-12 rounded-[3rem] shadow-2xl pointer-events-auto">
-                  <Building2 className="w-16 h-16 text-accent mb-8" />
-                  <h2 className="text-5xl md:text-7xl font-['Outfit'] font-bold text-page mb-6">Flagship<br/>Anchors</h2>
-                  <p className="text-xl font-bold text-accent mb-6 uppercase tracking-widest">50,000 – 200,000+ sq ft</p>
-                  <p className="text-page opacity-80 text-lg leading-relaxed mb-8">Premium large-format positions for brands that need scale, visibility, and custom buildouts—designed for destination traffic.</p>
-                  <Link to="/opportunity/flagship-anchor" className="inline-block bg-page text-page border border-page hover:border-accent hover:bg-accent hover:text-[var(--btn-text-on-accent)] font-bold uppercase text-sm px-8 py-4 rounded-full transition-all outline-none">View Opportunity</Link>
+            <motion.img style={{ scale: scale1 }} src={moaAerial} className="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-6">
+              <motion.div style={{ opacity: opacity1 }} className="max-w-3xl w-full">
+                <div className="glass-pane lighting-card p-12 md:p-20 rounded-[4rem] border border-[var(--border)] shadow-2xl pointer-events-auto">
+                  <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-10">
+                    <Building2 className="w-8 h-8 text-accent" />
+                  </div>
+                  <p className="text-accent text-[10px] font-black tracking-[0.4em] uppercase mb-4">50,000 – 200,000+ SQ FT</p>
+                  <h2 className="text-5xl md:text-8xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none">Flagship<br/>Anchors</h2>
+                  <p className="text-[color:var(--text-dim)] text-lg md:text-2xl font-medium leading-relaxed mb-12 max-w-xl">Premium large-format positions for brands that need scale, visibility, and custom buildouts—designed for destination traffic.</p>
+                  <Link to="/opportunity/flagship-anchor" className="btn-luxe">View Opportunity</Link>
                 </div>
               </motion.div>
             </div>
@@ -67,14 +72,17 @@ export function Retail() {
 
           {/* Inline Retail */}
           <motion.div className="absolute inset-0 w-full h-full" style={{ opacity: useTransform(scrollYProgress, [0.33, 0.34, 0.66, 0.67], [0, 1, 1, 0]) }}>
-            <motion.img style={{ scale: scale2 }} src={moaLuxury} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-multiply dark:mix-blend-screen" />
-            <div className="absolute inset-0 flex items-center justify-center text-center pointer-events-none">
-              <motion.div style={{ opacity: opacity2 }} className="max-w-2xl px-6">
-                <div className="glass-pane p-12 rounded-[3rem] shadow-2xl pointer-events-auto">
-                  <Store className="w-16 h-16 text-accent mb-8 mx-auto" />
-                  <h2 className="text-5xl md:text-7xl font-['Outfit'] font-bold text-page mb-6">Inline<br/>Corridors</h2>
-                  <p className="text-xl font-bold text-accent mb-6 uppercase tracking-widest">500 – 10,000 sq ft</p>
-                  <p className="text-page opacity-80 text-lg leading-relaxed">High-performance inline placements with curated adjacencies, designed to convert everyday footfall into repeat customers.</p>
+            <motion.img style={{ scale: scale2 }} src={moaLuxury} className="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-6">
+              <motion.div style={{ opacity: opacity2 }} className="max-w-3xl w-full text-center">
+                <div className="glass-pane lighting-card p-12 md:p-20 rounded-[4rem] border border-[var(--border)] shadow-2xl pointer-events-auto">
+                  <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-10 mx-auto">
+                    <Store className="w-8 h-8 text-accent" />
+                  </div>
+                  <p className="text-accent text-[10px] font-black tracking-[0.4em] uppercase mb-4">500 – 10,000 SQ FT</p>
+                  <h2 className="text-5xl md:text-8xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none">Inline<br/>Retail</h2>
+                  <p className="text-[color:var(--text-dim)] text-lg md:text-2xl font-medium leading-relaxed mb-12 max-w-xl mx-auto">High-performance inline placements with curated adjacencies, designed to convert everyday footfall into repeat customers.</p>
+                  <Link to="/opportunity/inline-retail" className="btn-luxe">Lease Space</Link>
                 </div>
               </motion.div>
             </div>
@@ -82,14 +90,17 @@ export function Retail() {
 
           {/* Pop-Up Spaces */}
           <motion.div className="absolute inset-0 w-full h-full bg-page" style={{ opacity: useTransform(scrollYProgress, [0.66, 0.67, 1], [0, 1, 1]) }}>
-
-            <div className="absolute inset-0 flex items-center justify-center text-center pointer-events-none">
-              <motion.div style={{ opacity: opacity3 }} className="glass-pane p-16 max-w-2xl px-6 pointer-events-auto shadow-2xl rounded-[3rem]">
-                <Zap className="w-16 h-16 text-accent mb-8 mx-auto" />
-                <h2 className="text-5xl md:text-7xl font-['Outfit'] font-bold text-page mb-6">Pop-Up &<br/>Short Term</h2>
-                <p className="text-xl font-bold text-accent mb-6 uppercase tracking-widest">200 – 2,000 sq ft</p>
-                <p className="text-page opacity-80 leading-relaxed mb-10 text-lg">Flexible short-term spaces for launches, collaborations, and seasonal activations—perfect for testing and scaling demand.</p>
-                <Link to="/opportunity/popup-experiential" className="bg-accent text-[var(--btn-text-on-accent)] font-bold tracking-widest uppercase text-sm px-10 py-5 rounded-full w-full hover:brightness-110 transition-all outline-none border-none inline-block">Book a Pop-Up</Link>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-6">
+              <motion.div style={{ opacity: opacity3 }} className="max-w-3xl w-full text-center">
+                <div className="glass-pane lighting-card p-12 md:p-24 rounded-[4rem] border border-[var(--border)] shadow-2xl pointer-events-auto">
+                  <div className="w-20 h-20 rounded-3xl bg-accent/20 flex items-center justify-center mb-12 mx-auto">
+                    <Zap className="w-10 h-10 text-accent" />
+                  </div>
+                  <p className="text-accent text-[10px] font-black tracking-[0.5em] uppercase mb-4">200 – 2,000 SQ FT</p>
+                  <h2 className="text-6xl md:text-8xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none">Pop-Up &<br/>Experiential</h2>
+                  <p className="text-[color:var(--text-dim)] text-lg md:text-2xl font-medium leading-relaxed mb-12 max-w-xl mx-auto">Flexible short-term spaces for launches, collaborations, and seasonal activations—perfect for testing and scaling demand.</p>
+                  <Link to="/opportunity/popup-experiential" className="btn-luxe">Book a Session</Link>
+                </div>
               </motion.div>
             </div>
           </motion.div>

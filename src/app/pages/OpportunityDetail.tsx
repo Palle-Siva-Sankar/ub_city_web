@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type OpportunityMeta = {
@@ -63,6 +63,7 @@ const opportunityMap: Record<string, OpportunityMeta> = {
 
 export function OpportunityDetail() {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const detail = slug ? opportunityMap[slug] : undefined;
 
   if (!detail) {
@@ -80,36 +81,67 @@ export function OpportunityDetail() {
   }
 
   return (
-    <div className="page-wrapper bg-page min-h-screen pt-28">
-      <div className="max-w-5xl mx-auto px-6 pb-20">
-        <Link to={-1 as any} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] mb-6 text-[color:var(--text-dim)]">
-          <ArrowLeft className="w-4 h-4" /> Back
-        </Link>
+    <div className="page-wrapper bg-page min-h-screen pt-32 transition-colors duration-500 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-accent/5 blur-[120px] pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-32 relative z-10">
+        <div className="mb-16">
+           <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-6 px-8 py-4 glass-pane border border-accent/30 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Perspective
+           </button>
+        </div>
 
-        <section className="glass-pane rounded-[2rem] p-6 md:p-8">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-accent font-black">{detail.category}</p>
-          <h1 className="text-3xl md:text-5xl font-black font-['Outfit'] mt-2">{detail.title}</h1>
-          <p className="text-[color:var(--text-dim)] mt-4 leading-relaxed">{detail.summary}</p>
+        <section className="glass-pane lighting-card rounded-[4rem] p-12 md:p-24 border border-[var(--border)] shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row gap-20 items-start">
+             <div className="flex-1">
+                <div className="flex items-center gap-4 mb-8">
+                   <div className="w-12 h-px bg-accent" />
+                   <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase">{detail.category} Protocol</p>
+                </div>
+                <h1 className="text-6xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-12">
+                  {detail.title.split(" ").map((word, i) => (
+                    <span key={i} className={i === 1 ? "text-gradient" : ""}>{word} </span>
+                  ))}
+                </h1>
+                <p className="text-2xl md:text-3xl text-ink-gradient/80 font-medium italic border-l-2 border-accent/20 pl-8 leading-relaxed mb-16">
+                   "{detail.summary}"
+                </p>
 
-          <div className="mt-6 grid sm:grid-cols-3 gap-3">
-            {detail.highlights.map((point) => (
-              <div key={point} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
-                {point}
-              </div>
-            ))}
-          </div>
+                <div className="flex flex-wrap gap-6 mt-16">
+                  <Link to={detail.inquirePath} className="btn-luxe !px-16 !py-6 text-sm">
+                    Initialize Dialogue <ArrowRight className="w-6 h-6 ml-4" />
+                  </Link>
+                  <Link to="/strategy" className="px-16 py-6 glass-pane border border-[var(--border)] text-ink-gradient font-black tracking-[0.4em] uppercase text-[10px] rounded-full hover:border-accent hover:text-accent transition-all shadow-xl">
+                     Executive Briefing
+                  </Link>
+                </div>
+             </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to={detail.inquirePath} className="btn-luxe">
-              Start Conversation <ArrowRight className="w-4 h-4 ml-1" />
-            </Link>
-            <Link to="/" className="px-5 py-3 rounded-full border border-white/10 bg-white/5 text-xs font-black uppercase tracking-[0.15em]">
-              Return to Deck
-            </Link>
+             <div className="w-full lg:w-[450px] space-y-8">
+                <div className="glass-pane p-10 rounded-[3rem] border border-accent/20 bg-accent/5">
+                   <h3 className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-8">Operational Highlights</h3>
+                   <div className="space-y-6">
+                      {detail.highlights.map((point, i) => (
+                        <div key={i} className="flex items-start gap-5 group">
+                           <div className="w-2 h-2 rounded-full bg-accent mt-1.5 shadow-gold group-hover:scale-150 transition-transform" />
+                           <p className="text-ink-gradient text-sm font-black uppercase tracking-widest leading-relaxed opacity-70 group-hover:opacity-100">{point}</p>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+
+                <div className="glass-pane p-10 rounded-[3rem] border border-[var(--border)] bg-page/50 backdrop-blur-3xl">
+                   <p className="text-[10px] font-black tracking-[0.4em] text-accent uppercase mb-6 opacity-60 italic">Strategic Adjacency</p>
+                   <p className="text-ink-gradient/60 text-xs font-medium leading-relaxed italic">
+                      All opportunities are subject to registry approval and brand alignment protocols within the UB City curated ecosystem.
+                   </p>
+                </div>
+             </div>
           </div>
         </section>
       </div>
     </div>
   );
 }
-

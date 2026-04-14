@@ -46,7 +46,7 @@ const CART_STORAGE_KEY = "mall_cart";
 const USER_SESSION_STORAGE_KEY = "mall_user_session";
 const LEGACY_USER_STORAGE_KEY = "mall_user";
 const ORDER_STORAGE_KEY = "mall_orders";
-const SESSION_TTL_MS = 10 * 60 * 60 * 1000;
+const SESSION_TTL_MS = 24 * 60 * 60 * 1000; // 24 Hours
 
 type StoredUserSession = {
   user: UserData;
@@ -73,11 +73,17 @@ export function useWishlist() {
   const [wishlist, setWishlist] = useState<string[]>([]);
 
   useEffect(() => {
-    setWishlist(safeParse<string[]>(localStorage.getItem(WISHLIST_STORAGE_KEY), []));
+    const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+    const userEmail = userSession?.user?.email;
+    const key = userEmail ? `${WISHLIST_STORAGE_KEY}_${userEmail}` : WISHLIST_STORAGE_KEY;
+    setWishlist(safeParse<string[]>(localStorage.getItem(key), []));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
+    const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+    const userEmail = userSession?.user?.email;
+    const key = userEmail ? `${WISHLIST_STORAGE_KEY}_${userEmail}` : WISHLIST_STORAGE_KEY;
+    localStorage.setItem(key, JSON.stringify(wishlist));
   }, [wishlist]);
 
   const toggle = useCallback((slug: string) => {
@@ -94,11 +100,17 @@ export function useCart() {
     const [cart, setCart] = useState<CartItem[]>([]);
 
     useEffect(() => {
-        setCart(safeParse<CartItem[]>(localStorage.getItem(CART_STORAGE_KEY), []));
+        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+        const userEmail = userSession?.user?.email;
+        const key = userEmail ? `${CART_STORAGE_KEY}_${userEmail}` : CART_STORAGE_KEY;
+        setCart(safeParse<CartItem[]>(localStorage.getItem(key), []));
     }, []);
 
     useEffect(() => {
-        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+        const userEmail = userSession?.user?.email;
+        const key = userEmail ? `${CART_STORAGE_KEY}_${userEmail}` : CART_STORAGE_KEY;
+        localStorage.setItem(key, JSON.stringify(cart));
     }, [cart]);
 
     const addToCart = useCallback((product: Product) => {
@@ -205,13 +217,19 @@ export function useOrders() {
     }, [appendUpdateIfMissing]);
 
     useEffect(() => {
-        const savedOrders = safeParse<Order[]>(localStorage.getItem(ORDER_STORAGE_KEY), []);
+        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+        const userEmail = userSession?.user?.email;
+        const key = userEmail ? `${ORDER_STORAGE_KEY}_${userEmail}` : ORDER_STORAGE_KEY;
+        const savedOrders = safeParse<Order[]>(localStorage.getItem(key), []);
         const normalized = savedOrders.map(normalizeOrder).map(evolveOrderStatus);
         setOrders(normalized);
     }, [evolveOrderStatus, normalizeOrder]);
 
     useEffect(() => {
-        localStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(orders));
+        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
+        const userEmail = userSession?.user?.email;
+        const key = userEmail ? `${ORDER_STORAGE_KEY}_${userEmail}` : ORDER_STORAGE_KEY;
+        localStorage.setItem(key, JSON.stringify(orders));
     }, [orders]);
 
     useEffect(() => {

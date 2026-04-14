@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
-import { ShoppingBag, CreditCard, Box, CheckCircle2, ChevronRight, Lock, Sparkles, MapPin, Truck } from "lucide-react";
+import { ShoppingBag, CreditCard, Box, CheckCircle2, ChevronRight, Lock, Sparkles, MapPin, Truck, ArrowLeft } from "lucide-react";
 import { useCart, useOrders } from "../hooks/useFeatures";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { formatINR } from "../utils/currency";
 
 export function Checkout() {
@@ -32,24 +32,29 @@ export function Checkout() {
   }
 
   return (
-    <div className="page-wrapper bg-page min-h-screen pt-28 md:pt-40 flex items-start justify-center px-4 sm:px-6">
-      <div className="w-full max-w-4xl">
+    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500 pt-32 md:pt-48 flex items-start justify-center px-6">
+      <div className="w-full max-w-5xl">
+        <div className="flex justify-center mb-16">
+            <Link to="/cart" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Cart
+            </Link>
+        </div>
         
         {/* Step Indicator */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-10 md:mb-20 overflow-visible">
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mb-16 md:mb-32">
            {[
              { id: 1, label: "Logistics", icon: Truck },
              { id: 2, label: "Acquisition", icon: CreditCard },
              { id: 3, label: "Confirmation", icon: CheckCircle2 }
            ].map((s, i) => (
-             <div key={s.id} className="flex items-center gap-2 sm:gap-4">
-               <div className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2.5 rounded-full transition-all duration-700 ${
-                   step === s.id ? "bg-accent shadow-gold scale-105" : step > s.id ? "bg-white/20" : "bg-white/5 opacity-40"
+             <div key={s.id} className="flex items-center gap-4 md:gap-8">
+               <div className={`flex items-center gap-4 px-8 py-4 rounded-full transition-all duration-700 ${
+                   step === s.id ? "bg-accent shadow-gold scale-110" : step > s.id ? "bg-accent/20 border border-accent/20" : "glass-pane border border-[var(--border)] opacity-30"
                }`}>
-                  <s.icon className={`w-4 h-4 ${step === s.id ? "text-black" : "text-white"}`} />
-                  <span className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.12em] sm:tracking-widest ${step === s.id ? "text-black" : "text-white"}`}>{s.label}</span>
+                  <s.icon className={`w-5 h-5 ${step === s.id ? "text-black" : "text-accent"}`} />
+                  <span className={`text-[10px] font-black uppercase tracking-[0.4em] ${step === s.id ? "text-black" : "text-accent"}`}>{s.label}</span>
                </div>
-               {i < 2 && <div className={`w-5 sm:w-8 h-0.5 rounded-full ${step > s.id ? "bg-accent" : "bg-white/10"}`} />}
+               {i < 2 && <div className={`w-8 md:w-16 h-[2px] rounded-full ${step > s.id ? "bg-accent" : "bg-[var(--border)]"}`} />}
              </div>
            ))}
         </div>
@@ -58,105 +63,109 @@ export function Checkout() {
           {step === 1 && (
             <motion.div 
                key="step1" 
-               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-               className="glass-pane p-5 sm:p-8 md:p-12 rounded-3xl md:rounded-[4rem] border border-white/10"
+               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
+               className="glass-pane lighting-card p-10 md:p-20 rounded-[4rem] border border-[var(--border)] shadow-2xl"
             >
-               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-['Outfit'] text-white uppercase tracking-tighter mb-8 md:mb-12 flex items-center gap-3 md:gap-4">
-                  <MapPin className="text-accent" /> Destination Details
+               <h2 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-16 flex items-center gap-6 leading-none">
+                  <MapPin className="text-accent w-10 h-10 md:w-14 md:h-14" /> Logistics <span className="text-gradient">Protocol.</span>
                </h2>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                     <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Full Legal Name</label>
-                     <input type="text" value={shipping.name} onChange={e => setShipping({...shipping, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Full Legal Name</label>
+                     <input type="text" value={shipping.name} onChange={e => setShipping({...shipping, name: e.target.value})} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" placeholder="e.g. Victor Rose" />
                   </div>
-                  <div className="space-y-2">
-                     <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Contact Protocol (Phone)</label>
-                     <input type="text" placeholder="+1 (____) ____" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Contact Protocol</label>
+                     <input type="text" placeholder="+1 (____) ____" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" />
                   </div>
-                  <div className="md:col-span-2 space-y-2">
-                     <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Delivery Coordinate (Address)</label>
-                     <input type="text" value={shipping.address} onChange={e => setShipping({...shipping, address: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
+                  <div className="md:col-span-2 space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Delivery Coordinate (Address)</label>
+                     <input type="text" value={shipping.address} onChange={e => setShipping({...shipping, address: e.target.value})} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" placeholder="e.g. 7th Heaven, Elite District" />
                   </div>
                </div>
-               <button onClick={() => setStep(2)} className="w-full btn-luxe mt-12">Move to Payment <ChevronRight className="w-5 h-5" /></button>
+               <button onClick={() => setStep(2)} className="btn-luxe w-full mt-20 py-8">Continue to Acquisition <ChevronRight className="w-6 h-6 ml-4" /></button>
             </motion.div>
           )}
 
           {step === 2 && (
             <motion.div 
                key="step2" 
-               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-               className="flex flex-col md:flex-row gap-6 md:gap-12"
+               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, scale: 0.95 }}
+               className="flex flex-col lg:flex-row gap-12"
             >
-               <div className="flex-1 glass-pane p-5 sm:p-8 md:p-12 rounded-3xl md:rounded-[4rem] border border-white/10">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-['Outfit'] text-white uppercase tracking-tighter mb-8 md:mb-12 flex items-center gap-3 md:gap-4">
-                     <CreditCard className="text-accent" /> Vault Assets
+               <div className="flex-1 glass-pane lighting-card p-10 md:p-20 rounded-[4rem] border border-[var(--border)] shadow-2xl">
+                  <h2 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-16 flex items-center gap-6 leading-none">
+                     <CreditCard className="text-accent w-10 h-10 md:w-14 md:h-14" /> Vault <span className="text-gradient">Access.</span>
                   </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-12">
                     {(["card", "upi", "netbanking"] as const).map((method) => (
                       <button
                         key={method}
                         onClick={() => setPaymentMethod(method)}
-                        className={`rounded-2xl py-3 text-[10px] font-black uppercase tracking-widest ${paymentMethod === method ? "bg-accent text-black" : "bg-white/5 border border-white/10 text-white/70"}`}
+                        className={`rounded-2xl py-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all ${paymentMethod === method ? "bg-accent text-black shadow-gold" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)]"}`}
                       >
                         {method}
                       </button>
                     ))}
                   </div>
-                  <div className="space-y-8">
+                  <div className="space-y-10">
                     {paymentMethod === "card" && (
-                      <>
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Card Number</label>
-                          <input type="text" value={payment.card} onChange={(e) => setPayment({ ...payment, card: e.target.value })} placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all text-base sm:text-xl font-mono tracking-[0.2em] sm:tracking-widest" />
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-10">
+                        <div className="space-y-4">
+                          <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Card Number</label>
+                          <input type="text" value={payment.card} onChange={(e) => setPayment({ ...payment, card: e.target.value })} placeholder="XXXX XXXX XXXX XXXX" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient focus:border-accent outline-none transition-all text-2xl font-black font-['Outfit'] tracking-[0.2em] placeholder:opacity-20" />
                         </div>
-                        <div className="grid grid-cols-2 gap-8">
-                          <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Expiry</label>
-                            <input type="text" value={payment.expiry} onChange={(e) => setPayment({ ...payment, expiry: e.target.value })} placeholder="MM / YY" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
+                        <div className="grid grid-cols-2 gap-10">
+                          <div className="space-y-4">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Expiry</label>
+                            <input type="text" value={payment.expiry} onChange={(e) => setPayment({ ...payment, expiry: e.target.value })} placeholder="MM / YY" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none" />
                           </div>
-                          <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">CVV</label>
-                            <input type="text" value={payment.cvv} onChange={(e) => setPayment({ ...payment, cvv: e.target.value })} placeholder="XXX" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
+                          <div className="space-y-4">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">CVV</label>
+                            <input type="text" value={payment.cvv} onChange={(e) => setPayment({ ...payment, cvv: e.target.value })} placeholder="XXX" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none" />
                           </div>
                         </div>
-                      </>
+                      </motion.div>
                     )}
                     {paymentMethod === "upi" && (
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">UPI ID</label>
-                        <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="name@bank" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
-                      </div>
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">UPI ID</label>
+                        <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="name@bank" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none placeholder:opacity-20" />
+                      </motion.div>
                     )}
                     {paymentMethod === "netbanking" && (
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Online Banking Reference</label>
-                        <input type="text" value={bankRef} onChange={(e) => setBankRef(e.target.value)} placeholder="Bank or account reference" className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white focus:border-accent transition-all" />
-                      </div>
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Banking Authority</label>
+                        <input type="text" value={bankRef} onChange={(e) => setBankRef(e.target.value)} placeholder="e.g. HDFC, ICICI, etc." className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none placeholder:opacity-20" />
+                      </motion.div>
                     )}
                   </div>
-                  <div className="mt-12 flex items-center gap-4 text-white/20 text-[9px] font-black tracking-[0.3em] uppercase">
-                     <Lock className="w-4 h-4" /> Military Grade Encryption Active
+                  <div className="mt-16 flex items-center gap-6 text-[10px] font-black tracking-[0.5em] text-accent/40 uppercase">
+                     <Lock className="w-5 h-5" /> Secured by Elite Systems
                   </div>
-                  <button onClick={handlePlaceOrder} className="w-full btn-luxe mt-12 bg-white text-black">Authorize Acquisition</button>
+                  <button onClick={handlePlaceOrder} className="btn-luxe w-full mt-16 py-8">Authorize Acquisition</button>
                </div>
                
-               <div className="w-full md:w-80 bg-white/5 rounded-3xl md:rounded-[3rem] p-5 sm:p-8 md:p-10 border border-white/5 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xs font-black uppercase tracking-widest text-white/60 mb-6 border-b border-white/10 pb-4">Manifest</h3>
-                    <div className="space-y-4">
+               <div className="w-full lg:w-96 glass-pane lighting-card rounded-[4rem] border border-[var(--border)] p-12 flex flex-col shadow-xl">
+                  <div className="mb-12">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.6em] text-accent mb-10 pb-6 border-b border-[var(--border)] text-center">Manifest</h3>
+                    <div className="space-y-6">
                        {cart.map(item => (
-                         <div key={item.id} className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                            <span className="text-white/40 truncate w-32">{item.name}</span>
-                            <span className="text-accent">{formatINR(item.price * 83)}</span>
+                         <div key={item.id} className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.2em]">
+                            <span className="text-[color:var(--text-dim)] truncate w-32">{item.name}</span>
+                            <span className="text-ink-gradient">{formatINR(item.price * 83)}</span>
                          </div>
                        ))}
                     </div>
                   </div>
-                  <div className="mt-10 pt-10 border-t border-white/10">
-                     <div className="flex justify-between mb-4">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Valuation</span>
-                        <span className="text-2xl font-black text-white">{formatINR(total * 1.08 * 83)}</span>
+                  <div className="mt-auto pt-10 border-t border-[var(--border)] space-y-6">
+                     <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.4em] text-[color:var(--text-dim)]">
+                        <span>Surcharge</span>
+                        <span className="text-ink-gradient">{formatINR(total * 0.08 * 83)}</span>
+                     </div>
+                     <div className="flex justify-between items-center">
+                        <span className="text-[10px] font-black uppercase tracking-[0.6em] text-accent">Total</span>
+                        <span className="text-3xl font-black text-accent font-['Outfit'] tracking-tighter">{formatINR(total * 1.08 * 83)}</span>
                      </div>
                   </div>
                </div>
@@ -169,30 +178,34 @@ export function Checkout() {
                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                className="text-center py-20"
             >
-               <div className="w-32 h-32 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-10 border border-accent/20">
-                  <Sparkles className="w-16 h-16 text-accent animate-pulse" />
+               <div className="w-40 h-40 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-16 border border-accent/20 shadow-gold">
+                  <Sparkles className="w-20 h-20 text-accent animate-pulse" />
                </div>
-               <p className="text-accent text-xs font-black uppercase tracking-[0.5em] mb-4">Acquisition Successful</p>
-               <h2 className="text-5xl md:text-7xl font-black font-['Outfit'] text-white uppercase tracking-tighter mb-10 leading-none">
+               <p className="text-accent text-xs font-black uppercase tracking-[0.6em] mb-6">Acquisition Successful</p>
+               <h2 className="text-5xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-16 leading-none">
                   Collection <br /> <span className="text-gradient">Secured.</span>
                </h2>
-               <div className="glass-pane p-8 rounded-[2.5rem] bg-white/5 border-white/10 max-w-sm mx-auto mb-16">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-2">Order Authentication ID</p>
-                  <p className="text-xl font-black text-white font-mono tracking-widest">{orderId}</p>
+               <div className="glass-pane lighting-card p-12 rounded-[4rem] border border-[var(--border)] max-w-xl mx-auto mb-20 shadow-2xl">
+                  <p className="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 leading-none">Order Authentication ID</p>
+                  <p className="text-4xl font-black text-ink-gradient font-['Outfit'] tracking-tighter uppercase leading-none">{orderId}</p>
                </div>
-               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                 <button onClick={() => navigate("/profile#orders")} className="btn-luxe px-16">Track Progress</button>
-                  <button onClick={() => navigate("/shopping")} className="px-12 py-5 border-2 border-white/10 rounded-full text-white font-black uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">Continue Discovery</button>
+               <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+                  <button onClick={() => navigate("/profile#orders")} className="btn-luxe px-20 py-6">Track Progress</button>
+                  <button onClick={() => navigate("/shopping")} className="text-[10px] font-black uppercase tracking-[0.6em] text-ink-gradient hover:text-accent transition-all flex items-center gap-4">
+                     Continue Discovery <ChevronRight className="w-5 h-5" />
+                  </button>
                </div>
-               <div className="max-w-md mx-auto mt-8">
-                  <p className="text-[10px] text-white/50 uppercase tracking-widest mb-2">Cancel Order Reason</p>
-                  <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl p-3 text-white">
-                    <option>Changed my mind</option>
-                    <option>Found better price</option>
-                    <option>Delivery is too late</option>
-                    <option>Ordered by mistake</option>
-                    <option>Payment issue</option>
-                  </select>
+               <div className="max-w-md mx-auto mt-24 pt-16 border-t border-[var(--border)]">
+                  <p className="text-[10px] text-accent/40 uppercase tracking-[0.4em] mb-6 leading-none">Order Cancellation Request</p>
+                  <div className="relative">
+                    <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-xs font-black uppercase tracking-[0.2em] text-ink-gradient outline-none appearance-none">
+                      <option>Changed my mind</option>
+                      <option>Found better price</option>
+                      <option>Delivery is too late</option>
+                      <option>Ordered by mistake</option>
+                      <option>Payment issue</option>
+                    </select>
+                  </div>
                </div>
             </motion.div>
           )}

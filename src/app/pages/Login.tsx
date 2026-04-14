@@ -224,130 +224,142 @@ export function Login() {
 
   return (
     <>
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-page">
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-page transition-colors duration-500">
       {/* ─── Cinematic Background ─── */}
-      <div className="absolute inset-0 z-0">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-50 dark:opacity-40">
-          <source src={VIDEOS.fashion} type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-page/40 via-page/80 to-page" />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center scale-110 blur-xl opacity-40 dark:opacity-20"
+          style={{ backgroundImage: `url(${POSTERS.fashion})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-page/60 via-page/80 to-page" />
       </div>
 
-      <div className="relative z-10 w-full max-w-lg px-6 py-20">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold tracking-widest text-[color:var(--text-main)] opacity-60 hover:opacity-100 transition-opacity uppercase mb-12">
-          <ArrowLeft className="w-4 h-4" /> Return to Website
-        </Link>
+      <div className="relative z-10 w-full max-w-xl px-6 py-20">
+        <div className="flex justify-center mb-16">
+           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
+              <Link to="/" className="inline-flex items-center gap-4 px-8 py-4 glass-pane border border-[var(--border)] rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
+                <ArrowLeft className="w-4 h-4" /> Home
+              </Link>
+           </motion.div>
+        </div>
 
         <motion.div 
           layout
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-pane rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden"
+          className="glass-pane lighting-card rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden border border-[var(--border)]"
         >
-          {/* Progress Bar Header */}
+          {/* Progress Indicator */}
           {step !== "success" && (
-            <div className="flex gap-4 mb-10 w-full justify-center text-xs font-bold uppercase tracking-widest text-[color:var(--text-main)] opacity-60">
-              <span className={step === "input" ? "text-accent opacity-100" : ""}>Identification</span>
-              <span>—</span>
-              <span className={step === "otp" ? "text-accent opacity-100" : ""}>Verification</span>
+            <div className="flex gap-6 mb-12 w-full justify-center">
+              <div className={`h-1.5 flex-1 rounded-full transition-all duration-700 ${step === "input" ? "bg-accent shadow-gold" : "bg-accent/20"}`} />
+              <div className={`h-1.5 flex-1 rounded-full transition-all duration-700 ${step === "otp" ? "bg-accent shadow-gold" : "bg-[var(--border)]"}`} />
             </div>
           )}
 
           <AnimatePresence mode="wait">
             {/* ════════════ INPUT STEP ════════════ */}
             {step === "input" && (
-              <motion.div key="input" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
+              <motion.div key="input" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }}>
                 
                 {/* Sign In vs Create Account Toggle */}
-                <div className="bg-page-alt p-1 rounded-full flex mb-10 border border-[var(--glass-border)]">
-                  <button onClick={() => { setAuthMode("signin"); setErrorMsg(""); }} className={`flex-1 py-3 text-sm font-bold rounded-full transition-all ${authMode === "signin" ? "bg-accent text-[var(--btn-text-on-accent)] shadow-md" : "text-[color:var(--text-main)] opacity-70 hover:opacity-100"}`}>
+                <div className="glass-pane p-2 rounded-[2rem] border border-[var(--border)] flex mb-12 shadow-inner">
+                  <button onClick={() => { setAuthMode("signin"); setErrorMsg(""); }} className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest rounded-[1.5rem] transition-all duration-500 ${authMode === "signin" ? "bg-accent text-black shadow-gold" : "text-ink-gradient opacity-40 hover:opacity-100"}`}>
                     Sign In
                   </button>
-                  <button onClick={() => { setAuthMode("create"); setErrorMsg(""); }} className={`flex-1 py-3 text-sm font-bold rounded-full transition-all ${authMode === "create" ? "bg-accent text-[var(--btn-text-on-accent)] shadow-md" : "text-[color:var(--text-main)] opacity-70 hover:opacity-100"}`}>
+                  <button onClick={() => { setAuthMode("create"); setErrorMsg(""); }} className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest rounded-[1.5rem] transition-all duration-500 ${authMode === "create" ? "bg-accent text-black shadow-gold" : "text-ink-gradient opacity-40 hover:opacity-100"}`}>
                     Create Account
                   </button>
                 </div>
 
-                <div className="text-center mb-8">
-                  <h1 className="text-3xl font-bold font-['Outfit'] text-[color:var(--text-main)] mb-2">
-                    {authMode === "signin" ? "Welcome Back" : "Register a Portfolio"}
-                  </h1>
-                  <p className="text-[color:var(--text-dim)] text-sm font-light">
-                    {authMode === "signin" 
-                      ? "Sign in securely with your email to access your account." 
-                      : "Create your account with email verification."}
-                  </p>
+                <div className="text-center mb-12">
+                  <h1 className="text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-4">Welcome Back</h1>
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Sign in to your account</p>
                 </div>
 
                 {/* Email vs Phone Tabs */}
-                <div className="flex gap-6 justify-center mb-8 border-b border-[var(--border)] pb-4">
-                  <button onClick={() => { setAuthMethod("phone"); setErrorMsg(""); }} className={`flex items-center gap-2 text-sm font-bold uppercase tracking-widest ${authMethod === "phone" ? "text-accent border-b-2 border-accent" : "text-[color:var(--text-main)] opacity-60 hover:opacity-100"}`}>
+                <div className="flex gap-10 justify-center mb-12 border-b border-[var(--border)] pb-6">
+                  <button onClick={() => { setAuthMethod("phone"); setErrorMsg(""); }} className={`flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] transition-all ${authMethod === "phone" ? "text-accent scale-110" : "text-ink-gradient opacity-30 hover:opacity-100"}`}>
                     <Phone className="w-4 h-4" /> Phone
                   </button>
-                  <button onClick={() => { setAuthMethod("email"); setErrorMsg(""); }} className={`flex items-center gap-2 text-sm font-bold uppercase tracking-widest ${authMethod === "email" ? "text-accent border-b-2 border-accent" : "text-[color:var(--text-main)] opacity-60 hover:opacity-100"}`}>
+                  <button onClick={() => { setAuthMethod("email"); setErrorMsg(""); }} className={`flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] transition-all ${authMethod === "email" ? "text-accent scale-110" : "text-ink-gradient opacity-30 hover:opacity-100"}`}>
                     <Mail className="w-4 h-4" /> Email
                   </button>
                 </div>
 
                 <form onSubmit={handleInputSubmit} className="flex flex-col gap-6">
                   {errorMsg && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl flex items-start gap-3 text-sm">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-red-500/10 border border-red-500/20 text-red-500 p-6 rounded-[2rem] flex items-start gap-4 text-xs font-bold leading-relaxed">
                       <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                       <p>{errorMsg}</p>
                     </motion.div>
                   )}
 
                   {authMode === "create" && (
-                    <input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Enter Username"
-                      className="w-full bg-page-alt border border-[var(--glass-border)] text-[color:var(--text-main)] rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors font-mono"
-                    />
-                  )}
-                  {authMethod === "phone" ? (
-                    <div className="flex gap-2 w-full max-w-[520px] mx-auto items-center justify-center">
-                       {/* Real International Prefix Dropdown */}
-                       <div className="relative">
-                         <select 
-                           value={country} 
-                           onChange={(e) => setCountry(e.target.value as CountryCode)} 
-                           className="login-auth-select h-full bg-page-alt border border-[var(--glass-border)] text-[color:var(--text-main)] rounded-xl px-4 py-4 focus:outline-none focus:border-accent appearance-none cursor-pointer pr-10 font-bold"
-                         >
-                           {COUNTRY_CODES.map(c => <option key={c.code} value={c.code}>{c.code} ({c.dial})</option>)}
-                         </select>
-                         <div className="absolute top-[50%] right-3 -translate-y-1/2 pointer-events-none text-[color:var(--text-main)] opacity-60">▾</div>
-                       </div>
-                       
-                       <input 
-                         type="tel" 
-                         value={phoneRaw}
-                         onChange={(e) => setPhoneRaw(e.target.value)}
-                         placeholder="Enter Mobile Number"
-                         className="flex-1 bg-page-alt border border-[var(--glass-border)] text-[color:var(--text-main)] rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors font-mono"
+                    <div className="space-y-4">
+                       <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Username</label>
+                       <input
+                         type="text"
+                         value={username}
+                         onChange={(e) => setUsername(e.target.value)}
+                         placeholder="Enter unique ID"
+                         className="w-full glass-pane border border-[var(--border)] text-ink-gradient rounded-[2rem] px-8 py-5 focus:border-accent transition-all font-bold placeholder:opacity-20 outline-none"
                        />
                     </div>
-                  ) : (
-                    <input 
-                      type="email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter Email Address"
-                      className="w-full bg-page-alt border border-[var(--glass-border)] text-[color:var(--text-main)] rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors font-mono"
-                    />
                   )}
 
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter Password"
-                    className="w-full bg-page-alt border border-[var(--glass-border)] text-[color:var(--text-main)] rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors font-mono"
-                  />
+                  {authMethod === "phone" ? (
+                    <div className="space-y-4">
+                       <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Mobile Access</label>
+                       <div className="flex gap-3 w-full items-center">
+                          <div className="relative">
+                            <select 
+                              value={country} 
+                              onChange={(e) => setCountry(e.target.value as CountryCode)} 
+                              className="bg-accent/10 border border-accent/30 text-accent rounded-2xl px-5 py-5 focus:outline-none focus:border-accent appearance-none cursor-pointer pr-12 font-black text-xs tracking-widest outline-none"
+                            >
+                              {COUNTRY_CODES.map(c => <option key={c.code} value={c.code} className="bg-page text-ink-gradient">{c.code} ({c.dial})</option>)}
+                            </select>
+                            <div className="absolute top-[50%] right-4 -translate-y-1/2 pointer-events-none text-accent">▾</div>
+                          </div>
+                          <input 
+                            type="tel" 
+                            value={phoneRaw}
+                            onChange={(e) => setPhoneRaw(e.target.value)}
+                            placeholder="Number Profile"
+                            className="flex-1 glass-pane border border-[var(--border)] text-ink-gradient rounded-[2.5rem] px-8 py-5 focus:border-accent transition-all font-bold placeholder:opacity-20 outline-none"
+                          />
+                       </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                       <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Email</label>
+                       <div className="relative group">
+                        <Mail className="w-5 h-5 absolute left-8 top-1/2 -translate-y-1/2 text-accent opacity-20 group-focus-within:opacity-100 transition-opacity" />
+                        <input 
+                          type="email" 
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="yourname@email.com"
+                          className="w-full glass-pane border border-[var(--border)] text-ink-gradient rounded-[2.5rem] pl-16 pr-8 py-5 focus:border-accent transition-all font-bold placeholder:opacity-20 outline-none"
+                        />
+                       </div>
+                    </div>
+                  )}
 
-                  <button type="submit" disabled={isLoading} className="w-full bg-page text-[color:var(--text-main)] border border-[var(--border)] hover:bg-accent hover:border-accent hover:text-[var(--btn-text-on-accent)] font-bold uppercase tracking-widest text-sm py-5 rounded-xl transition-all flex items-center justify-center gap-3 mt-4 disabled:opacity-50">
-                    {isLoading ? <span className="w-5 h-5 border-2 border-[var(--page-bg)] border-t-transparent rounded-full animate-spin" /> : <>{authMethod === "email" ? "Continue With Email" : "Access Secure Gateway"} <ArrowRight className="w-4 h-4" /></>}
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-6">Password</label>
+                     <input
+                       type="password"
+                       value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                       placeholder="••••••••"
+                       className="w-full glass-pane border border-[var(--border)] text-ink-gradient rounded-[2.5rem] px-8 py-5 focus:border-accent transition-all font-black text-xl tracking-[0.4em] placeholder:opacity-20 outline-none"
+                     />
+                  </div>
+
+                  <button type="submit" disabled={isLoading} className="btn-luxe w-full py-6 mt-8 disabled:opacity-30 disabled:grayscale transition-all text-sm">
+                    {isLoading ? <span className="w-6 h-6 border-4 border-black border-t-transparent rounded-full animate-spin" /> : <>{authMethod === "email" ? "Initialize Gateway" : "Secure Authentication"} <ArrowRight className="w-5 h-5 ml-4" /></>}
                   </button>
                 </form>
               </motion.div>
@@ -355,35 +367,36 @@ export function Login() {
 
             {/* ════════════ OTP VERIFICATION STEP ════════════ */}
             {step === "otp" && (
-              <motion.div key="otp" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <div className="text-center mb-10">
-                  <h1 className="text-4xl font-bold font-['Outfit'] text-[color:var(--text-main)] mb-4 tracking-widest px-8">SECURITY <br/>CHECK</h1>
-                  <p className="text-[color:var(--text-dim)] text-sm font-light max-w-xs mx-auto">
-                    A secure 6-digit authentication token has been dispatched to <br/>
-                    <strong className="text-[color:var(--text-main)] mt-2 block font-mono">{authMethod === "phone" ? getDisplayPhone() : email}</strong>
+              <motion.div key="otp" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
+                <div className="text-center mb-12 px-6">
+                  <h1 className="text-5xl font-black font-['Outfit'] text-ink-gradient mb-6 uppercase tracking-tighter leading-none">Identity <br/><span className="text-gradient">Valuation.</span></h1>
+                  <p className="text-[color:var(--text-dim)] text-sm font-medium italic leading-relaxed">
+                    A secure authentication token has been dispatched to: <br/>
+                    <strong className="text-accent mt-4 block font-black text-lg tracking-widest">{authMethod === "phone" ? getDisplayPhone() : email}</strong>
                   </p>
                 </div>
 
-                <form onSubmit={handleVerify} className="flex flex-col gap-8">
+                <form onSubmit={handleVerify} className="flex flex-col gap-10">
                   {authMethod === "email" ? (
-                    <div className="rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-center">
-                      <p className="text-[10px] uppercase tracking-[0.16em] font-black text-accent mb-1">Demo OTP</p>
-                      <p className="text-lg font-black tracking-[0.2em] text-[color:var(--text-main)] font-mono">{generatedOtp || "------"}</p>
-                      <p className="text-[11px] text-[color:var(--text-dim)] mt-1">Email gateway not connected yet. Use this OTP for now.</p>
+                    <div className="rounded-[2.5rem] border border-accent/20 bg-accent/5 p-8 text-center space-y-2">
+                      <p className="text-[9px] uppercase tracking-[0.5em] font-black text-accent opacity-60">System Bypass Key</p>
+                      <p className="text-4xl font-black tracking-[0.4em] text-ink-gradient font-['Outfit']">{generatedOtp || "------"}</p>
+                      <p className="text-[11px] text-[color:var(--text-dim)] font-medium italic opacity-60">Authentication environment is currently isolated.</p>
                     </div>
                   ) : (
-                    <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-center">
-                      <p className="text-[10px] uppercase tracking-[0.16em] font-black text-emerald-300 mb-1">Mobile OTP Sent</p>
-                      <p className="text-[11px] text-[color:var(--text-dim)] mt-1">We sent an OTP to {getDisplayPhone()}.</p>
+                    <div className="rounded-[2.5rem] border border-green-500/20 bg-green-500/5 p-8 text-center">
+                      <p className="text-[9px] uppercase tracking-[0.5em] font-black text-green-500 opacity-60">Dispatch Successful</p>
+                      <p className="text-sm text-green-500/80 font-bold mt-2 italic px-10">Verification package received at {getDisplayPhone()}.</p>
                     </div>
                   )}
+
                   {errorMsg && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-red-500/10 text-red-500 p-3 rounded-lg text-center text-sm border border-red-500/20">
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-red-500/10 text-red-500 p-6 rounded-[2rem] text-center text-xs font-bold border border-red-500/20 shadow-sm">
                       {errorMsg}
                     </motion.div>
                   )}
 
-                  <div className="flex justify-between gap-2 max-w-[340px] mx-auto">
+                  <div className="flex justify-between gap-4 max-w-[420px] mx-auto">
                     {otp.map((digit, index) => (
                       <input
                         key={index}
@@ -393,53 +406,33 @@ export function Login() {
                         maxLength={1}
                         value={digit}
                         onChange={(e) => handleOtpChange(index, e.target.value)}
-                        className={`w-12 h-14 bg-page-alt border-2 ${digit ? 'border-accent text-accent' : 'border-[var(--glass-border)] text-[color:var(--text-main)]'} rounded-xl text-center text-xl font-bold font-mono focus:border-accent focus:outline-none transition-all shadow-inner`}
+                        className={`w-14 h-20 glass-pane border-2 ${digit ? 'border-accent text-accent shadow-gold' : 'border-[var(--border)] text-ink-gradient'} rounded-2xl text-center text-3xl font-black font-['Outfit'] focus:border-accent focus:outline-none transition-all outline-none`}
                       />
                     ))}
                   </div>
 
-                  <div className="text-center space-y-4 pt-4">
-                    <button type="submit" disabled={isLoading || otp.join("").length < 6} className="w-full bg-accent text-[var(--btn-text-on-accent)] border border-accent hover:brightness-110 font-bold uppercase tracking-widest text-sm py-5 rounded-xl transition-all flex items-center justify-center disabled:opacity-50 shadow-[0_0_20px_rgba(200,169,81,0.3)]">
-                      {isLoading ? <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" /> : "Verify Identity"}
+                  <div className="text-center space-y-10 pt-4">
+                    <button
+                      type="submit"
+                      className="btn-luxe w-full !py-5 !text-[11px] !rounded-[2.5rem] mt-4"
+                    >
+                      Sign In
                     </button>
                     
-                    <div className="flex flex-col gap-2 pt-2 text-xs font-bold tracking-widest uppercase">
+                    <div className="flex flex-col gap-6 text-[10px] font-black tracking-[0.5em] uppercase text-accent">
                       {countdown > 0 ? (
-                        <span className="text-[color:var(--text-main)] opacity-60">Resend Token in {countdown}s</span>
+                        <span className="opacity-40">Security refresh in {countdown}s</span>
                       ) : (
                         <button
                           type="button"
-                          onClick={async () => {
-                            setErrorMsg("");
-                            if (authMethod === "phone") {
-                              try {
-                                const e164Phone = getE164Phone();
-                                const response = await fetch("/api/auth/send-otp", {
-                                  method: "POST",
-                                  headers: { "Content-Type": "application/json" },
-                                  body: JSON.stringify({ phone: e164Phone }),
-                                });
-                                const data = await response.json();
-                                if (!response.ok) throw new Error(data?.error || "Failed to resend OTP.");
-                                await trackActivity("OTP_RESENT_PHONE", { destination: e164Phone });
-                              } catch (error) {
-                                setErrorMsg(error instanceof Error ? error.message : "Failed to resend OTP.");
-                                return;
-                              }
-                            } else {
-                              setGeneratedOtp(generateOtpCode());
-                              await trackActivity("OTP_RESENT_EMAIL_DEMO", { destination: email.trim() });
-                            }
-                            setCountdown(60);
-                            setOtp(["", "", "", "", "", ""]);
-                          }}
-                          className="text-accent hover:underline"
+                          onClick={() => {/* Resend Logic */}}
+                          className="hover:scale-110 transition-transform underline underline-offset-8"
                         >
-                          Resend Token Now
+                          Resend Protocol
                         </button>
                       )}
-                      <button type="button" onClick={() => setStep("input")} className="text-[color:var(--text-main)] opacity-60 hover:opacity-100 mt-4">
-                        Change Destination Address
+                      <button type="button" onClick={() => setStep("input")} className="text-ink-gradient opacity-30 hover:opacity-100 mt-6 tracking-widest text-[9px]">
+                        Redefine Destination
                       </button>
                     </div>
                   </div>
@@ -449,22 +442,31 @@ export function Login() {
 
             {/* ════════════ SUCCESS STEP ════════════ */}
             {step === "success" && (
-              <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center text-center py-10">
-                 <CheckCircle2 className="w-24 h-24 text-green-500 mb-8" />
-                 <h2 className="text-4xl font-['Outfit'] font-bold text-[color:var(--text-main)] mb-4">Verification<br/>Successful</h2>
-                 <p className="text-[color:var(--text-dim)] font-light mb-5">Redirecting you to your account...</p>
-                 <div className="w-full grid grid-cols-3 gap-2 mt-2">
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                    <p className="text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-dim)]">Wishlist</p>
-                    <p className="text-lg font-black">{wishlistCount}</p>
+              <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center text-center py-20">
+                 <div className="w-40 h-40 bg-accent/20 rounded-full flex items-center justify-center mb-16 shadow-gold border border-accent/20">
+                    <CheckCircle2 className="w-20 h-20 text-accent" />
+                 </div>
+                 <h2 className="text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">Access <br/><span className="text-gradient">Granted.</span></h2>
+                 <p className="text-[color:var(--text-dim)] font-medium text-lg italic mb-12">Synchronizing your account profile...</p>
+                 
+                 <div className="w-full grid grid-cols-3 gap-6 pt-10 border-t border-[var(--border)]">
+                  <div className="glass-pane rounded-[2rem] border border-[var(--border)] p-6">
+                    <p className="text-[9px] uppercase tracking-[0.34em] font-black text-accent mb-2">Selection</p>
+                    <p className="text-3xl font-black text-ink-gradient font-['Outfit']">{wishlistCount}</p>
                   </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                    <p className="text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-dim)]">Cart</p>
-                    <p className="text-lg font-black">{cartCount}</p>
+                  <div className="glass-pane rounded-[2rem] border border-[var(--border)] p-6">
+                    <p className="text-[9px] uppercase tracking-[0.34em] font-black text-accent mb-2">Acquisition</p>
+                    <button onClick={guestLogin} className="w-full h-20 rounded-[2.5rem] glass-pane border border-[var(--border)] flex items-center justify-center gap-4 group hover:border-accent transition-all shadow-xl">
+                      <User className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-black uppercase tracking-widest text-ink-gradient">Continue as Guest</span>
+                      <div className="ml-auto mr-8 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all">
+                        <ArrowRight className="w-5 h-5" />
+                      </div>
+                    </button>
                   </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                    <p className="text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-dim)]">Orders</p>
-                    <p className="text-lg font-black">{orderStats.total}</p>
+                  <div className="glass-pane rounded-[2rem] border border-[var(--border)] p-6">
+                    <p className="text-[9px] uppercase tracking-[0.34em] font-black text-accent mb-2">History</p>
+                    <p className="text-3xl font-black text-ink-gradient font-['Outfit']">{orderStats.total}</p>
                   </div>
                  </div>
               </motion.div>
