@@ -48,7 +48,7 @@ export function Dine() {
         />
         <div className="relative z-10 text-center px-6">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}>
-            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-2xl border border-accent/30 mb-8 mx-auto group hover:bg-accent hover:text-black transition-all">
+            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-2xl border border-accent/30 mb-8 mx-auto group hover:bg-accent hover:text-[var(--btn-text-on-accent)] transition-all">
                <UtensilsCrossed className="w-4 h-4" />
                <span className="text-[11px] font-black tracking-[0.4em] uppercase hero-video-kicker">World-Class Gastronomy</span>
             </div>
@@ -96,7 +96,7 @@ export function Dine() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-page via-page/40 to-transparent opacity-80" />
                     <div className="absolute bottom-0 left-0 right-0 p-10">
-                      <div className="inline-flex px-4 py-1.5 rounded-full bg-accent text-[10px] font-black text-black uppercase tracking-widest mb-4">
+                      <div className="inline-flex px-4 py-1.5 rounded-full bg-accent text-[10px] font-black text-[var(--btn-text-on-accent)] uppercase tracking-widest mb-4">
                          Fine Dining
                       </div>
                       <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter group-hover:text-accent transition-colors leading-none">{restaurant.name}</h3>
@@ -164,14 +164,14 @@ export function Dine() {
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         onClick={() => toggle(`dine-${item.slug}`)}
-                        className="rounded-2xl py-4 glass-pane border border-[var(--border)] inline-flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest hover:border-accent hover:text-accent transition-all"
+                        className="rounded-2xl py-4 glass-pane border border-[var(--border)] inline-flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest hover:border-accent hover:text-accent transition-all active:scale-95"
                       >
                         <Heart className={`w-4 h-4 ${wishlist.includes(`dine-${item.slug}`) ? "text-accent fill-accent" : ""}`} />
                         Save
                       </button>
                       <button
                         onClick={() => addDiningItemToCart(item)}
-                        className="rounded-2xl py-4 bg-accent text-black inline-flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-gold"
+                        className="rounded-2xl py-4 bg-accent text-[var(--btn-text-on-accent)] inline-flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-gold"
                       >
                         <ShoppingCart className="w-4 h-4" />
                         Order

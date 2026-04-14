@@ -400,6 +400,29 @@
     opacity: 1 !important;
   }
 
+  /* Strict Light Mode Contrast Overrides for UI Elements */
+  :root.light .bg-accent,
+  :root.light .group:hover .bg-accent,
+  :root.light .bg-accent\/90 {
+    color: var(--btn-text-on-accent) !important;
+  }
+
+  :root.light .bg-accent *,
+  :root.light .group:hover .bg-accent * {
+    color: var(--btn-text-on-accent) !important;
+  }
+  
+  :root.light button:active,
+  :root.light button.active {
+     background-color: var(--accent) !important;
+     color: var(--btn-text-on-accent) !important;
+  }
+  
+  :root.light button:active *,
+  :root.light button.active * {
+     color: var(--btn-text-on-accent) !important;
+  }
+
   /* Ensure neutral bordered CTA/link buttons remain readable in light mode */
   :root.light a[class*="border-white"],
   :root.light button[class*="border-white"] {
@@ -487,6 +510,18 @@
   .mobile-nav-section {
     scroll-snap-align: start;
     scroll-margin-top: 8rem;
+  }
+
+  /* High performance overrides for Apple-style fluidity */
+  .gpu-stable {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
+  }
+
+  .premium-card, .lighting-card, .glass-pane {
+     @apply gpu-stable;
   }
 
   /* 3D Orb Background (Subtle) */
