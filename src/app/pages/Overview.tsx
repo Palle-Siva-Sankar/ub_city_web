@@ -30,7 +30,7 @@ export function Overview() {
   return (
     <div className="bg-page overflow-x-hidden w-full transition-colors duration-500">
       {/* ═══════════ SECTION 1: HERO (Pure Apple) ═══════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden paint-contained compositor-layer">
         <HeroVideoEmbed 
           videoSrc={VIDEOS.shoppingMall} 
           posterImage={POSTERS.shoppingMall} 
@@ -53,8 +53,9 @@ export function Overview() {
               Bengaluru.
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-xl md:text-3xl hero-video-subtitle hero-video-glass rounded-[2.5rem] px-10 py-8 mb-14 max-w-3xl mx-auto font-medium leading-relaxed border border-white/10 shadow-2xl">
-              A landmark luxury district blending flagship retail, multi-cuisine dining, and elite hospitality.
+            <motion.p variants={itemVariants} className="text-xl md:text-3xl hero-video-subtitle hero-video-glass rounded-[2.5rem] px-10 py-8 mb-14 max-w-3xl mx-auto font-medium leading-relaxed border border-white/10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10 dark:bg-transparent pointer-events-none" />
+              <span className="relative z-10">A landmark luxury district blending flagship retail, multi-cuisine dining, and elite hospitality.</span>
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-8">
