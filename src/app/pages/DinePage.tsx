@@ -67,7 +67,7 @@ export function Dine() {
       </section>
 
       {/* Restaurant Grid */}
-      <section className="py-24 px-6 md:px-12 bg-page relative">
+      <section className="py-24 px-6 md:px-12 bg-page relative virtual-section">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
         
         <div className="max-w-[1400px] mx-auto">
@@ -124,7 +124,7 @@ export function Dine() {
         </div>
       </section>
 
-      <section className="py-32 px-6 md:px-12 bg-page-bg-alt/20 border-t border-[var(--border)]">
+      <section className="py-32 px-6 md:px-12 bg-page-bg-alt/20 border-t border-[var(--border)] virtual-section">
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-20 relative z-10">
             <p className="text-accent text-[10px] font-black tracking-[0.5em] uppercase mb-4">Chef's Recommendations</p>
@@ -187,7 +187,7 @@ export function Dine() {
 
       {/* Recently Viewed */}
       {recentlyViewedDine.length > 0 && (
-        <section className="py-32 border-t border-[var(--border)] bg-page">
+        <section className="py-32 border-t border-[var(--border)] bg-page virtual-section">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
             <div className="flex items-center gap-8 mb-20">
                <div className="w-16 h-16 rounded-[1.5rem] bg-accent/20 border border-accent/30 flex items-center justify-center shadow-gold">

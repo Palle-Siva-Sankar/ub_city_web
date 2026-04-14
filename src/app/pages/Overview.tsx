@@ -75,7 +75,7 @@ export function Overview() {
       <WhyUBCity />
 
       {/* ═══════════ SECTION 2: RETAIL (Clean & Split) ═══════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden py-32 group">
+      <section className="relative min-h-screen flex items-center overflow-hidden py-32 group virtual-section">
         <HeroVideoEmbed 
           posterImage={POSTERS.shoppingMall} 
           title="Retail" 
@@ -105,7 +105,7 @@ export function Overview() {
       </section>
 
       {/* ═══════════ SECTION 3: LUXURY (Right Aligned) ═══════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden py-32">
+      <section className="relative min-h-screen flex items-center overflow-hidden py-32 virtual-section">
         <HeroVideoEmbed 
           posterImage={POSTERS.fashion} 
           title="Luxury" 
@@ -135,7 +135,7 @@ export function Overview() {
       </section>
 
       {/* ═══════════ SECTION 4: DINING ═══════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-32 hero-readable">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-32 hero-readable virtual-section">
         <HeroVideoEmbed 
             posterImage="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2000" 
             title="Dining" 
@@ -162,7 +162,7 @@ export function Overview() {
       </section>
 
       {/* ═══════════ SECTION 5: FINAL CTA (Apple Cards) ═══════════ */}
-      <section className="relative py-48 bg-page overflow-hidden">
+      <section className="relative py-48 bg-page overflow-hidden virtual-section">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,var(--accent-gold)_0%,transparent_60%)] opacity-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div 

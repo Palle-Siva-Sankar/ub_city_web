@@ -216,7 +216,7 @@
 
   .glass-pane {
     background: var(--glass);
-    backdrop-filter: blur(32px) saturate(210%);
+    backdrop-filter: blur(12px) saturate(180%);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-luxe);
     position: relative;
@@ -248,32 +248,32 @@
   .lighting-card {
     position: relative;
     overflow: hidden;
-    will-change: transform, box-shadow, border-color;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, opacity;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
     border: 1px solid var(--card-border);
-    padding: 2rem !important; /* Scaled down padding for better density */
-    border-radius: 2.5rem !important; /* Refined corner radius */
+    padding: 2rem !important;
+    border-radius: 2.5rem !important;
   }
 
-  .lighting-card::before {
+  /* Efficient hover lighting using opacity only */
+  .lighting-card::after {
     content: "";
     position: absolute;
-    inset: -100%;
-    background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%);
+    inset: 0;
+    background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
     z-index: 0;
   }
 
-  .lighting-card:hover::before {
+  .lighting-card:hover::after {
     opacity: 1;
   }
 
   .lighting-card:hover {
     border-color: var(--accent);
-    transform: scale(1.02);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    transform: scale(1.01);
   }
 
   /* Specific typography styling for Apple UI */
@@ -490,6 +490,18 @@
     will-change: transform, opacity;
   }
 
+  /* Section Virtualization (Modern Browser Optimization) */
+  .virtual-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+  }
+
+  /* Compositor Promotion */
+  .compositor-layer {
+     transform: translateZ(0);
+     isolation: isolate;
+  }
+
   /* Optimized animations */
   @keyframes fluidScale {
     from { transform: scale(0.98); opacity: 0; }
@@ -513,15 +525,11 @@
   }
 
   /* High performance overrides for Apple-style fluidity */
-  .gpu-stable {
+  .gpu-stable, .premium-card, .lighting-card, .glass-pane {
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
     will-change: transform, opacity;
-  }
-
-  .premium-card, .lighting-card, .glass-pane {
-     @apply gpu-stable;
   }
 
   /* 3D Orb Background (Subtle) */

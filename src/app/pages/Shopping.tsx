@@ -98,9 +98,9 @@ export function Shopping() {
           </div>
       </section>
 
-      <section className="px-6 md:px-12 mb-40">
+      <section className="px-6 md:px-12 mb-40 virtual-section">
         <div className="max-w-[1500px] mx-auto">
-          <div className="glass-pane lighting-card active-card rounded-[3.5rem] p-8 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative shine-effect">
+          <div className="glass-pane lighting-card active-card rounded-[3.5rem] p-8 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative shine-effect compositor-layer">
             <div className="grid lg:grid-cols-[320px_1fr] gap-20 lg:gap-32">
               <aside className="pr-16 hidden lg:block border-r border-[var(--border)]">
                 <h3 className="text-accent text-[12px] font-black tracking-[0.8em] uppercase mb-16 flex items-center gap-4">
