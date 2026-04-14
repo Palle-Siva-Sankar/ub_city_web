@@ -9,16 +9,15 @@ export function Sponsorship() {
     <div className="page-wrapper bg-page">
       {/* REAL CINEMATIC HERO */}
       <section className="relative min-h-[76vh] md:h-screen flex items-center justify-center overflow-hidden bg-page hero-readable">
-        <div className="video-bg-container">
-          <video autoPlay loop muted playsInline className="video-bg opacity-70">
-            <source src={VIDEOS.aerialCity} type="video/mp4" />
-          </video>
-          <div className="video-gradient-mask" />
-        </div>
+        <HeroVideoEmbed
+          title="Own The Moment Background"
+          posterImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000"
+          videoSrc={VIDEOS.aerialCity}
+        />
 
-        <div className="relative z-10 text-center pointer-events-none">
-          <motion.h1 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }} className="text-7xl md:text-[clamp(6rem,10vw,12rem)] leading-[0.8] font-bold font-['Outfit'] text-page mb-6 drop-shadow-2xl">
-            Own The <span className="text-gold-gradient">Moment.</span>
+        <div className="relative z-10 text-center pointer-events-none px-6">
+          <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="text-[var(--text-hero)] font-black font-['Outfit'] text-page mb-6 drop-shadow-2xl leading-[0.9] tracking-tighter">
+            Own The <span className="text-accent">Moment.</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-2xl text-page drop-shadow-lg font-light max-w-2xl mx-auto">
             A premium, high-intent audience. Unprecedented brand integrations.

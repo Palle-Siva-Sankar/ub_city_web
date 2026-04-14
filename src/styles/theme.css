@@ -252,12 +252,12 @@
   @keyframes softPulse {
     0%,
     100% {
-      opacity: 0.5;
+      opacity: 0.65;
       transform: scale(1);
     }
     50% {
-      opacity: 0.85;
-      transform: scale(1.02);
+      opacity: 0.8;
+      transform: scale(1.015);
     }
   }
 
@@ -338,6 +338,13 @@
     box-shadow: var(--shadow-luxe);
     position: relative;
     transform: translateZ(0);
+  }
+
+  @media (max-width: 768px) {
+    .glass-pane {
+      backdrop-filter: blur(4px) saturate(110%);
+      background: color-mix(in srgb, var(--card-bg) 95%, transparent);
+    }
   }
 
   .glass-pane::after {
@@ -771,7 +778,7 @@
     top: -120px;
     right: -120px;
     pointer-events: none;
-    animation: softPulse 5s ease-in-out infinite;
+    opacity: 0.6; /* Stationary pulse on hero area only */
   }
 
   /* Global structure shell: Apple-like clean spacing + Netflix depth */
@@ -796,10 +803,9 @@
     position: absolute;
     border-radius: 999px;
     pointer-events: none;
-    filter: blur(28px);
-    opacity: 0.4;
+    filter: blur(42px); /* Higher blur but static */
+    opacity: 0.25;
     transform-style: preserve-3d;
-    animation: globalOrbFloat 12s ease-in-out infinite;
     will-change: transform, opacity;
     transform: translate3d(0, 0, 0);
   }

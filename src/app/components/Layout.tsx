@@ -61,7 +61,17 @@ export function Layout() {
     const shoppingRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 60);
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setScrolled(window.scrollY > 60);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
         window.addEventListener("scroll", handleScroll, { passive: true });
 
         const handleClickOutside = (e: MouseEvent) => {
