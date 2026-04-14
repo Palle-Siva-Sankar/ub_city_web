@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useUserSession } from "../hooks/useFeatures";
 import { formatINR } from "../utils/currency";
+import { POSTERS } from "../data/mediaAssets";
 import { toast } from "sonner";
 
 type AddressBookItem = {

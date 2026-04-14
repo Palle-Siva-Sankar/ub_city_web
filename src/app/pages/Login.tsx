@@ -6,7 +6,7 @@ import { parsePhoneNumber, isValidPhoneNumber, CountryCode } from "libphonenumbe
 import { useNavigate } from "react-router";
 import { useCart, useOrders, useUserSession, useWishlist } from "../hooks/useFeatures";
 import { Footer } from "../components/Footer";
-import { VIDEOS } from "../data/mediaAssets";
+import { VIDEOS, POSTERS } from "../data/mediaAssets";
 
 type AuthMode = "signin" | "create";
 type AuthMethod = "phone" | "email";
