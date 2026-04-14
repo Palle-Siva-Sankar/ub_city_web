@@ -12,11 +12,11 @@ export function Dining() {
 
   return (
     <div className="page-wrapper">
-      
+
       {/* REAL CINEMATIC OVERLAY HERO */}
       <section ref={containerRef} className="relative h-[120vh] lg:h-[160vh] bg-page">
         <div className="sticky-presentation bg-page overflow-hidden">
-          
+
           {/* Animated Video Background via Framer */}
           <motion.div className="absolute inset-0" style={{ filter: `blur(${blurValue})` }}>
             <video autoPlay loop muted playsInline className="video-bg opacity-70 scale-100 md:scale-[0.96] object-center md:object-[center_30%]">
@@ -30,7 +30,7 @@ export function Dining() {
             <motion.div className="text-center" style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]), y: useTransform(scrollYProgress, [0, 0.3], [0, -100]) }}>
               <p className="text-accent tracking-[0.4em] text-sm uppercase mb-6 drop-shadow-md font-bold">Culinary Excellence</p>
               <h1 className="text-7xl md:text-9xl font-['Outfit'] font-bold text-page leading-tight drop-shadow-2xl">
-                Taste.<br/>Elevated.
+                Taste.<br />Elevated.
               </h1>
             </motion.div>
 

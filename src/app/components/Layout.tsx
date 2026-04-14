@@ -109,7 +109,7 @@ export function Layout() {
                     animate={{ y: 0 }}
                     exit={{ y: -100 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 md:duration-500 ${scrolled ? "backdrop-blur-md md:backdrop-blur-2xl border-b nav-shadow" : "max-lg:border-b max-lg:backdrop-blur-sm"
+                    className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow,height] duration-500 ${scrolled ? "backdrop-blur-md h-16 border-b nav-shadow" : "h-20 max-lg:border-b max-lg:backdrop-blur-sm"
                         }`}
                     style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--card-border)" }}
                 >
@@ -131,11 +131,11 @@ export function Layout() {
                         <button
                             type="button"
                             onClick={() => setIsSearchOpen(true)}
-                            className="lg:hidden flex flex-1 min-w-0 max-w-[220px] sm:max-w-xs items-center gap-2 rounded-full py-2 pl-3 pr-3 sm:pl-4 sm:pr-4 text-left active:scale-[0.99] transition-transform duration-150"
-                            style={{ backgroundColor: "var(--card-bg)", border: "1px solid var(--card-border)", boxShadow: "var(--card-box-shadow)" }}
+                            className="lg:hidden flex flex-1 min-w-0 max-w-[220px] sm:max-w-xs items-center gap-2 rounded-xl py-2 pl-3 pr-3 sm:pl-4 sm:pr-4 text-left active:scale-[0.98] transition-all duration-200"
+                            style={{ backgroundColor: "var(--card-bg)", border: "1px solid var(--card-border)", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}
                             aria-label="Open search"
                         >
-                            <Search className="w-4 h-4 shrink-0 text-page opacity-55" />
+                            <Search className="w-4 h-4 shrink-0 text-page opacity-40" />
                             <span className="truncate text-[11px] sm:text-[13px] font-medium text-[color:var(--text-dim)]">Search...</span>
                         </button>
 
@@ -345,7 +345,7 @@ export function Layout() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: reduceMotion ? 0 : "100%" }}
                         transition={{ duration: reduceMotion ? 0.15 : 0.28, ease: [0.32, 0.72, 0, 1] }}
-                        className="fixed inset-0 z-40 lg:hidden bg-[color-mix(in_oklab,var(--page-bg)_96%,transparent)] supports-[backdrop-filter]:backdrop-blur-sm"
+                        className="fixed inset-0 z-40 lg:hidden bg-page/95 supports-[backdrop-filter]:backdrop-blur-xl"
                     >
                         <div data-lenis-prevent className="pt-24 sm:pt-28 px-5 sm:px-8 pb-10 flex flex-col h-full min-h-0 overflow-y-auto overscroll-contain touch-pan-y">
                             <nav className="flex flex-col gap-1 sm:gap-2">

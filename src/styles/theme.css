@@ -34,6 +34,12 @@
   --color-destructive-foreground: #ffffff;
   --font-outfit: "Outfit", sans-serif;
   --font-inter: "Inter", sans-serif;
+
+  /* Fluid Typography - Apple Inspired */
+  --text-hero: clamp(3.5rem, 10vw + 1rem, 6.5rem);
+  --text-h1: clamp(2.5rem, 6vw + 1rem, 4.5rem);
+  --text-h2: clamp(1.75rem, 4vw + 1rem, 2.75rem);
+  --text-h3: clamp(1.25rem, 2vw + 1rem, 1.75rem);
 }
 
 @layer base {
@@ -88,24 +94,25 @@
 
   :root.light {
     --page: #ffffff;
-    --page-bg: #f5f6fb;
-    --page-bg-alt: #eceff7;
-    --accent: #8f6d2e;
+    --page-bg: #f8f9fc;
+    --page-bg-alt: #f0f2f9;
+    --accent: #1d1d1f; /* Apple Gray */
+    --accent-gold: #8f6d2e;
     --accent-soft: #ceb98d;
-    --border: rgba(9, 18, 43, 0.14);
-    --glass: rgba(255, 255, 255, 0.72);
-    --glass-border: rgba(255, 255, 255, 0.85);
-    --primary-glow: rgba(143, 109, 46, 0.24);
-    --text-main: #121522;
-    --text-dim: rgba(18, 21, 34, 0.68);
-    --card-bg: rgba(255, 255, 255, 0.84);
+    --border: rgba(0, 0, 0, 0.08); /* Sharper, cleaner borders */
+    --glass: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary-glow: rgba(0, 0, 0, 0.05);
+    --text-main: #1d1d1f; /* SF Pro/Apple style dark gray */
+    --text-dim: #86868b; /* Apple muted gray */
+    --card-bg: #ffffff;
     --card-border: var(--border);
-    --card-box-shadow: 0 14px 36px rgba(24, 39, 75, 0.14);
-    --nav-bg: color-mix(in srgb, var(--page-bg) 92%, transparent);
+    --card-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    --nav-bg: rgba(255, 255, 255, 0.82);
     --page-alt: var(--page-bg-alt);
-    --btn-text-on-accent: #111111;
-    --shadow-luxe: 0 20px 50px rgba(24, 39, 75, 0.16);
-    --shadow-gold: 0 0 28px rgba(143, 109, 46, 0.22);
+    --btn-text-on-accent: #ffffff;
+    --shadow-luxe: 0 20px 40px rgba(0, 0, 0, 0.06);
+    --shadow-gold: 0 4px 20px rgba(143, 109, 46, 0.12);
     color-scheme: light;
   }
 
@@ -139,6 +146,7 @@
     body::before {
       filter: none;
       opacity: 0.7;
+      will-change: auto;
     }
   }
 
@@ -166,6 +174,8 @@
     z-index: -2;
     pointer-events: none;
     filter: blur(8px) saturate(105%);
+    will-change: transform, opacity;
+    transform: translateZ(0);
   }
 
   .page-wrapper {
@@ -246,9 +256,40 @@
       transform: scale(1);
     }
     50% {
-      opacity: 0.95;
-      transform: scale(1.03);
+      opacity: 0.85;
+      transform: scale(1.02);
     }
+  }
+
+  /* Interaction System (Apple-like physics) */
+  .spring-interaction {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  }
+
+  .premium-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Base subtle border shadow */
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .premium-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Internal subtle inner glow border */
+    border-radius: inherit;
+    z-index: 10;
+  }
+
+  .premium-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: var(--shadow-luxe);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
   }
 
   @keyframes shimmerSweep {
@@ -292,10 +333,11 @@
 
   .glass-pane {
     background: var(--glass);
-    backdrop-filter: blur(20px) saturate(130%);
+    backdrop-filter: blur(12px) saturate(130%);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-luxe);
     position: relative;
+    transform: translateZ(0);
   }
 
   .glass-pane::after {
@@ -758,6 +800,8 @@
     opacity: 0.4;
     transform-style: preserve-3d;
     animation: globalOrbFloat 12s ease-in-out infinite;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
   }
 
   .global-3d-orb-a {
@@ -797,6 +841,8 @@
 
   .app-structure-shell section {
     scroll-margin-top: 220px;
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
   }
 
   .app-structure-shell section + section {

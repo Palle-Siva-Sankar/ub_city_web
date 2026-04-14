@@ -133,12 +133,12 @@ export function Shopping() {
                       <h3 className="shopping-board-heading text-center text-xl md:text-4xl font-['Outfit'] font-black tracking-tight mb-6">
                         {row.title}
                       </h3>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                      <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 sm:gap-6">
                         {row.items.map((item) => (
                           <Link
                             key={`${row.title}-${item.slug}-${item.label}`}
                             to={`/shopping/${item.slug}`}
-                            className="shopping-brand-tile rounded-xl min-h-[90px] flex items-center justify-center px-4 text-center text-sm md:text-lg font-black tracking-[0.04em] transition-all"
+                            className="premium-card min-h-[100px] flex items-center justify-center px-6 text-center text-sm md:text-lg font-bold tracking-tight hover:text-accent transition-colors"
                           >
                             {item.label}
                           </Link>

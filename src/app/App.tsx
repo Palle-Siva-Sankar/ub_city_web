@@ -16,7 +16,7 @@ function AppShell() {
 
 export default function App() {
   return (
-    <ReactLenis root options={{ lerp: 0.11, duration: 1.2, smoothWheel: true, syncTouch: false }}>
+    <ReactLenis root options={{ lerp: 0.08, duration: 1.1, smoothWheel: true, smoothTouch: true, syncTouch: false }}>
       <ThemeProvider>
         <AppShell />
       </ThemeProvider>

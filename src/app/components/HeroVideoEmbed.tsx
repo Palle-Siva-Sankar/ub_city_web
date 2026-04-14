@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 
 interface HeroVideoEmbedProps {
   embedUrl?: string;
@@ -52,10 +52,12 @@ function getOptimizedEmbedUrl(embedUrl: string): string {
 
 export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideImages }: HeroVideoEmbedProps) {
   const optimizedEmbedUrl = embedUrl ? getOptimizedEmbedUrl(embedUrl) : "";
+  const [isVisible, setIsVisible] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const [hasVideoError, setHasVideoError] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -83,25 +85,50 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
     return () => window.clearInterval(timer);
   }, [slides.length]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (isVisible) {
+      videoRef.current.play().catch(() => {});
+    } else {
+      videoRef.current.pause();
+    }
+  }, [isVisible]);
+
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 z-0 overflow-hidden bg-[#050608]">
       {slides.map((slide, index) => (
         <img
           key={`${slide}-${index}`}
           src={slide}
           alt={title}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            activeSlide === index ? "opacity-100" : "opacity-0"
+            activeSlide === index ? "opacity-40" : "opacity-0"
           }`}
+          loading="lazy"
         />
       ))}
       {(!isMobile && videoSrc) ? (
         <video
+          ref={videoRef}
           className={`absolute inset-0 w-full h-full object-cover scale-[1.01] brightness-110 contrast-105 saturate-110 transition-opacity duration-700 ${
             isVideoReady && !hasVideoError ? "opacity-100" : "opacity-0"
           }`}
           src={videoSrc}
-          autoPlay
           muted
           loop
           playsInline
@@ -115,14 +142,14 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
       ) : (!isMobile && embedUrl) ? (
         <iframe
           className="absolute inset-0 w-full h-full scale-[1.01] brightness-110 contrast-105 saturate-110"
-          src={optimizedEmbedUrl}
+          src={isVisible ? optimizedEmbedUrl : ""}
           title={title}
           allow="autoplay; encrypted-media; picture-in-picture"
           loading="lazy"
           allowFullScreen
         />
       ) : null}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-black/30" />
+      <div className="absolute inset-0 video-gradient-mask opacity-60" />
     </div>
   );
 }
