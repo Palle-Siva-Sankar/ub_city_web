@@ -61,7 +61,7 @@ export function ReachUs() {
                 key={i}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.1, duration: 1 }}
                 className="glass-pane lighting-card p-12 rounded-[4rem] border border-[var(--border)] hover:border-accent group transition-all duration-700 shadow-xl overflow-hidden relative"
               >
@@ -84,7 +84,7 @@ export function ReachUs() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
             className="rounded-[5rem] overflow-hidden border border-[var(--border)] shadow-gold min-h-[600px] relative lighting-card group"
           >
             <iframe
@@ -109,7 +109,7 @@ export function ReachUs() {
       {/* Contact Form */}
       <section className="py-40 px-6 md:px-12 bg-page-bg-alt relative border-t border-[var(--border)] transition-colors duration-500">
         <div className="max-w-[1000px] mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }}>
             <div className="text-center mb-24">
                <div className="flex items-center justify-center gap-6 mb-8">
                   <div className="w-16 h-px bg-accent" />
@@ -162,4 +162,5 @@ export function ReachUs() {
     </div>
   );
 }
+
 

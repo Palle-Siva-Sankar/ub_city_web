@@ -24,7 +24,7 @@ export function WhyUBCity() {
   return (
     <section className="overflow-hidden bg-page">
       <div className="relative z-10 px-6 max-w-[1400px] mx-auto py-18 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }}>
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-10 md:mb-14">
             <div className="max-w-3xl">
               <p className="text-[10px] font-black tracking-[0.5em] uppercase text-accent mb-4">Why This Property</p>

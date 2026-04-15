@@ -78,7 +78,7 @@ export function Events() {
                 key={event.id} 
                 initial={{ opacity: 0, y: 30 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
+                viewport={{ once: false, amount: 0.1 }} 
                 transition={{ delay: i * 0.1 }}
                 className="scroll-reveal compositor-layer glass-pane lighting-card group flex flex-col rounded-[3.5rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all duration-700 shadow-sm"
               >
@@ -158,4 +158,5 @@ export function Events() {
     </div>
   );
 }
+
 

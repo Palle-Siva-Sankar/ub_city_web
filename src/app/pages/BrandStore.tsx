@@ -136,7 +136,7 @@ export function BrandStore() {
                 key={product.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: idx * 0.05, duration: 0.8 }}
                 className="glass-pane rounded-[3rem] overflow-hidden lighting-card border border-[var(--border)] shadow-xl group relative flex flex-col h-full"
               >
@@ -237,5 +237,6 @@ export function BrandStore() {
     </div>
   );
 }
+
 
 

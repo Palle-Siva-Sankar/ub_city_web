@@ -80,7 +80,7 @@ export function Dine() {
                 key={restaurant.slug}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.08, duration: 0.8 }}
               >
                 <Link
@@ -149,7 +149,7 @@ export function Dine() {
                 key={item.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: index * 0.05 }}
               >
                 <div className="glass-pane lighting-card rounded-[2.5rem] overflow-hidden block h-full border border-[var(--border)] p-4 group">
@@ -222,4 +222,5 @@ export function Dine() {
 
   );
 }
+
 

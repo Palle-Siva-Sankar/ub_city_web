@@ -39,7 +39,7 @@ export function Sponsorship() {
               { t: "Presenting Partner", sub: "Premier", features: ["Exclusive category ownership across the entire footprint", "Naming rights on world-class major activations", "Premium digital signage blockouts", "VIP Hospitality Suites for 365 days"] },
               { t: "Official Partner", sub: "Signature", features: ["Category affiliation in core digital directories", "Digital signage block in specific retail zones", "2 massive branded pop-up events annually", "Dedicated account sponsorship integration setup"] }
             ].map((p, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-pane lighting-card rounded-[4rem] p-12 md:p-20 text-left relative overflow-hidden group border border-[var(--border)]">
+              <motion.div key={i} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ delay: i * 0.1 }} className="glass-pane lighting-card rounded-[4rem] p-12 md:p-20 text-left relative overflow-hidden group border border-[var(--border)]">
                 <div className="relative z-10">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
                     {i === 0 ? <ShieldCheck className="w-48 h-48 text-accent" /> : <Eye className="w-48 h-48 text-accent" />}
@@ -98,7 +98,7 @@ export function Sponsorship() {
               slug: "integrated-rights"
             }
           ].map((tier, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ delay: i * 0.1 }}
               className="glass-pane lighting-card rounded-[3.5rem] p-12 border border-[var(--border)] group hover:border-accent transition-all duration-700">
               <div className="flex items-center justify-between mb-10">
                 <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all">
@@ -119,4 +119,5 @@ export function Sponsorship() {
     </div>
   );
 }
+
 

@@ -52,7 +52,7 @@ export function Demographics() {
                        <span className="text-accent">{item.pct}%</span>
                     </div>
                     <div className="w-full h-3 bg-page-bg-alt rounded-full overflow-hidden border border-[var(--border)]">
-                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.5 }} className="h-full bg-accent" />
+                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} viewport={{ once: false, amount: 0.1 }} transition={{ duration: 1, delay: 0.5 }} className="h-full bg-accent" />
                     </div>
                   </div>
                 ))}
@@ -71,3 +71,4 @@ export function Demographics() {
     </div>
   );
 }
+
