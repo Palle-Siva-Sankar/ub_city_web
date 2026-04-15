@@ -59,16 +59,19 @@ export function Layout() {
     useEffect(() => {
         window.history.scrollRestoration = "manual";
         
-        let scrollTimeout: NodeJS.Timeout;
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            const currentScroll = window.scrollY;
+            setScrolled(currentScroll > 50);
             
-            // Performance Mode: Add class during active scroll
-            document.body.classList.add("is-scrolling");
+            // Performance Mode: Targeted bypass during motion
+            if (!document.body.classList.contains("is-scrolling")) {
+                document.body.classList.add("is-scrolling");
+            }
+            
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 document.body.classList.remove("is-scrolling");
-            }, 100);
+            }, 150);
         };
         
         const handleLocationTrigger = () => setIsLocationOpen(true);
