@@ -74,13 +74,10 @@ export function Events() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 section-optimize">
             {visibleEvents.map((event, i) => (
-              <motion.div 
+              <div 
                 key={event.id} 
-                initial={{ opacity: 0, y: 15 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
-                transition={{ delay: i * 0.04, duration: 0.5, ease: "easeOut" }}
-                className="scroll-reveal compositor-layer glass-pane lighting-card group flex flex-col rounded-[3.5rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all duration-700 shadow-sm"
+                className="scroll-reveal-luxe"
+                style={{ animationDelay: `${i * 0.05}s` }}
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.3] group-hover:grayscale-0" />

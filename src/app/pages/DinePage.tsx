@@ -145,12 +145,10 @@ export function Dine() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 section-optimize">
             {DINING_VARIETIES.map((item, index) => (
-              <motion.div
+              <div
                 key={item.slug}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1, margin: "-10px" }}
-                transition={{ delay: index * 0.03, duration: 0.4, ease: "easeOut" }}
+                className="scroll-reveal-luxe"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="glass-pane lighting-card rounded-[2.5rem] overflow-hidden block h-full border border-[var(--border)] p-4 group">
                   <div className="rounded-[2rem] overflow-hidden mb-6 relative">

@@ -34,11 +34,11 @@
   --font-outfit: "Outfit", sans-serif;
   --font-inter: "Inter", sans-serif;
 
-  /* Fluid Typography - Apple Inspired */
-  --text-hero: clamp(3.5rem, 10vw + 1rem, 6.5rem);
-  --text-h1: clamp(2.5rem, 6vw + 1rem, 4.5rem);
-  --text-h2: clamp(1.75rem, 4vw + 1rem, 2.75rem);
-  --text-h3: clamp(1.25rem, 2vw + 1rem, 1.75rem);
+  /* Fluid Typography - Apple Inspired (Responsive Clamps) */
+  --text-hero: clamp(2.5rem, 8vw + 1rem, 11rem);  /* Dynamic scaling for hero titles */
+  --text-h1: clamp(2rem, 6vw + 1rem, 5.5rem);
+  --text-h2: clamp(1.5rem, 4vw + 1rem, 3.5rem);
+  --text-h3: clamp(1.1rem, 2vw + 1rem, 2.2rem);
 }
 
 @layer base {
@@ -61,12 +61,19 @@
     transform: translateZ(0); 
   }
 
-  /* Smart Scroll Optimization: Simplify UI during heavy motion */
+  /* DYNAMIC VISUAL SHEDDING (Performance Bypass)
+     Disables expensive rendering tasks only while the viewport is moving.
+     This guarantees 60fps scrolling on high-resolution desktop monitors. */
+  body.is-scrolling *, 
   body.is-scrolling .glass-pane,
   body.is-scrolling .lighting-card,
   body.is-scrolling .backdrop-blur-3xl {
-    backdrop-filter: blur(4px) !important;
-    transition: backdrop-filter 0.1s ease-out;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    transition: none !important; /* Stop property calculations during flight */
   }
   
   body.is-scrolling .hero-video-glass {
@@ -602,9 +609,12 @@
     box-shadow: 
       0 30px 60px rgba(0, 0, 0, 0.8),
       0 0 40px rgba(198, 163, 95, 0.25) !important;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-property: transform, opacity, border-color;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateZ(0);
     will-change: transform, opacity;
+    contain: layout paint; /* Paint containment for peak performance */
   }
 
   .dark .glass-pane, .dark .lighting-card, .dark .premium-card {
@@ -615,16 +625,25 @@
       0 0 50px rgba(198, 163, 95, 0.3) !important;
   }
 
-  /* CSS-Native Scroll Reveal (Bidirectional High Performance) */
+  /* CSS-Native Scroll Reveal (Hardware Accelerated & Cross-Browser) */
   @keyframes revealUp {
-    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   .scroll-reveal-luxe {
-    animation: revealUp linear both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 40%;
+    /* Fallback: Standard fluid reveal for browsers without Scroll-Timeline support (Safari/Firefox) */
+    animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0; /* Starting state for fallback */
+  }
+
+  @supports (animation-timeline: view()) {
+    .scroll-reveal-luxe {
+      animation: revealUp linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 40%;
+      opacity: 1; /* View Timeline handles the reveal state */
+    }
   }
 
   /* Premium Buttons */
