@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router";
 import { Sparkles, MapPin, ArrowLeft } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 import { SHOPPING_CATEGORIES } from "../data/mallData";
@@ -9,6 +10,9 @@ import { useUserLocation } from "../hooks/useUserLocation";
 export function Shopping() {
   const navigate = useNavigate();
   const locationInfo = useUserLocation();
+  const [visibleRows, setVisibleRows] = useState(1);
+  const observerRef = useRef<HTMLDivElement>(null);
+
   const featuredBrandWalls = [
     {
       title: "Luxury & Couture",
@@ -51,6 +55,20 @@ export function Shopping() {
         ],
       },
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleRows < featuredBrandWalls.length) {
+          setVisibleRows(prev => prev + 1);
+        }
+      },
+      { threshold: 0.1, rootMargin: "200px" }
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => observer.disconnect();
+  }, [visibleRows, featuredBrandWalls.length]);
 
   return (
     <div className="page-wrapper bg-page min-h-screen transition-colors duration-500 pb-40">
@@ -130,7 +148,7 @@ export function Shopping() {
                 </div>
 
                 <div className="space-y-24 md:space-y-32 section-optimize">
-                  {featuredBrandWalls.map((row) => (
+                  {featuredBrandWalls.slice(0, visibleRows).map((row) => (
                     <div key={row.title} className="border-t border-[var(--border)] pt-16 md:pt-24 group/row">
                       <div className="flex items-center gap-8 md:gap-10 mb-12 md:mb-16">
                          <h3 className="text-2xl md:text-5xl font-['Outfit'] font-black tracking-tighter text-ink-gradient uppercase leading-none italic">
@@ -157,6 +175,13 @@ export function Shopping() {
                       </div>
                     </div>
                   ))}
+                  
+                  {/* Virtualization Trigger */}
+                  {visibleRows < featuredBrandWalls.length && (
+                    <div ref={observerRef} className="h-20 flex items-center justify-center">
+                       <div className="w-2 h-2 rounded-full bg-accent animate-ping" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

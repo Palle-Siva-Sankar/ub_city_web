@@ -9,8 +9,11 @@ import { useUserLocation } from "../hooks/useUserLocation";
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 import { toast } from "sonner";
 import { formatINR } from "../utils/currency";
+import { useState, useEffect, useRef } from "react";
 
 export function Dine() {
+  const [visibleCount, setVisibleCount] = useState(6);
+  const observerRef = useRef<HTMLDivElement>(null);
   const { recent } = useRecentlyViewed();
   const { addToCart } = useCart();
   const { wishlist, toggle } = useWishlist();
@@ -36,6 +39,20 @@ export function Dine() {
   const recentlyViewedDine = RESTAURANTS.filter(r => recent.includes(r.slug))
     .sort((a, b) => recent.indexOf(b.slug) - recent.indexOf(a.slug))
     .slice(0, 5);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleCount < RESTAURANTS.length) {
+          setVisibleCount(prev => prev + 6);
+        }
+      },
+      { threshold: 0.1, rootMargin: "300px" }
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => observer.disconnect();
+  }, [visibleCount]);
 
   return (
     <div className="page-wrapper bg-page min-h-screen transition-colors duration-500">
@@ -75,7 +92,7 @@ export function Dine() {
         
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {RESTAURANTS.map((restaurant, i) => (
+            {RESTAURANTS.slice(0, visibleCount).map((restaurant, i) => (
               <motion.div
                 key={restaurant.slug}
                 initial={{ opacity: 0, y: 50 }}
@@ -124,6 +141,13 @@ export function Dine() {
               </motion.div>
             ))}
           </div>
+          
+          {/* Virtualization Sentinel */}
+          {visibleCount < RESTAURANTS.length && (
+            <div ref={observerRef} className="h-40 flex items-center justify-center">
+               <div className="w-3 h-3 rounded-full bg-accent animate-ping" />
+            </div>
+          )}
         </div>
       </section>
 
