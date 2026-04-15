@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { ArrowLeft, Heart, Search, ShoppingCart, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { BRANDS, getBrandBySlug } from "../data/mallData";
@@ -11,6 +11,7 @@ import { formatINR } from "../utils/currency";
 const PRODUCTS_PER_PAGE = 12;
 
 export function BrandStore() {
+  const navigate = useNavigate();
   const { brandSlug } = useParams<{ brandSlug: string }>();
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("featured");
@@ -77,9 +78,12 @@ export function BrandStore() {
           <div className="absolute inset-0 bg-page/20 dark:bg-black/20 pointer-events-none" />
           
           <div className="absolute bottom-0 left-0 right-0 p-12 md:p-20 relative z-10">
-            <Link to="/shopping" className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-10">
+            <button 
+               onClick={() => navigate(-1)} 
+               className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-10 pointer-events-auto"
+            >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" /> Return to Sector
-            </Link>
+            </button>
             <div className="flex flex-col lg:flex-row items-baseline gap-8 mb-6">
                 <h1 className="text-6xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none">
                 {brand.name}

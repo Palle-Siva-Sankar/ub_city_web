@@ -61,12 +61,20 @@ export function Layout() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const lastPathname = useRef(location.pathname);
+    
     useEffect(() => {
         setIsMenuOpen(false);
-        if (lenis) {
-            lenis.scrollTo(0, { immediate: true });
-        } else {
-            window.scrollTo(0, 0);
+        
+        // Only scroll to top if the primary page path has changed
+        // This prevents snapping back to top when opening hash-based overlays or changing filters
+        if (location.pathname !== lastPathname.current) {
+            if (lenis) {
+                lenis.scrollTo(0, { immediate: true });
+            } else {
+                window.scrollTo(0, 0);
+            }
+            lastPathname.current = location.pathname;
         }
 
         if (location.hash === "#orders") {

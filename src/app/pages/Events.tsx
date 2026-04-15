@@ -1,11 +1,12 @@
 import { motion } from "motion/react";
 import { useMemo, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Calendar, MapPin, Clock, Users, Music, Heart, ArrowRight, Star, Sparkles, ArrowLeft } from "lucide-react";
 import { UPCOMING_EVENTS } from "../data/mallData";
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
 export function Events() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<"all" | "today" | "weekend">("all");
   const visibleEvents = useMemo(() => {
     if (filter === "all") return UPCOMING_EVENTS;
@@ -29,9 +30,12 @@ export function Events() {
         <div className="relative z-10 text-center px-6">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
             <div className="mb-12">
-               <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto">
+               <button 
+                  onClick={() => navigate(-1)} 
+                  className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto"
+               >
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
-               </Link>
+               </button>
             </div>
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-2xl border border-accent/30 mb-10 mx-auto group hover:bg-accent hover:text-black transition-all">
               <Sparkles className="w-4 h-4" />

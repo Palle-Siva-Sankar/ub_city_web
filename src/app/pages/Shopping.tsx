@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Sparkles, MapPin, ArrowLeft } from "lucide-react";
 
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
@@ -7,6 +6,7 @@ import { SHOPPING_CATEGORIES } from "../data/mallData";
 import { useUserLocation } from "../hooks/useUserLocation";
 
 export function Shopping() {
+  const navigate = useNavigate();
   const locationInfo = useUserLocation();
   const featuredBrandWalls = [
     {
@@ -63,9 +63,12 @@ export function Shopping() {
         <div className="relative z-10 flex flex-col justify-center px-8 md:px-32 max-w-[1800px] mx-auto w-full">
               <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
                   <div className="mb-8 md:mb-14">
-                         <Link to="/" className="group inline-flex items-center gap-5 px-8 md:px-10 py-3 md:py-4 glass-pane border border-accent/20 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold pointer-events-auto">
-                             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-3 transition-transform" /> Back to Home
-                         </Link>
+                         <button 
+                             onClick={() => navigate(-1)} 
+                             className="group inline-flex items-center gap-5 px-8 md:px-10 py-3 md:py-4 glass-pane border border-accent/20 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold pointer-events-auto"
+                         >
+                             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-3 transition-transform" /> Back to Nexus
+                         </button>
                   </div>
                    <div className="inline-flex items-center gap-3 md:gap-5 px-6 md:px-8 py-2 md:py-3 rounded-full bg-accent/20 backdrop-blur-3xl border border-accent/40 mb-8 md:mb-12 shadow-gold">
                      <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-accent" />
