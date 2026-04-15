@@ -56,6 +56,7 @@ export function Layout() {
     // Core session-wide location bootstrap
     const { city } = useUserLocation(); 
     
+    useEffect(() => {
         window.history.scrollRestoration = "manual";
         
         let scrollTimeout: NodeJS.Timeout;

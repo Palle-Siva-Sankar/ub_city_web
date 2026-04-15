@@ -596,12 +596,6 @@
     scroll-behavior: smooth;
   }
 
-  /* CSS-Native Scroll Reveal (Ultra High Performance) */
-  @keyframes revealUp {
-    from { opacity: 0; transform: translateY(30px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
   /* Premium Card & Component Styling - GOLD LUXE UPGRADE */
   .glass-pane, .lighting-card, .premium-card {
     border: 2px solid var(--accent-gold) !important;
