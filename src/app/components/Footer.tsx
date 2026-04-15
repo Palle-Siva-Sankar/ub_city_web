@@ -83,8 +83,8 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
       {/* Main Footer */}
       <div className="border-t border-[var(--border)] bg-page/50 backdrop-blur-3xl transition-colors duration-500">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-16 lg:gap-12">
-            <div className="space-y-10 lg:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-24">
+            <div className="space-y-10 lg:col-span-1">
               <div>
                 <Link to="/" className="text-2xl font-black tracking-tighter text-ink-gradient flex items-center gap-3 mb-8">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-gold flex items-center justify-center text-black text-xs shadow-gold">UB</div>
@@ -106,12 +106,6 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
                     <Phone className="w-4 h-4 text-accent" />
                   </div>
                   <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">+91 80 4177 1111</span>
-                </div>
-                <div className="flex items-center gap-5 group">
-                  <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
-                    <Mail className="w-4 h-4 text-accent" />
-                  </div>
-                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">concierge@ubcity.secure</span>
                 </div>
               </div>
             </div>
@@ -138,7 +132,7 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
               </nav>
             </div>
 
-            <div className="space-y-12 lg:col-span-2">
+            <div className="space-y-12">
               <div>
                 <h4 className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-10">Nexus Synchronize</h4>
                 <div className="flex flex-wrap gap-4 mb-8">

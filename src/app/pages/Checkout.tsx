@@ -11,6 +11,7 @@ export function Checkout() {
   const { placeOrder } = useOrders();
   const navigate = useNavigate();
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [processing, setProcessing] = useState(false);
 
   const [shipping, setShipping] = useState({ name: "", address: "", city: "", zip: "" });
   const [payment, setPayment] = useState({ card: "", expiry: "", cvv: "" });
@@ -22,10 +23,15 @@ export function Checkout() {
   const [isCancelled, setIsCancelled] = useState(false);
 
   const handlePlaceOrder = async () => {
-    setStep(3);
-    const id = placeOrder(cart, total * 1.08);
-    setOrderId(id);
-    clearCart();
+    setProcessing(true);
+    // Simulate high-fidelity secure processing
+    setTimeout(() => {
+        setProcessing(false);
+        setStep(3);
+        const id = placeOrder(cart, total * 1.08);
+        setOrderId(id);
+        clearCart();
+    }, 3000);
   };
 
   const handleCancelOrder = () => {
@@ -125,7 +131,29 @@ export function Checkout() {
                   </div>
                   <div className="space-y-10">
                     {paymentMethod === "card" && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-10">
+                      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-10">
+                        {/* Premium Card Preview */}
+                        <div className="relative h-56 rounded-[2.5rem] bg-gradient-to-br from-[#1c1c1e] to-accent/20 p-10 border border-white/10 shadow-2xl overflow-hidden group">
+                           <div className="absolute top-0 right-0 w-40 h-40 bg-accent/10 blur-[60px] rounded-full" />
+                           <div className="flex justify-between items-start mb-12">
+                              <div className="w-14 h-10 bg-accent/20 rounded-lg border border-accent/30" />
+                              <div className="text-[10px] font-black tracking-[0.4em] text-accent uppercase opacity-40">Elite Protocol</div>
+                           </div>
+                           <p className="text-2xl font-black font-['Outfit'] tracking-[0.3em] text-ink-gradient mb-8">
+                             {payment.card || "XXXX XXXX XXXX XXXX"}
+                           </p>
+                           <div className="flex justify-between items-end">
+                              <div>
+                                 <p className="text-[8px] font-black uppercase tracking-widest text-accent opacity-30 mb-1">Card Holder</p>
+                                 <p className="text-sm font-black text-ink-gradient uppercase">{shipping.name || "Victor Rose"}</p>
+                              </div>
+                              <div className="text-right">
+                                 <p className="text-[8px] font-black uppercase tracking-widest text-accent opacity-30 mb-1">Expires</p>
+                                 <p className="text-sm font-black text-ink-gradient">{payment.expiry || "MM/YY"}</p>
+                              </div>
+                           </div>
+                        </div>
+
                         <div className="space-y-4">
                           <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Card Number</label>
                           <input type="text" value={payment.card} onChange={(e) => setPayment({ ...payment, card: e.target.value })} placeholder="XXXX XXXX XXXX XXXX" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient focus:border-accent outline-none transition-all text-2xl font-black font-['Outfit'] tracking-[0.2em] placeholder:opacity-20" />
@@ -143,22 +171,58 @@ export function Checkout() {
                       </motion.div>
                     )}
                     {paymentMethod === "upi" && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">UPI ID</label>
-                        <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="name@bank" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none placeholder:opacity-20" />
+                      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-10">
+                        {/* QR Simulation */}
+                        <div className="flex flex-col items-center gap-8 py-10 bg-white/[0.03] rounded-[3rem] border border-[var(--border)]">
+                            <div className="w-48 h-48 bg-white p-4 rounded-3xl shadow-gold group cursor-pointer relative overflow-hidden">
+                                <div className="w-full h-full bg-[repeating-conic-gradient(#000_0_25%,#fff_0_50%)] bg-[length:10px_10px] opacity-80" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-10 h-10 bg-white rounded-lg border-2 border-black flex items-center justify-center font-black text-[8px]">UB</div>
+                                </div>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2">Scan to Transact</p>
+                                <p className="text-[8px] font-black uppercase tracking-widest text-[color:var(--text-dim)]">Synchronized with BHIM UPI Protocols</p>
+                            </div>
+                        </div>
+                        <div className="space-y-4">
+                          <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">UPI ID</label>
+                          <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="name@bank" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none placeholder:opacity-20" />
+                        </div>
                       </motion.div>
                     )}
                     {paymentMethod === "netbanking" && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-4">
                         <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Banking Authority</label>
                         <input type="text" value={bankRef} onChange={(e) => setBankRef(e.target.value)} placeholder="e.g. HDFC, ICICI, etc." className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none placeholder:opacity-20" />
+                        <div className="grid grid-cols-2 gap-4 mt-8">
+                            {["HDFC Bank", "ICICI Bank", "SBI", "Axis Bank"].map(bank => (
+                                <button key={bank} onClick={() => setBankRef(bank)} className={`p-6 rounded-2xl glass-pane border border-[var(--border)] text-[10px] font-black uppercase tracking-widest hover:border-accent transition-all ${bankRef === bank ? "border-accent bg-accent/10" : ""}`}>
+                                    {bank}
+                                </button>
+                            ))}
+                        </div>
                       </motion.div>
                     )}
                   </div>
                   <div className="mt-16 flex items-center gap-6 text-[10px] font-black tracking-[0.5em] text-accent/40 uppercase">
                      <Lock className="w-5 h-5" /> Secured by Elite Systems
                   </div>
-                  <button onClick={handlePlaceOrder} className="btn-luxe w-full mt-16 py-8">Authorize Acquisition</button>
+                  <button 
+                    onClick={handlePlaceOrder} 
+                    disabled={processing}
+                    className="btn-luxe w-full mt-16 py-8 relative overflow-hidden"
+                  >
+                    <span className={processing ? "opacity-0" : "opacity-100"}>Authorize Acquisition</span>
+                    {processing && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-accent">
+                            <div className="flex items-center gap-4">
+                                <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                                <span className="text-black text-[12px] font-black uppercase tracking-widest">Securing Transaction...</span>
+                            </div>
+                        </div>
+                    )}
+                  </button>
                </div>
                
                <div className="w-full lg:w-96 glass-pane lighting-card rounded-[4rem] border border-[var(--border)] p-12 flex flex-col shadow-xl">

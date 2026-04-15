@@ -28,7 +28,12 @@ export const DINING_VARIETIES: DiningVariety[] = [
   { slug: "cheesecake", name: "Berry Cheesecake Slice", cuisine: "Dessert", price: 10, prepTime: "7 mins", image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=900", description: "New York-style cheesecake with seasonal berry compote." },
   { slug: "cold-brew", name: "Vanilla Cold Brew", cuisine: "Cafe", price: 7, prepTime: "5 mins", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=900", description: "Single-origin cold brew with vanilla cream float." },
   { slug: "fries-loaded", name: "Loaded Truffle Fries", cuisine: "Snacks", price: 12, prepTime: "10 mins", image: "https://images.unsplash.com/photo-1576107232684-1279f390859f?q=80&w=900", description: "Crispy fries with truffle oil, parmesan, and herbs." },
-  { slug: "family-combo", name: "Grand Family Feast Combo", cuisine: "Combo", price: 49, prepTime: "30 mins", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900", description: "Main course platter for 4 with sides, drinks, and dessert." },
+  { slug: "shack-burger", name: "ShackBurger®", cuisine: "American", price: 12, prepTime: "10 mins", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=900", description: "Angus beef cheeseburger with lettuce, tomato, and secret ShackSauce." },
+  { slug: "smoke-shack", name: "SmokeShack™", cuisine: "American", price: 14, prepTime: "12 mins", image: "https://images.unsplash.com/photo-1534790561517-4158dc321927?q=80&w=900", description: "Cheeseburger topped with applewood smoked bacon and chopped cherry peppers." },
+  { slug: "shroom-burger", name: "Shroom Burger", cuisine: "Vegetarian", price: 13, prepTime: "15 mins", image: "https://images.unsplash.com/photo-1594970544699-2821815f9498?q=80&w=900", description: "Crisp-fried portobello mushroom filled with melted muenster and cheddar cheeses." },
+  { slug: "prime-rib", name: "Prime Bone-In Ribeye", cuisine: "American Grill", price: 42, prepTime: "30 mins", image: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?q=80&w=900", description: "Aged 28 days, char-grilled with garlic butter and sea salt." },
+  { slug: "lobster-tail", name: "Atlantic Lobster Tail", cuisine: "Seafood", price: 38, prepTime: "25 mins", image: "https://images.unsplash.com/photo-1551248429-40975aa4de74?q=80&w=900", description: "Twin cold water tails with drawn butter and grilled lemon." },
+  { slug: "truffle-mac", name: "Truffle Mac & Cheese", cuisine: "Sides", price: 15, prepTime: "12 mins", image: "https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?q=80&w=900", description: "Elbow pasta in white cheddar sauce with shaved summer truffles." },
 ];
 
 export function getDiningBySlug(slug: string) {

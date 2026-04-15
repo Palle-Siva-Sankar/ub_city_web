@@ -8,6 +8,7 @@
   --color-page-text: var(--text-main);
   --color-page-text-muted: var(--text-dim);
   --color-accent: var(--accent);
+  --color-accent-gold: var(--accent-gold);
   --color-accent-dim: var(--accent-dim);
   --color-accent-light: var(--accent-light);
   --color-muted-custom: var(--text-dim);
@@ -503,10 +504,9 @@
     will-change: transform, opacity;
   }
 
-  /* Section Virtualization (Modern Browser Optimization) */
+  /* Section Virtualization — disabled content-visibility to prevent scroll-stuck */
   .virtual-section {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 1000px;
+    /* content-visibility removed: caused layout miscalculation and scroll trapping */
   }
 
   /* Compositor Promotion & Paint Hardening */
@@ -527,32 +527,19 @@
     from { 
       opacity: 0; 
       transform: translateY(30px) scale(0.99); 
-      filter: blur(8px);
     }
     to { 
       opacity: 1; 
       transform: translateY(0) scale(1); 
-      filter: blur(0);
     }
   }
 
-  @supports (animation-timeline: view()) {
-    .scroll-reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 25%;
-      will-change: transform, opacity, filter;
-    }
+  /* scroll-reveal disabled: was causing cards to stay invisible/blurred when
+     scroll-driven animation didn't trigger. Cards use Framer Motion instead. */
+  .scroll-reveal {
+    /* no-op — cards are always visible */
   }
 
-  /* Fallback for browsers without scroll-driven animations */
-  @supports not (animation-timeline: view()) {
-    .scroll-reveal {
-       animation: fluidScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-  }
-
-  /* Optimized animations */
   @keyframes fluidScale {
     from { transform: scale(0.98); opacity: 0; }
     to { transform: scale(1); opacity: 1; }

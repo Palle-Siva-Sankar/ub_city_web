@@ -10,6 +10,7 @@ import { Footer } from "./Footer";
 import { SalesDock } from "./SalesDock";
 import { SHOPPING_CATEGORIES } from "../data/mallData";
 import { useWishlist, useCart, useOrders, useUserSession } from "../hooks/useFeatures";
+import { useUserLocation } from "../hooks/useUserLocation";
 import { useLenis } from "lenis/react";
 import { Suspense } from "react";
 import { AIAgent } from "./AIAgent";
@@ -49,7 +50,10 @@ export function Layout() {
     const { count: wishlistCount } = useWishlist();
     const { count: cartCount } = useCart();
     const lenis = useLenis();
-
+    
+    // Core session-wide location bootstrap
+    const { city } = useUserLocation(); 
+    
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -164,10 +168,7 @@ export function Layout() {
                                 <Package className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />
                             </button>
 
-                            <Link to="/login" className="relative w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
-                                <User className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />
-                            </Link>
-                            
+                            {/* Login icon removed to prevent duplicate profile icons */}
                             {/* Language Picker */}
                             <div className="relative group">
                                 <button className="flex items-center gap-3 px-4 py-2 rounded-full glass-pane border border-[var(--border)] hover:border-accent transition-all">
@@ -191,7 +192,7 @@ export function Layout() {
                             {isDark ? <Sun className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" /> : <Moon className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />}
                         </button>
                         
-                        <Link to="/profile" className="lg:hidden w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
+                        <Link to="/profile" className="w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
                              <User className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />
                         </Link>
 
@@ -353,7 +354,7 @@ export function Layout() {
 
             <AIAgent />
             <SalesDock />
-            <Footer hideCTA={location.pathname === "/dining" || location.pathname === "/leasing"} />
+            <Footer hideCTA={!["/", "/reach-us"].includes(location.pathname)} />
             <CookieBanner />
         </div>
     );

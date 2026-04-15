@@ -185,6 +185,22 @@ export const RESTAURANTS: Restaurant[] = [
     description: "Classic Italian wine bar and restaurant offering artisanal pizzas, handmade pastas, and an extensive curated wine list.", 
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200" 
   },
+  { 
+    slug: "twin-city-grills", 
+    name: "Twin City Grills", 
+    floor: "Level 3", 
+    hours: "11:30 AM – 11:00 PM", 
+    description: "Classic American grill featuring prime cut steaks, aged whiskey, and a sophisticated lounge atmosphere.", 
+    image: "https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=1200" 
+  },
+  { 
+    slug: "shake-shack", 
+    name: "Shake Shack", 
+    floor: "Level 1", 
+    hours: "10:00 AM – 11:00 PM", 
+    description: "Modern-day roadside burger stand known for its 100% all-natural Angus beef burgers, chicken sandwiches, and hand-spun shakes.", 
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200" 
+  },
 ];
 
 export const UPCOMING_EVENTS: MallEvent[] = [
@@ -193,8 +209,8 @@ export const UPCOMING_EVENTS: MallEvent[] = [
 
 // ─── Cinema Showtimes ───
 export const MOVIES: Movie[] = [
-  { title: "Interstellar: UB City IMAX", language: "English", showtimes: ["11:00 AM", "3:00 PM", "7:00 PM"], rating: "PG-13" },
-  { title: "The Mall Mystery", language: "English", showtimes: ["1:15 PM", "5:30 PM", "9:45 PM"], rating: "PG" },
+  { title: "Dune: Part Two", language: "English", showtimes: ["11:00 AM", "3:00 PM", "7:00 PM"], rating: "PG-13" },
+  { title: "Gladiator II", language: "English", showtimes: ["1:15 PM", "5:30 PM", "9:45 PM"], rating: "R" },
 ];
 
 // ─── Contact Info (UB City Bengaluru) ───

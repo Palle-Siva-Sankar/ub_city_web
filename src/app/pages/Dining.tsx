@@ -19,7 +19,7 @@ export function Dining() {
           <HeroVideoEmbed
             title="Dining Experience"
             posterImage="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000"
-            videoSrc="/videos/dining-hero.mp4"
+            videoSrc="https://videos.pexels.com/video-files/2620023/2620023-uhd_2560_1440_24fps.mp4"
           />
           <div className="absolute inset-0 bg-page/40 dark:bg-black/40 pointer-events-none" />
 
@@ -35,19 +35,19 @@ export function Dining() {
                 }}
             >
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
-                <div className="mb-12">
+                <div className="mb-12 text-center flex justify-center">
                    <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto">
-                      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
+                      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Back to Home
                    </Link>
                 </div>
                 <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-2xl border border-accent/30 mb-10 mx-auto shadow-gold">
                    <Sparkles className="w-4 h-4 text-accent" />
-                   <span className="text-[10px] font-black tracking-[0.4em] uppercase">The Gastronomy Portfolio</span>
+                   <span className="text-[10px] font-black tracking-[0.4em] uppercase">The Dining Collection</span>
                 </div>
                 <h1 className="text-5xl md:text-8xl font-['Outfit'] font-black text-ink-gradient uppercase leading-[0.9] tracking-tighter drop-shadow-2xl mb-8">
-                  Taste.<br /><span className="text-gradient">Elevated.</span>
+                  Exquisite.<br /><span className="text-gradient">Flavors.</span>
                 </h1>
-                <p className="text-lg md:text-xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-widest opacity-60">Fine Dining & Artisan Spirits</p>
+                <p className="text-lg md:text-xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-widest opacity-60">Gourmet Cuisine & Finest Spirits</p>
               </motion.div>
             </motion.div>
 
@@ -60,15 +60,15 @@ export function Dining() {
               }}
             >
               <div className="text-center mb-12 px-4">
-                 <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-4">Explore the Registry</p>
-                 <h2 className="text-4xl md:text-7xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter leading-none shadow-2xl">Culinary <span className="text-gradient">Sectors.</span></h2>
+                 <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-4">Explore Our Selection</p>
+                 <h2 className="text-4xl md:text-7xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter leading-none shadow-2xl">Dining <span className="text-gradient">Experiences.</span></h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-[1400px]">
                 {[
                   { icon: ChefHat, title: "Fine Dining", desc: "Award-winning chef concepts", inquiry: "/dine" },
                   { icon: Wine, title: "Lounges & Bars", desc: "Craft cocktails & late night", inquiry: "/dine" },
-                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International food courts", inquiry: "/dine" },
+                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International flavors", inquiry: "/dine" },
                   { icon: Coffee, title: "Cafés", desc: "Artisanal coffee & pastries", inquiry: "/dine" }
                 ].map((item, i) => (
                   <Link key={i} to={item.inquiry} className="glass-pane active-card lighting-card p-8 md:p-14 rounded-[3rem] text-center transition-all cursor-pointer group shadow-2xl block border border-[var(--border)] hover:border-accent hover:shadow-gold duration-700 relative overflow-hidden">
@@ -76,7 +76,7 @@ export function Dining() {
                     <div className="w-16 h-16 rounded-[1.5rem] bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-8 group-hover:bg-accent group-hover:text-black transition-all shadow-lg relative z-10">
                         <item.icon className="w-8 h-8" />
                     </div>
-                    <h3 className="text-2xl font-black font-['Outfit'] text-ink-gradient uppercase mb-4 tracking-tighter leading-none relative z-10 group-hover:text-accent transition-colors">{item.title}</h3>
+                    <h3 className="text-xl md:text-2xl font-black font-['Outfit'] text-ink-gradient uppercase mb-4 tracking-tighter leading-none relative z-10 group-hover:text-accent transition-colors">{item.title}</h3>
                     <p className="text-[color:var(--text-dim)] text-[10px] font-black uppercase tracking-[0.2em] leading-relaxed relative z-10 opacity-70 group-hover:opacity-100">{item.desc}</p>
                   </Link>
                 ))}
@@ -92,15 +92,15 @@ export function Dining() {
         <div className="relative z-10 text-center px-6 max-w-4xl">
           <div className="flex items-center justify-center gap-6 mb-12">
              <div className="w-20 h-px bg-accent" />
-             <p className="text-accent text-[11px] font-black tracking-[0.8em] uppercase leading-none">Global Expansion</p>
+             <p className="text-accent text-[11px] font-black tracking-[0.8em] uppercase leading-none">Global Partnership</p>
              <div className="w-20 h-px bg-accent" />
           </div>
-          <h2 className="text-6xl md:text-[8rem] font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter mb-12 leading-none">
-            Ready to <span className="text-gradient">Serve?</span>
+          <h2 className="text-4xl md:text-[8rem] font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter mb-12 leading-none">
+            Join the <br/><span className="text-gradient">Table.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic mb-16 leading-relaxed px-10">Join the world's most prestigious culinary destination at UB City.</p>
-          <Link to="/opportunity/inline-retail" className="btn-luxe !px-10 md:!px-20 !py-6 md:!py-8 text-[10px] md:text-sm shadow-gold">
-            F&B Leasing Opportunities <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-4" />
+          <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic mb-16 leading-relaxed px-10">Bring your premium culinary concept to the city's most prestigious destination.</p>
+          <Link to="/about" className="btn-luxe !px-10 md:!px-20 !py-6 md:!py-8 text-[10px] md:text-sm shadow-gold">
+            Partner With Us <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-4" />
           </Link>
         </div>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent shadow-gold" />

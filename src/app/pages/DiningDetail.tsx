@@ -29,6 +29,7 @@ export function DiningDetail() {
   const [paymentValue, setPaymentValue] = useState("");
   const [address, setAddress] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [cancelReason, setCancelReason] = useState(CANCEL_REASONS[0]);
   const [cancelled, setCancelled] = useState(false);
 
@@ -68,7 +69,7 @@ export function DiningDetail() {
           <div className="video-gradient-mask absolute inset-0" />
           <div className="absolute inset-0 p-10 md:p-20 flex flex-col justify-end relative z-10">
             <Link to="/dine" className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-10 w-fit">
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" /> Return to Gastronomy Vector
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" /> Back to Dining
             </Link>
             <div className="flex items-center gap-4 mb-8">
                <Clock className="w-6 h-6 text-accent" />
@@ -173,16 +174,36 @@ export function DiningDetail() {
             </div>
 
             <button
-              onClick={() => setOrderPlaced(true)}
-              disabled={!address || !paymentValue}
-              className="btn-luxe w-full py-6 disabled:opacity-30 disabled:grayscale transition-all"
+              onClick={() => {
+                setProcessing(true);
+                setTimeout(() => {
+                    setProcessing(false);
+                    setOrderPlaced(true);
+                    toast.success("Order Synchronized Successfully");
+                }, 2500);
+              }}
+              disabled={!address || !paymentValue || processing || orderPlaced}
+              className="btn-luxe w-full py-6 disabled:opacity-30 disabled:grayscale transition-all relative overflow-hidden"
             >
-              Confirm Purchase
+              <span className={processing || orderPlaced ? "opacity-0" : "opacity-100"}>Confirm Purchase</span>
+              {processing && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-accent">
+                      <div className="flex items-center gap-3">
+                          <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                          <span className="text-black text-[10px] font-black uppercase tracking-widest">Securing Transaction...</span>
+                      </div>
+                  </div>
+              )}
+              {orderPlaced && !cancelled && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-green-500">
+                      <span className="text-white text-[10px] font-black uppercase tracking-widest">Order Confirmed</span>
+                  </div>
+              )}
             </button>
 
             {orderPlaced && !cancelled && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8 rounded-[2.5rem] bg-green-500/10 border border-green-500/20 p-8">
-                <p className="text-xs font-black uppercase tracking-widest text-green-500 mb-6 text-center">Order Live & Tracking</p>
+                <p className="text-xs font-black uppercase tracking-widest text-green-500 mb-6 text-center">Live Tracking Active</p>
                 <div className="space-y-4">
                   <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full rounded-xl glass-pane border border-[var(--border)] px-5 py-3 text-xs font-bold text-ink-gradient outline-none">
                     {CANCEL_REASONS.map((reason) => (
@@ -190,7 +211,7 @@ export function DiningDetail() {
                     ))}
                   </select>
                   <button onClick={() => setCancelled(true)} className="w-full rounded-xl py-3 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500/10 transition-all">
-                    Request Cancellation
+                    Cancel Order
                   </button>
                 </div>
               </motion.div>
@@ -198,7 +219,7 @@ export function DiningDetail() {
 
             {cancelled && (
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-8 rounded-[2.5rem] bg-red-500/10 border border-red-500/20 p-8 text-center text-red-500 text-[10px] font-black uppercase tracking-widest">
-                Order Revoked: {cancelReason}
+                Order Cancelled: {cancelReason}
               </motion.div>
             )}
           </div>

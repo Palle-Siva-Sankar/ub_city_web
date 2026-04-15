@@ -41,7 +41,7 @@ export function Entertainment() {
 
       {/* DUAL SCROLLING EXPERIENTIAL PANELS */}
       <section ref={containerRef} className="relative h-[190vh] lg:h-[250vh] bg-page virtual-section">
-        <div className="sticky-presentation bg-page-alt overflow-hidden">
+        <div className="sticky top-0 h-screen w-full bg-page-alt overflow-hidden">
           
           {/* PANEL 1: Nickelodeon */}
           <motion.div className="absolute inset-0 flex flex-col md:flex-row" style={{ y: yImage1 }}>
@@ -79,13 +79,13 @@ export function Entertainment() {
       </section>
 
       {/* GRID FOR OTHER ATTRACTIONS */}
-      <section className="py-32 px-6 md:px-12 bg-page relative z-20 virtual-section">
+      <section className="py-16 md:py-32 px-4 md:px-12 bg-page relative z-20 virtual-section">
         <div className="max-w-[1400px] mx-auto text-center">
-          <div className="flex flex-col items-center mb-24">
+          <div className="flex flex-col items-center mb-12 md:mb-24">
              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6">Discovery Module</div>
-             <h2 className="text-5xl md:text-8xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter leading-none shadow-2xl">The Magic <span className="text-gradient">Continues.</span></h2>
+             <h2 className="text-4xl md:text-8xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter leading-none shadow-2xl">The Magic <span className="text-gradient">Continues.</span></h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-16">
             {[
               { slug: "flyover", icon: Plane, color: "text-orange-500", title: "FlyOver America", desc: "A breathtaking flight simulation ride that takes guests soaring over iconic landscapes." },
               { slug: "cmx-cinemas", icon: Film, color: "text-purple-500", title: "CMX Cinemas", desc: "Premium movie theatre with reclining leather seats and in-theatre dining." },
@@ -93,20 +93,17 @@ export function Entertainment() {
             ].map((item, i) => (
               <motion.div 
                 key={i} 
-                initial={{ opacity: 0, y: 30 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ delay: i * 0.1 }} 
-                className="h-full group"
+                initial={{ opacity: 1, y: 0 }} 
+                className="h-full group flex"
               >
-                <Link to={`/entertainment/${item.slug}`} className="glass-pane active-card lighting-card p-12 rounded-[3.5rem] text-left transition-all block h-full border border-accent/10 hover:border-accent hover:shadow-gold duration-700 relative overflow-hidden">
+                <Link to={`/entertainment/${item.slug}`} className="glass-pane active-card lighting-card p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] text-left transition-all block h-full w-full border border-accent/10 hover:border-accent hover:shadow-gold duration-700 relative overflow-hidden">
                   <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 backdrop-blur-3xl transition-all duration-700" />
                   <div className="relative z-10">
-                    <div className="w-20 h-20 rounded-3xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
-                        <item.icon className={`w-10 h-10 ${item.color}`} />
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-8 md:mb-10 group-hover:scale-110 transition-transform">
+                        <item.icon className={`w-8 h-8 md:w-10 md:h-10 ${item.color}`} />
                     </div>
-                    <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient mb-6 uppercase tracking-tighter leading-none group-hover:text-accent transition-colors">{item.title}</h3>
-                    <p className="text-ink-gradient/70 text-lg font-medium leading-relaxed italic border-l-2 border-accent/20 pl-6">{item.desc}</p>
+                    <h3 className="text-2xl md:text-3xl font-black font-['Outfit'] text-ink-gradient mb-4 md:mb-6 uppercase tracking-tighter leading-none group-hover:text-accent transition-colors">{item.title}</h3>
+                    <p className="text-ink-gradient/70 text-sm md:text-lg font-medium leading-relaxed italic border-l-2 border-accent/20 pl-4 md:pl-6">{item.desc}</p>
                     <div className="mt-12 flex items-center gap-4 text-accent text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all">
                        Explore Attraction →
                     </div>

@@ -85,14 +85,7 @@ export function AIAgent() {
         }, 1500);
     };
 
-    const handleDragEnd = (e: any, info: any) => {
-        // If swiped down sufficiently, close. Otherwise snap back.
-        if (info.offset.y > 100 || info.velocity.y > 500) {
-            setIsOpen(false);
-        } else {
-            controls.start({ y: 0, transition: { type: "spring", stiffness: 300, damping: 25 } });
-        }
-    };
+    // Drag handling removed to ensure standard touch/scroll interactions work cleanly on mobile
 
     return (
         <>
@@ -134,20 +127,14 @@ export function AIAgent() {
                             style={{ touchAction: 'none' }}
                         />
                         
-                        {/* Chat Panel - Draggable on mobile */}
+                        {/* Chat Panel - Simple Modal */}
                         <motion.div
-                            animate={controls}
-                            initial={{ opacity: 0, y: "100%", scale: 0.95 }}
-                            exit={{ opacity: 0, y: "100%", scale: 0.95 }}
-                            transition={{ type: "spring", damping: 28, stiffness: 300 }}
-                            drag="y"
-                            dragConstraints={{ top: 0, bottom: 0 }}
-                            dragElastic={0.2}
-                            dragDirectionLock
-                            onDragEnd={handleDragEnd}
-                            className="relative w-full md:w-[420px] h-[85dvh] md:h-[600px] max-h-[100dvh] bg-page glass-pane border-t md:border border-[var(--border)] rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto transform-gpu overflow-hidden"
+                            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 40, scale: 0.95 }}
+                            transition={{ type: "spring", damping: 28, stiffness: 300, mass: 0.8 }}
+                            className="relative w-[92%] md:w-[380px] h-[75dvh] md:h-[550px] max-h-[90dvh] bg-page glass-pane border md:border-[var(--border)] rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto transform-gpu overflow-hidden mx-auto mb-4 md:mb-0 md:mr-12"
                             onClick={(e) => e.stopPropagation()}
-                            style={{ touchAction: 'none' }} // Crucial for drag gesture logic
                         >
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-accent/10 blur-[100px] pointer-events-none z-0" />
                             
@@ -178,12 +165,9 @@ export function AIAgent() {
                             </div>
 
                             {/* Chat History */}
-                            {/* The onPointerDown={(e) => e.stopPropagation()} ensures inner scrolling doesn't conflict with outer drag */}
                             <div 
                                 className="relative z-10 flex-1 overflow-y-auto p-4 md:p-6 custom-scrollbar overscroll-contain flex flex-col gap-6" 
-                                data-lenis-prevent="true"
-                                style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
-                                onPointerDown={(e) => e.stopPropagation()}
+                                style={{ WebkitOverflowScrolling: 'touch' }}
                             >
                                 <AnimatePresence initial={false}>
                                     {messages.map((msg) => (
@@ -244,9 +228,7 @@ export function AIAgent() {
                             {!isTyping && (
                                 <div 
                                     className="relative z-10 px-4 md:px-6 pb-2 overflow-x-auto custom-scrollbar flex gap-2" 
-                                    data-lenis-prevent="true"
-                                    style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}
-                                    onPointerDown={(e) => e.stopPropagation()}
+                                    style={{ WebkitOverflowScrolling: 'touch' }}
                                 >
                                     {SITUATIONS.map(sit => (
                                         <button
@@ -261,10 +243,7 @@ export function AIAgent() {
                             )}
 
                             {/* Chat Input */}
-                            <div 
-                                className="relative z-10 p-4 md:p-6 border-t border-[var(--border)] bg-page/95 backdrop-blur-xl touch-none"
-                                onPointerDown={(e) => e.stopPropagation()}
-                            >
+                            <div className="relative z-10 p-3 md:p-5 border-t border-[var(--border)] bg-page/95 backdrop-blur-xl">
                                 <form onSubmit={handleCustomSubmit} className="relative flex items-center">
                                     <input
                                         type="text"

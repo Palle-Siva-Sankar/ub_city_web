@@ -23,7 +23,7 @@ export function Events() {
         <HeroVideoEmbed
           title="Events Hero Video"
           posterImage="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000"
-          videoSrc={VIDEOS.events}
+          videoSrc="https://videos.pexels.com/video-files/2096572/2096572-uhd_2560_1440_30fps.mp4"
         />
         
         <div className="relative z-10 text-center px-6">
@@ -139,12 +139,12 @@ export function Events() {
               { icon: Users, title: "Corporate", desc: "Bespoke experiences from product summits to global summits." },
               { icon: Heart, title: "Private", desc: "Breathtaking galas and VIP celebrations across our resort." }
             ].map((t, i) => (
-              <div key={i} className="glass-pane lighting-card p-12 rounded-[4rem] text-center border border-[var(--border)] group hover:border-accent transition-all duration-700">
-                <div className="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-accent/30 group-hover:rotate-12 transition-all">
-                   <t.icon className="w-10 h-10 text-accent" />
+              <div key={i} className="glass-pane lighting-card p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] text-center border border-[var(--border)] group hover:border-accent transition-all duration-700">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/20 rounded-2xl md:rounded-3xl flex items-center justify-center mx-auto mb-8 md:mb-10 border border-accent/30 group-hover:rotate-12 transition-all">
+                   <t.icon className="w-8 h-8 md:w-10 md:h-10 text-accent" />
                 </div>
-                <h3 className="text-3xl font-black text-ink-gradient mb-6 font-['Outfit'] uppercase tracking-tighter group-hover:text-accent transition-colors leading-none">{t.title}</h3>
-                <p className="text-[color:var(--text-dim)] font-medium mb-12 text-lg leading-relaxed h-14 opacity-80">{t.desc}</p>
+                <h3 className="text-2xl md:text-3xl font-black text-ink-gradient mb-4 md:mb-6 font-['Outfit'] uppercase tracking-tighter group-hover:text-accent transition-colors leading-none">{t.title}</h3>
+                <p className="text-[color:var(--text-dim)] font-medium mb-8 md:mb-12 text-sm md:text-lg leading-relaxed h-auto md:h-14 opacity-80">{t.desc}</p>
                 <Link to="/opportunity/venue-concert-spaces" className="btn-luxe w-full">Book Event Slot</Link>
               </div>
             ))}

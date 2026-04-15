@@ -36,24 +36,24 @@ export function Luxury() {
         
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pointer-events-none">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5 }}>
-            <div className="mb-12">
+            <div className="mb-12 text-center flex justify-center">
                <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto">
-                  <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
+                  <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Back to Home
                </Link>
             </div>
             <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8 shadow-2xl">The Luxury Collection</p>
-            <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black font-['Outfit'] mb-8 leading-none text-ink-gradient tracking-tighter uppercase drop-shadow-2xl">
-              Absolute<br /><span className="text-gradient">Sovereignty.</span>
+            <h1 className="text-5xl md:text-8xl lg:text-[10rem] font-black font-['Outfit'] mb-8 leading-none text-ink-gradient tracking-tighter uppercase drop-shadow-2xl">
+              Elevated<br /><span className="text-gradient">Elegance.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium max-w-3xl mx-auto leading-relaxed mb-12">
-              The destination operates not just as a shopping district, but as a sovereign luxury ecosystem—a small city where the world’s most elite brands converge.
+            <p className="text-lg md:text-2xl text-[color:var(--text-dim)] font-medium max-w-3xl mx-auto leading-relaxed mb-12">
+              Experience a sovereign destination of luxury—a curated ecosystem where the world’s most iconic fashion houses converge.
             </p>
             <div className="pointer-events-auto flex flex-col sm:flex-row gap-6 justify-center">
               <a href="#deep-dive" className="btn-luxe px-12">
-                Explore The Sector
+                Explore The Collection
               </a>
-              <Link to="/strategy" className="hero-cta-secondary px-12 py-5 rounded-full text-[10px] font-black uppercase tracking-[0.3em] transition-all border border-[var(--border)] hover:bg-white/10 flex items-center justify-center gap-3">
-                Strategic Deck <ArrowRight className="w-4 h-4 text-accent" />
+              <Link to="/brand-style-guide" className="hero-cta-secondary px-12 py-5 rounded-full text-[10px] font-black uppercase tracking-[0.3em] transition-all border border-[var(--border)] hover:bg-white/10 flex items-center justify-center gap-3">
+                Style Guide <ArrowRight className="w-4 h-4 text-accent" />
               </Link>
             </div>
           </motion.div>
@@ -72,11 +72,11 @@ export function Luxury() {
 
             <motion.div style={{ opacity: opacityText1 }} className="md:w-1/2 flex flex-col items-start text-left pl-0 md:pl-20">
               <p className="font-black uppercase tracking-[0.4em] text-[10px] mb-4 text-accent">Maison Louis Vuitton</p>
-              <h2 className="text-5xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">Art of Travel.<br/>Perfected Here.</h2>
+              <h2 className="text-4xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">The Art of <br/>Living.</h2>
               <div className="glass-pane rounded-[3rem] p-10 max-w-lg pointer-events-auto border border-[var(--border)]">
-                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">Experience the largest LV flagship in the Midwest. Featuring exclusive leather goods salons, private bespoke tailoring suites, and VIP entrances right from the valet.</p>
-                <Link to="/opportunity/flagship-anchor" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
-                  Request Luxury Leasing Deck
+                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">Experience the definitive luxury flagship. Featuring exclusive leather goods, private styling suites, and signature valet service.</p>
+                <Link to="/shopping" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
+                  Explore Brand
                 </Link>
               </div>
             </motion.div>
@@ -89,12 +89,12 @@ export function Luxury() {
             </div>
 
             <motion.div style={{ opacity: opacityText2 }} className="md:w-1/2 flex flex-col items-start text-left pr-0 md:pr-20">
-              <p className="font-black uppercase tracking-[0.4em] text-[10px] mb-4 text-accent">Tesla Design Studio</p>
-              <h2 className="text-5xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">The Future.<br/>In Showroom.</h2>
+              <p className="font-black uppercase tracking-[0.4em] text-[10px] mb-4 text-accent">Innovation Studio</p>
+              <h2 className="text-4xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">Redefining <br/>Mobility.</h2>
               <div className="glass-pane rounded-[3rem] p-10 max-w-lg pointer-events-auto border border-[var(--border)]">
-                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">Not just a showroom. An experiential gallery where high-intent visitors engage with premium design, innovation, and craft—right in the CBD.</p>
-                <Link to="/opportunity/sponsorship-signature" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
-                  Request Brand Partnership Deck
+                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">An experiential gallery where innovation meets premium design. Discover the future of sustainable luxury in our flagship studio.</p>
+                <Link to="/reach-us" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
+                  Visit Studio
                 </Link>
               </div>
             </motion.div>
@@ -107,9 +107,9 @@ export function Luxury() {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-3 gap-12">
             {[
-              { title: "Bespoke Architecture", desc: "Italian marble, custom glass facades, and tailored lighting for absolute brand purity.", to: "/opportunity/bespoke-architecture" },
-              { title: "VIP Concierge", desc: "Private styling suites, valet, and a dedicated high-net-worth individual support team.", to: "/opportunity/vip-concierge" },
-              { title: "Unmatched Exclusivity", desc: "Hermetically curated adjacencies ensuring your brand sits among true peers.", to: "/opportunity/unmatched-exclusivity" }
+              { title: "Elegant Architecture", desc: "Italian marble, custom glass facades, and tailored lighting created for brand purity.", to: "/about" },
+              { title: "VIP Concierge", desc: "Private styling suites, premium valet, and a dedicated guest relations team.", to: "/about" },
+              { title: "Curated Selection", desc: "A carefully managed collection of brands ensuring you are in esteemed company.", to: "/shopping" }
             ].map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.8 }}
                 className="group relative">
@@ -117,11 +117,11 @@ export function Luxury() {
                   <div className="absolute top-0 right-0 p-10 opacity-40 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700">
                     <Sparkles className="w-10 h-10 text-accent" />
                   </div>
-                  <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 opacity-60">Luxury Protocol</p>
-                  <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none group-hover:text-accent transition-colors">{f.title}</h3>
+                  <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 opacity-60">Luxury Collection</p>
+                  <h3 className="text-2xl md:text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none group-hover:text-accent transition-colors">{f.title}</h3>
                   <p className="text-[color:var(--text-dim)] text-xs font-black uppercase tracking-[0.2em] leading-relaxed mb-12 opacity-80 group-hover:opacity-100">{f.desc}</p>
                   <div className="flex items-center justify-between">
-                     <span className="text-[10px] font-black text-accent uppercase tracking-widest border-b border-accent/30 pb-1">Establish Protocol</span>
+                     <span className="text-[10px] font-black text-accent uppercase tracking-widest border-b border-accent/30 pb-1">Learn More</span>
                      <ArrowRight className="w-6 h-6 text-accent group-hover:translate-x-3 transition-transform" />
                   </div>
                   <div className="absolute bottom-0 left-0 h-1 w-0 bg-accent group-hover:w-full transition-all duration-700" />
