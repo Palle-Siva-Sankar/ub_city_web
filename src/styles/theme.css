@@ -61,11 +61,12 @@
     transform: translateZ(0); 
   }
 
-  /* Permanent High-Performance Visual Baseline
-     We use a static optimized blur and shadow to eliminate the need for JS scroll thrasher. */
-  .glass-pane, .lighting-card {
-    backdrop-filter: blur(8px) saturate(140%);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
+  /* High-Performance Compositor Baseline 
+     We use solid/matte backgrounds to eliminate 'backdrop-filter' bottleneck during scrolling. */
+  .glass-pane, .lighting-card, .premium-card {
+    background: var(--nav-bg) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   /* Maintain clean scrollbar styling for premium feel */
@@ -614,19 +615,22 @@
     scroll-behavior: smooth;
   }
 
-  /* Premium Card & Component Styling - GOLD LUXE UPGRADE */
+  /* Premium Card & Component Styling - GOLD LUXE INTERACTIVE */
   .glass-pane, .lighting-card, .premium-card {
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    contain: paint layout;
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  .glass-pane:hover, .lighting-card:hover, .premium-card:hover {
     border: 2px solid var(--accent-gold) !important;
     box-shadow: 
       0 15px 40px rgba(0, 0, 0, 0.6),
       0 0 20px rgba(198, 163, 95, 0.15) !important;
-    transition-property: transform, opacity, border-color;
-    transition-duration: 0.4s;
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateZ(0);
-    will-change: transform, opacity;
-    contain: paint layout;
-    image-rendering: -webkit-optimize-contrast; /* Sharp, fast rendering on desktop */
+    transform: translateY(-4px) scale(1.02);
+    z-index: 10;
   }
 
   .dark .glass-pane, .dark .lighting-card, .dark .premium-card {
