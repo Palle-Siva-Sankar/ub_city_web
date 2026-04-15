@@ -4,6 +4,8 @@ import { ShieldCheck, Download, Store, Zap, Handshake } from "lucide-react";
 import { VIDEOS } from "../data/mediaAssets";
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
+export function Leasing() {
+
   const handleDownload = () => {
     const data = new Blob(["UB City Mall 2026 Prospectus\n\n- Flagship Anchors\n- Inline Retail\n- Pop-up Experiential\n- Demographic Intelligence"], { type: "application/pdf" });
     const url = window.URL.createObjectURL(data);
