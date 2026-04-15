@@ -59,7 +59,7 @@ export function About() {
                 key={item.title} 
                 initial={{ opacity: 0, y: 50 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.1 }} 
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
                 transition={{ delay: index * 0.1, duration: 1 }}
                 className="scroll-reveal compositor-layer"
               >
@@ -82,4 +82,6 @@ export function About() {
     </div>
   );
 }
+
+
 

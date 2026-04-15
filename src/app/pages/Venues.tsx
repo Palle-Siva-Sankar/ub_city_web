@@ -55,7 +55,7 @@ export function Venues() {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12">
             {/* Massive Parallax Featured Venue */}
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1 }} className="relative rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[var(--border)] lighting-card min-h-[450px] md:min-h-[600px] scroll-reveal compositor-layer">
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }} className="relative rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[var(--border)] lighting-card min-h-[450px] md:min-h-[600px] scroll-reveal compositor-layer">
               <img src={moaEvent} alt="The Rotunda" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60" />
               <div className="absolute inset-0 bg-gradient-to-t from-page via-page/40 to-transparent" />
               <div className="absolute bottom-0 left-0 p-8 md:p-16">
@@ -73,7 +73,7 @@ export function Venues() {
               </div>
               {venues.slice(1).map((v, i) => (
                 <Link to="/opportunity/venue-concert-spaces" key={i}>
-                  <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ delay: i * 0.1 }}
+                  <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }} transition={{ delay: i * 0.1 }}
                     className="glass-pane lighting-card p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-between transition-all group cursor-pointer border border-[var(--border)] h-full scroll-reveal compositor-layer">
                     <div className="flex items-center gap-4 md:gap-8">
                       <div className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.2rem] bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-[var(--btn-text-on-accent)] transition-all duration-500">
@@ -96,5 +96,7 @@ export function Venues() {
 
   );
 }
+
+
 
 

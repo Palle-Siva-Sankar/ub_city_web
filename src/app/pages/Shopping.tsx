@@ -140,14 +140,21 @@ export function Shopping() {
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
                         {row.items.map((item, idx) => (
-                          <Link
+                          <motion.div
                             key={`${row.title}-${item.slug}-${item.label}-${idx}`}
-                            to={`/shopping/${item.slug}`}
-                             className="glass-pane lighting-card active-card rounded-[2rem] flex flex-col items-center justify-center p-8 text-center hover:border-accent hover:shadow-gold transition-all duration-700 border border-[var(--border)] group/card relative overflow-hidden shine-effect"
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, amount: 0.1, margin: "-10px" }}
+                            transition={{ delay: idx * 0.03, duration: 0.4, ease: "easeOut" }}
                           >
-                             <span className="text-[8px] font-black uppercase tracking-[0.4em] text-accent mb-4 opacity-0 group-hover/card:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Visit Store</span>
-                            <span className="text-xl md:text-2xl font-black font-['Outfit'] uppercase tracking-tight text-ink-gradient group-hover:text-accent transition-colors">{item.label}</span>
-                          </Link>
+                            <Link
+                              to={`/shopping/${item.slug}`}
+                               className="glass-pane lighting-card active-card rounded-[2rem] flex flex-col items-center justify-center p-8 h-full text-center hover:border-accent hover:shadow-gold transition-all duration-700 border border-[var(--border)] group/card relative overflow-hidden shine-effect min-h-[160px]"
+                            >
+                               <span className="text-[8px] font-black uppercase tracking-[0.4em] text-accent mb-4 opacity-0 group-hover/card:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Visit Store</span>
+                              <span className="text-xl md:text-2xl font-black font-['Outfit'] uppercase tracking-tight text-ink-gradient group-hover:text-accent transition-colors">{item.label}</span>
+                            </Link>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
@@ -161,4 +168,6 @@ export function Shopping() {
     </div>
   );
 }
+
+
 

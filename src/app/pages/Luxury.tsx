@@ -111,7 +111,7 @@ export function Luxury() {
               { title: "VIP Concierge", desc: "Private styling suites, premium valet, and a dedicated guest relations team.", to: "/about" },
               { title: "Curated Selection", desc: "A carefully managed collection of brands ensuring you are in esteemed company.", to: "/shopping" }
             ].map((f, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ delay: i * 0.1, duration: 0.8 }}
+              <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }} transition={{ delay: i * 0.1, duration: 0.8 }}
                 className="group relative">
                 <Link to={f.to} className="glass-pane active-card lighting-card rounded-[3.5rem] p-12 block h-full border border-[var(--border)] group-hover:border-accent transition-all duration-700 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-10 opacity-40 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700">
@@ -134,5 +134,7 @@ export function Luxury() {
     </div>
   );
 }
+
+
 
 

@@ -127,7 +127,7 @@ export function ShoppingCategory() {
                 key={product.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false, amount: 0.1 }}
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }}
                 transition={{ delay: idx * 0.05 }}
                 className="glass-pane lighting-card active-card rounded-[2.5rem] overflow-hidden border border-[var(--border)] shadow-xl group relative flex flex-col h-full"
               >
@@ -199,6 +199,8 @@ export function ShoppingCategory() {
     </div>
   );
 }
+
+
 
 
 

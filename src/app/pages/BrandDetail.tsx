@@ -196,7 +196,7 @@ export function BrandDetail() {
       <section className="py-56 bg-page relative overflow-hidden transition-colors duration-500 virtual-section">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.8fr] gap-32 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1 }}>
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }}>
               <p className="text-accent text-[11px] tracking-[0.8em] font-black uppercase mb-10">The Distinction</p>
               <h2 className="text-6xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient mb-16 leading-[0.8] uppercase tracking-tighter">
                 Refining <br /> <span className="text-gradient">{(item as Brand).category?.replace("-", " ") || "Dining"}.</span>
@@ -214,7 +214,7 @@ export function BrandDetail() {
             <motion.div 
               initial={{ opacity: 0, x: 50 }} 
               whileInView={{ opacity: 1, x: 0 }} 
-              viewport={{ once: false, amount: 0.1 }} 
+              viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
               className="glass-pane lighting-card rounded-[5rem] p-20 border border-[var(--border)] relative shadow-2xl"
             >
               <div className="absolute top-10 left-10 text-accent opacity-20">
@@ -346,7 +346,7 @@ export function BrandDetail() {
                 key={review.id || i}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }}
                 transition={{ delay: i * 0.1 }}
                 className="scroll-reveal compositor-layer glass-pane lighting-card rounded-[4rem] p-16 border border-[var(--border)] hover:bg-accent/5 transition-all duration-1000 relative group/review shadow-lg"
               >
@@ -376,5 +376,7 @@ export function BrandDetail() {
 
   );
 }
+
+
 
 

@@ -28,7 +28,7 @@ export function SalesDock() {
           transition={{ duration: reduceMotion ? 0.1 : 0.25 }}
           className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[min(500px,calc(100vw-24px))]"
         >
-          <div className="glass-pane lighting-card rounded-xl border border-accent/20 flex items-center justify-between gap-1.5 px-3 h-11 shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-3xl relative overflow-hidden">
+          <div className="glass-pane lighting-card rounded-xl border border-accent/20 dark:border-accent/30 flex items-center justify-between gap-1.5 px-3 h-11 shadow-[0_15px_40px_rgba(0,0,0,0.6)] dark:shadow-gold backdrop-blur-3xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent pointer-events-none" />
             <div className="flex items-center gap-1.5 min-w-0 overflow-x-auto no-scrollbar scroll-smooth">
               {ACTIONS.map((a) => (

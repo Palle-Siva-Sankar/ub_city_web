@@ -45,7 +45,7 @@ export function Leasing() {
             { title: "Premium Storefronts", icon: Store, desc: "Highly visible retail spots along our primary corridors, tailored for luxury lifestyle brands.", segment: "Retail / Lifestyle", detailPath: "/opportunity/inline-retail" },
             { title: "Boutique Pop-Ups", icon: Zap, desc: "Flexible, short-term gallery spaces perfect for limited editions and brand activations.", segment: "F&B / Pop-up", detailPath: "/opportunity/popup-experiential" }
           ].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ delay: i * 0.1 }}
+            <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }} transition={{ delay: i * 0.1 }}
               className="glass-pane glass-pane-hover active-card lighting-card rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 transition-all duration-500 hover:-translate-y-4 group">
               <item.icon className="w-12 h-12 md:w-16 md:h-16 text-accent mb-6 md:mb-8 bg-accent/10 p-3 rounded-2xl md:rounded-3xl group-hover:scale-110 transition-transform" />
               <h3 className="text-xl md:text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tight mb-4 md:mb-6">{item.title}</h3>
@@ -85,5 +85,7 @@ export function Leasing() {
     </div>
   );
 }
+
+
 
 

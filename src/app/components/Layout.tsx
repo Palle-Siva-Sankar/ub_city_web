@@ -56,8 +56,20 @@ export function Layout() {
     // Core session-wide location bootstrap
     const { city } = useUserLocation(); 
     
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50);
+        window.history.scrollRestoration = "manual";
+        
+        let scrollTimeout: NodeJS.Timeout;
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+            
+            // Performance Mode: Add class during active scroll
+            document.body.classList.add("is-scrolling");
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove("is-scrolling");
+            }, 100);
+        };
+        
         const handleLocationTrigger = () => setIsLocationOpen(true);
         
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -66,6 +78,7 @@ export function Layout() {
         return () => {
             window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("open-location", handleLocationTrigger);
+            clearTimeout(scrollTimeout);
         };
     }, []);
 

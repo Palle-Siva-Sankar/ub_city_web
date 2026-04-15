@@ -55,8 +55,22 @@
     height: 100%;
     overflow-x: hidden;
     /* Hide scrollbar for all browsers */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* Hardware acceleration for the root */
+    transform: translateZ(0); 
+  }
+
+  /* Smart Scroll Optimization: Simplify UI during heavy motion */
+  body.is-scrolling .glass-pane,
+  body.is-scrolling .lighting-card,
+  body.is-scrolling .backdrop-blur-3xl {
+    backdrop-filter: blur(4px) !important;
+    transition: backdrop-filter 0.1s ease-out;
+  }
+  
+  body.is-scrolling .hero-video-glass {
+    backdrop-filter: none !important;
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -72,7 +86,7 @@
   }
 
   /* Optimize desktop rendering performance for high-res screens */
-  .compositor-layer, .glass-pane, .lighting-card, .btn-luxe {
+  .compositor-layer, .glass-pane, .lighting-card, .btn-luxe, .hero-video-glass {
      transform: translateZ(0);
      backface-visibility: hidden;
      perspective: 1000px;
@@ -137,8 +151,8 @@
     --input-border: rgba(0, 0, 0, 0.1);
     --nav-bg: rgba(255, 255, 255, 0.88);
     --btn-text-on-accent: #ffffff;
-    --shadow-luxe: 0 20px 60px rgba(0, 0, 0, 0.08);
-    --shadow-gold: 0 0 25px rgba(179, 140, 77, 0.15);
+    --shadow-luxe: 0 25px 70px rgba(0, 0, 0, 0.1);
+    --shadow-gold: 0 0 35px rgba(179, 140, 77, 0.2);
     --accent-soft: rgba(0, 0, 0, 0.05);
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
@@ -327,12 +341,17 @@
 
 
   .text-ink-gradient {
-    color: var(--text-main);
+    background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   :root.light .text-ink-gradient {
-    color: #000000 !important;
-    opacity: 1 !important;
+    background: linear-gradient(135deg, #1f1f1f 0%, #8a6c3a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Universal icon visibility fix for Light Mode */
@@ -504,10 +523,10 @@
     
     /* Performance: Reduce blur on mobile for 60fps */
     .backdrop-blur-3xl {
-      backdrop-filter: blur(20px) !important;
+      backdrop-filter: blur(10px) !important;
     }
     .backdrop-blur-2xl {
-      backdrop-filter: blur(14px) !important;
+      backdrop-filter: blur(8px) !important;
     }
     .shine-effect::after {
       display: none !important;
@@ -577,17 +596,56 @@
     scroll-behavior: smooth;
   }
 
-  .mobile-nav-section {
-    scroll-snap-align: start;
-    scroll-margin-top: 8rem;
+  /* CSS-Native Scroll Reveal (Ultra High Performance) */
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  /* High performance overrides for Apple-style fluidity */
-  .gpu-stable, .premium-card, .lighting-card, .glass-pane {
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
+  /* Premium Card & Component Styling - GOLD LUXE UPGRADE */
+  .glass-pane, .lighting-card, .premium-card {
+    border: 2px solid var(--accent-gold) !important;
+    box-shadow: 
+      0 30px 60px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(198, 163, 95, 0.25) !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
     will-change: transform, opacity;
+  }
+
+  .dark .glass-pane, .dark .lighting-card, .dark .premium-card {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 2px solid var(--accent-gold) !important;
+    box-shadow: 
+      0 40px 100px rgba(0, 0, 0, 1),
+      0 0 50px rgba(198, 163, 95, 0.3) !important;
+  }
+
+  /* CSS-Native Scroll Reveal (Bidirectional High Performance) */
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .scroll-reveal-luxe {
+    animation: revealUp linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 40%;
+  }
+
+  /* Premium Buttons */
+  button, .btn-luxe {
+    border: 1px solid transparent;
+  }
+
+  .dark button:not(.btn-luxe), .dark .btn-luxe {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark button.bg-accent, .dark .btn-luxe.bg-accent {
+    border: 1px solid rgba(198, 163, 95, 0.4) !important;
+    box-shadow: 0 0 15px rgba(198, 163, 95, 0.15) !important;
   }
 
   /* 3D Orb Background (Subtle) */

@@ -84,7 +84,7 @@ export function Attractions() {
                 key={item.id} 
                 initial={{ opacity: 0, y: 50 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.1 }} 
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
                 transition={{ delay: index * 0.1, duration: 1 }}
                 className="group"
               >
@@ -132,4 +132,6 @@ export function Attractions() {
     </div>
   );
 }
+
+
 

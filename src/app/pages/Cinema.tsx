@@ -114,7 +114,7 @@ export function Cinema() {
                 key={movie.id} 
                 initial={{ opacity: 0, y: 30 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.1 }} 
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
                 transition={{ delay: i * 0.1 }}
                 className="compositor-layer glass-pane active-card lighting-card p-8 md:p-14 rounded-[2.5rem] md:rounded-[3rem] border border-[var(--border)] group hover:border-accent/40 shadow-xl transition-all duration-700 relative overflow-hidden"
               >
@@ -201,5 +201,7 @@ export function Cinema() {
 
   );
 }
+
+
 
 

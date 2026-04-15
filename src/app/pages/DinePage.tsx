@@ -80,7 +80,7 @@ export function Dine() {
                 key={restaurant.slug}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }}
                 transition={{ delay: i * 0.08, duration: 0.8 }}
               >
                 <Link
@@ -147,10 +147,10 @@ export function Dine() {
             {DINING_VARIETIES.map((item, index) => (
               <motion.div
                 key={item.slug}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
-                transition={{ delay: index * 0.05 }}
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }}
+                transition={{ delay: index * 0.03, duration: 0.4, ease: "easeOut" }}
               >
                 <div className="glass-pane lighting-card rounded-[2.5rem] overflow-hidden block h-full border border-[var(--border)] p-4 group">
                   <div className="rounded-[2rem] overflow-hidden mb-6 relative">
@@ -222,5 +222,7 @@ export function Dine() {
 
   );
 }
+
+
 
 

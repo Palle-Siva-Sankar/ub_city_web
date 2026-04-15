@@ -61,7 +61,7 @@ export function Gallery() {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
+              viewport={{ once: false, amount: 0.1, margin: "-10px" }}
               transition={{ delay: i * 0.05, duration: 0.8 }}
               className="break-inside-avoid group cursor-pointer"
               onClick={() => setLightbox(i)}
@@ -117,4 +117,6 @@ export function Gallery() {
     </div>
   );
 }
+
+
 

@@ -85,7 +85,7 @@ export function Overview() {
           <motion.div 
             initial={{ opacity: 0, x: -100 }} 
             whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: false, amount: 0.1, margin: "-10px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
           >
@@ -115,7 +115,7 @@ export function Overview() {
           <motion.div 
             initial={{ opacity: 0, x: 100 }} 
             whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: false, amount: 0.1, margin: "-10px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl text-right"
           >
@@ -145,7 +145,7 @@ export function Overview() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }} 
             whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: false, amount: 0.1, margin: "-10px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="w-24 h-24 rounded-[2rem] bg-accent/20 backdrop-blur-3xl flex items-center justify-center mb-12 mx-auto border border-accent/40 shadow-gold">
@@ -169,7 +169,7 @@ export function Overview() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: false, amount: 0.1, margin: "-10px" }}
             transition={{ duration: 1 }}
             className="text-center mb-32"
           >
@@ -190,7 +190,7 @@ export function Overview() {
                 key={path.title} 
                 initial={{ opacity: 0, y: 40 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.1 }} 
+                viewport={{ once: false, amount: 0.1, margin: "-10px" }} 
                 transition={{ delay: i * 0.2, duration: 0.8 }}
               >
                 <Link to={path.to} className="group block h-full">
@@ -213,4 +213,6 @@ export function Overview() {
     </div>
     );
 }
+
+
 
