@@ -59,30 +59,11 @@ export function Layout() {
     useEffect(() => {
         window.history.scrollRestoration = "manual";
         
-        const handleScroll = () => {
-            const currentScroll = window.scrollY;
-            setScrolled(currentScroll > 50);
-            
-            // Performance Mode: Targeted bypass during motion
-            if (!document.body.classList.contains("is-scrolling")) {
-                document.body.classList.add("is-scrolling");
-            }
-            
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                document.body.classList.remove("is-scrolling");
-            }, 150);
-        };
-        
         const handleLocationTrigger = () => setIsLocationOpen(true);
-        
-        window.addEventListener("scroll", handleScroll, { passive: true });
         window.addEventListener("open-location", handleLocationTrigger);
         
         return () => {
-            window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("open-location", handleLocationTrigger);
-            clearTimeout(scrollTimeout);
         };
     }, []);
 

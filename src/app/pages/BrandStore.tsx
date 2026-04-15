@@ -72,6 +72,8 @@ export function BrandStore() {
             src={brand.image} 
             alt={brand.name} 
             className="w-full h-[450px] object-cover" 
+            loading="eager"
+            decoding="async"
             onError={handleImageError} 
           />
           <div className="video-gradient-mask absolute inset-0" />

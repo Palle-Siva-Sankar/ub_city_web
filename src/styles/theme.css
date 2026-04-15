@@ -61,15 +61,11 @@
     transform: translateZ(0); 
   }
 
-  /* Smart Scroll Optimization: Simplify UI during heavy motion */
-  body.is-scrolling .glass-pane {
-    backdrop-filter: blur(4px) !important;
-    transition: backdrop-filter 0.1s ease-out;
-    box-shadow: none !important;
-  }
-  
-  body.is-scrolling .hero-video-glass {
-    backdrop-filter: none !important;
+  /* Permanent High-Performance Visual Baseline
+     We use a static optimized blur and shadow to eliminate the need for JS scroll thrasher. */
+  .glass-pane, .lighting-card {
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
   }
 
   /* Maintain clean scrollbar styling for premium feel */
@@ -622,14 +618,15 @@
   .glass-pane, .lighting-card, .premium-card {
     border: 2px solid var(--accent-gold) !important;
     box-shadow: 
-      0 30px 60px rgba(0, 0, 0, 0.8),
-      0 0 40px rgba(198, 163, 95, 0.25) !important;
+      0 15px 40px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(198, 163, 95, 0.15) !important;
     transition-property: transform, opacity, border-color;
-    transition-duration: 0.5s;
+    transition-duration: 0.4s;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateZ(0);
     will-change: transform, opacity;
-    contain: layout paint; /* Paint containment for peak performance */
+    contain: paint layout;
+    image-rendering: -webkit-optimize-contrast; /* Sharp, fast rendering on desktop */
   }
 
   .dark .glass-pane, .dark .lighting-card, .dark .premium-card {

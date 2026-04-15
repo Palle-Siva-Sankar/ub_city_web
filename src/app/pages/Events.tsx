@@ -80,7 +80,7 @@ export function Events() {
                 style={{ animationDelay: `${i * 0.05}s` }}
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.3] group-hover:grayscale-0" />
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.3] group-hover:grayscale-0" loading="lazy" decoding="async" />
                   <div className="absolute top-10 left-10 px-6 py-2 rounded-full bg-accent text-black text-[9px] font-black uppercase tracking-widest shadow-gold">
                     {event.category}
                   </div>
