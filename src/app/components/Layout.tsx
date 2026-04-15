@@ -11,7 +11,7 @@ import { SalesDock } from "./SalesDock";
 import { SHOPPING_CATEGORIES } from "../data/mallData";
 import { useWishlist, useCart, useOrders, useUserSession } from "../hooks/useFeatures";
 import { useUserLocation } from "../hooks/useUserLocation";
-import { useLenis } from "lenis/react";
+
 import { Suspense } from "react";
 import { AIAgent } from "./AIAgent";
 
@@ -50,7 +50,6 @@ export function Layout() {
     const { count: wishlistCount } = useWishlist();
     const { count: cartCount } = useCart();
     const { session } = useUserSession();
-    const lenis = useLenis();
     
     // Core session-wide location bootstrap
     const { city } = useUserLocation(); 
@@ -69,37 +68,28 @@ export function Layout() {
         // Only scroll to top if the primary page path has changed
         // This prevents snapping back to top when opening hash-based overlays or changing filters
         if (location.pathname !== lastPathname.current) {
-            if (lenis) {
-                lenis.scrollTo(0, { immediate: true });
-            } else {
-                window.scrollTo(0, 0);
-            }
+            window.scrollTo(0, 0);
             lastPathname.current = location.pathname;
         }
 
         if (location.hash === "#orders") {
             setIsOrdersOpen(true);
         }
-    }, [location, lenis]);
+    }, [location]);
 
     useEffect(() => {
         const anyOverlayOpen = isMenuOpen || isSearchOpen || isOrdersOpen;
 
         if (anyOverlayOpen) {
-            // Stop Lenis for ALL overlays so it doesn't intercept touch events
-            if (lenis) lenis.stop();
-            // Only prevent background page scroll — NOT touchAction
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
-            if (lenis) lenis.start();
         }
 
         return () => {
             document.body.style.overflow = "";
-            if (lenis) lenis.start();
         };
-    }, [isMenuOpen, isSearchOpen, isOrdersOpen, lenis]);
+    }, [isMenuOpen, isSearchOpen, isOrdersOpen]);
 
     return (
         <div className="relative min-h-screen">
