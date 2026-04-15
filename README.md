@@ -252,9 +252,20 @@ Reports are generated in `lighthouse-reports/` as both HTML and JSON files.
 
 ## Verification Checklist
 
-- [ ] Navigation is commercial-first and non-linear
-- [ ] All core modules include direct conversion paths
-- [ ] Inquiry actions work for leasing/sponsorship/venue booking
-- [ ] Build and lint pass cleanly
-- [ ] Performance and motion remain smooth on desktop/tablet
+- [x] Navigation is commercial-first and non-linear
+- [x] All core modules include direct conversion paths
+- [x] Inquiry actions work for leasing/sponsorship/venue booking
+- [x] Build and lint pass cleanly
+- [x] Performance and motion remain smooth on desktop/tablet
+
+## Recent Fixes & Optimizations
+
+- **Responsive Optimizations**: Optimized padding, grid gaps, textual scales, and typography sizes across mobile and tablet breakpoints in Shopping, Venues, Events, and Entertainment to handle tighter bounds gracefully.
+- **Scroll Lock Mitigation**: Fixed rendering bugs natively involving CSS properties (`content-visibility`) and malformed sticky layers (`sticky-presentation`) that were causing massive dead-zones and preventing browser scrolling natively.
+- **Immersive Hero Upgrades**: Refactored the generic Shopping video player module into an unconstrained viewport-native, edge-to-edge cinematic bleed (`100svh`), matching the primary homepage standard.
+- **Cinematic Pipeline Fix**: Altered cinema scheduling buttons to appropriately route users sequentially into dedicated film pages, rather than firing empty checkout requests leading to invalid paths.
+- **AI Concierge Polish**: Restructured overlay boundaries and touch-action events allowing users to seamlessly scroll through AI outputs without firing native iOS/Android swipe mechanics that collapsed the interface.
+- **Routing Extensibility**: Authored comprehensive static-site configuration artifacts (`vercel.json`, `_redirects`) resolving unpredictable 404 dead-ends and fallback errors encountered strictly inside production SPAs.
+- **B2B Call-To-Action Refinements**: Abstracted the massive "Initialize Legacy Presence" leasing CTA out of the universal layout footer, dedicating its display strictly mapped to high-intent pathways (`/` and `/reach-us`).
+- **Navigation Polishing**: Scrubbed duplicate `User` icons generating confusing dual pathways (`/login` and `/profile`) directly adjacent to each other on the primary global navbar.
   
