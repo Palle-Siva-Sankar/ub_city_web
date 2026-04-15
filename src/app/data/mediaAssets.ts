@@ -36,6 +36,10 @@ export const VIDEOS = {
   aerialCity:
     "https://videos.pexels.com/video-files/1826896/1826896-uhd_2560_1440_24fps.mp4",
 
+  // Events / Concert – used for Events page
+  events:
+    "https://videos.pexels.com/video-files/2096572/2096572-uhd_2560_1440_30fps.mp4",
+
   // Spa / wellness
   spaWellness:
     "https://videos.pexels.com/video-files/3209203/3209203-uhd_2560_1440_25fps.mp4",

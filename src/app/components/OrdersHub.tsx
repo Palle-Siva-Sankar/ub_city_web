@@ -44,6 +44,7 @@ export function OrdersHub({ isOpen, onClose }: OrdersHubProps) {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="w-full md:max-w-xl h-full bg-page border-l border-[var(--border)] shadow-2xl flex flex-col relative"
             onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent="true"
           >
             {/* Header */}
             <div className="p-8 border-b border-[var(--border)] flex items-center justify-between">
@@ -60,7 +61,12 @@ export function OrdersHub({ isOpen, onClose }: OrdersHubProps) {
             </div>
 
             {/* Content area with forced scrolling */}
-             <div className="flex-1 overflow-y-auto p-6 md:p-8 min-h-0 custom-scrollbar overscroll-contain">
+             <div 
+               className="relative z-10 flex-1 overflow-y-auto p-6 md:p-8 min-h-0 custom-scrollbar overscroll-contain"
+               data-lenis-prevent="true"
+               style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+               onPointerDown={(e) => e.stopPropagation()}
+             >
                {orders.length === 0 ? (
                  <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
                    <Package className="w-20 h-20 mb-6 text-accent" />

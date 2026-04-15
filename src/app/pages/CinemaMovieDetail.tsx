@@ -1,11 +1,40 @@
-import { Link, useParams } from "react-router";
-import { ArrowLeft, Clock, Languages, Ticket } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Link, useParams, useNavigate } from "react-router";
+import { ArrowLeft, Clock, Languages, Ticket, Armchair, ShieldCheck, CreditCard, CheckCircle2 } from "lucide-react";
 import { CINEMA_MOVIES } from "../data/cinemaData";
 import { formatINR } from "../utils/currency";
+import { motion, AnimatePresence } from "motion/react";
+import { toast } from "sonner";
 
 export function CinemaMovieDetail() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const movie = CINEMA_MOVIES.find((item) => item.id === id);
+
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+  const [isBooking, setIsBooking] = useState(false);
+  const [bookingConfirmed, setBookingConfirmed] = useState(false);
+
+  const rows = ["A", "B", "C", "D", "E", "F"];
+  const seatsPerRow = 10;
+
+  const toggleSeat = (seatId: string) => {
+    setSelectedSeats(prev => 
+      prev.includes(seatId) ? prev.filter(s => s !== seatId) : [...prev, seatId]
+    );
+  };
+
+  const handleBook = () => {
+    setIsBooking(true);
+    setTimeout(() => {
+      setIsBooking(false);
+      setBookingConfirmed(true);
+      toast.success("Booking Request Synchronized", {
+        description: `Notification dispatched to your registered vector for ${movie?.title}.`
+      });
+    }, 2000);
+  };
 
   if (!movie) {
     return (
@@ -18,8 +47,10 @@ export function CinemaMovieDetail() {
     );
   }
 
+  const totalPrice = selectedSeats.length * movie.priceInr;
+
   return (
-    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500">
+    <div className="page-wrapper bg-page min-h-screen transition-colors duration-500 pb-40">
       <section className="px-6 md:px-12 pt-32 mb-10">
         <div className="max-w-[1400px] mx-auto rounded-[4rem] overflow-hidden relative h-[450px] shadow-gold lighting-card">
           <img src={movie.poster} alt={movie.title} className="w-full h-full object-cover grayscale-[0.3] dark:grayscale-0" />
@@ -46,7 +77,7 @@ export function CinemaMovieDetail() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-32">
+      <section className="px-6 md:px-12 mb-16">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1.3fr_0.7fr] gap-12">
           <div className="glass-pane lighting-card rounded-[3.5rem] p-12 md:p-16 border border-[var(--border)] shadow-sm">
             <p className="text-ink-gradient text-2xl md:text-3xl font-light italic leading-relaxed mb-12">"{movie.synopsis}"</p>
@@ -75,27 +106,156 @@ export function CinemaMovieDetail() {
                <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter">Showtimes</h3>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 mb-12">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               {movie.showtimes.map((time) => (
-                <Link
+                <button
                   key={time}
-                  to={`/checkout?movie=${encodeURIComponent(movie.title)}&time=${encodeURIComponent(time)}`}
-                  className="px-6 py-5 glass-pane border border-[var(--border)] rounded-2xl text-[11px] font-black tracking-[0.2em] uppercase hover:bg-accent hover:text-black transition-all text-center shadow-sm active:scale-95"
+                  onClick={() => { setSelectedTime(time); setSelectedSeats([]); }}
+                  className={`px-6 py-5 rounded-2xl text-[11px] font-black tracking-[0.2em] uppercase transition-all text-center shadow-sm active:scale-95 border ${selectedTime === time ? "bg-accent text-black border-accent" : "glass-pane border-[var(--border)] hover:border-accent text-ink-gradient"}`}
                 >
                   {time}
-                </Link>
+                </button>
               ))}
             </div>
             
-            <div className="mt-auto p-8 rounded-[2.5rem] bg-accent/10 border border-accent/20">
-               <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent mb-3 text-center">Executive Support</p>
-               <p className="text-center text-[color:var(--text-dim)] text-xs font-medium leading-relaxed">Early booking unlocks preferential seating in the Platinum suites.</p>
-            </div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-accent mt-6 opacity-60 text-center">Select time to deploy seat map</p>
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedTime && !bookingConfirmed && (
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="px-6 md:px-12 mt-20"
+          >
+            <div className="max-w-[1400px] mx-auto glass-pane lighting-card rounded-[4rem] p-12 md:p-20 border border-accent/20 shadow-gold">
+               <div className="text-center mb-20">
+                  <p className="text-accent text-[11px] font-black uppercase tracking-[0.8em] mb-4">Interactive Topology</p>
+                  <h2 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-10">Select <span className="text-gradient">Positions.</span></h2>
+                  
+                  {/* SCREEN */}
+                  <div className="w-full max-w-3xl mx-auto h-2 bg-gradient-to-r from-transparent via-accent to-transparent rounded-full shadow-[0_15px_30px_rgba(210,210,215,0.2)] mb-8" />
+                  <p className="text-[9px] font-black uppercase tracking-[0.4em] text-accent opacity-40">Digital Projection Vector</p>
+               </div>
+
+               <div className="flex flex-col items-center gap-4 mb-20">
+                  {rows.map(row => (
+                    <div key={row} className="flex gap-4">
+                       <span className="w-8 text-[11px] font-black text-accent/40 flex items-center justify-center pt-1">{row}</span>
+                       <div className="flex gap-3">
+                          {Array.from({ length: seatsPerRow }).map((_, i) => {
+                            const seatId = `${row}${i + 1}`;
+                            const isSelected = selectedSeats.includes(seatId);
+                            const isReserved = (row === "A" && i < 3) || (row === "F" && i > 7); // Mock reserved seats
+                            
+                            return (
+                              <button
+                                key={seatId}
+                                disabled={isReserved}
+                                onClick={() => toggleSeat(seatId)}
+                                className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center transition-all ${isReserved ? "bg-accent/5 text-accent/10 border border-transparent cursor-not-allowed" : isSelected ? "bg-accent text-black scale-110 shadow-gold" : "glass-pane border-[var(--border)] text-accent/40 hover:border-accent hover:text-accent"}`}
+                              >
+                                <Armchair className="w-4 h-4 md:w-5 md:h-5" />
+                              </button>
+                            );
+                          })}
+                       </div>
+                    </div>
+                  ))}
+               </div>
+
+               <div className="flex flex-col lg:flex-row items-center justify-between gap-12 pt-16 border-t border-[var(--border)]">
+                  <div className="flex gap-10">
+                     <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded bg-accent/20 border border-accent/10" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-accent">Available</span>
+                     </div>
+                     <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded bg-accent shadow-gold" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-accent">Selected</span>
+                     </div>
+                     <div className="flex items-center gap-3 opacity-30">
+                        <div className="w-5 h-5 rounded bg-white/5 border border-white/5" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-accent">Operational Sync</span>
+                     </div>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row items-center gap-10">
+                     <div className="text-right">
+                        <p className="text-[9px] font-black uppercase tracking-widest text-accent mb-1">Position Ledger</p>
+                        <p className="text-lg md:text-2xl font-black text-ink-gradient uppercase tracking-tight font-['Outfit']">
+                          {selectedSeats.length > 0 ? selectedSeats.join(", ") : "Zero Vector Selected"}
+                        </p>
+                     </div>
+                     <div className="h-10 w-px bg-[var(--border)] hidden md:block" />
+                     <div className="text-right">
+                        <p className="text-[9px] font-black uppercase tracking-widest text-accent mb-1">Total Valuation</p>
+                        <p className="text-2xl md:text-4xl font-black text-ink-gradient uppercase tracking-tighter font-['Outfit']">{formatINR(totalPrice)}</p>
+                     </div>
+                     <button 
+                        disabled={selectedSeats.length === 0 || isBooking}
+                        onClick={handleBook}
+                        className="btn-luxe !px-16 !py-6 disabled:opacity-20 disabled:scale-100 disabled:grayscale transition-all"
+                      >
+                        {isBooking ? (
+                          <div className="flex items-center gap-4">
+                            <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            Synchronizing...
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-4">
+                            <CreditCard className="w-6 h-6" /> Initiate Checkout
+                          </div>
+                        )}
+                      </button>
+                  </div>
+               </div>
+            </div>
+          </motion.section>
+        )}
+
+        {bookingConfirmed && (
+          <motion.section 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="px-6 md:px-12 mt-20"
+          >
+            <div className="max-w-4xl mx-auto glass-pane rounded-[4rem] p-20 text-center border border-accent relative overflow-hidden shadow-gold">
+               <div className="absolute top-0 left-0 w-full h-1 bg-accent shadow-gold" />
+               <CheckCircle2 className="w-24 h-24 text-accent mx-auto mb-10" />
+               <p className="text-accent text-[11px] font-black uppercase tracking-[0.5em] mb-6">Booking Protocol Confirmed</p>
+               <h2 className="text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-10">Deployment <br/><span className="text-gradient">Successful.</span></h2>
+               <div className="glass-pane p-10 rounded-[2.5rem] border border-accent/10 mb-12 text-left max-w-xl mx-auto">
+                 <p className="text-[9px] font-black uppercase tracking-[0.4em] text-accent mb-6 italic">Secure Entry Ticket</p>
+                 <div className="space-y-4">
+                    <div className="flex justify-between border-b border-[var(--border)] pb-4">
+                       <span className="text-[10px] font-black text-accent uppercase">Movie Vector</span>
+                       <span className="text-[11px] font-black text-ink-gradient uppercase">{movie.title}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-[var(--border)] pb-4">
+                       <span className="text-[10px] font-black text-accent uppercase">Time Sync</span>
+                       <span className="text-[11px] font-black text-ink-gradient uppercase">{selectedTime}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-[var(--border)] pb-4">
+                       <span className="text-[10px] font-black text-accent uppercase">Positions</span>
+                       <span className="text-[11px] font-black text-ink-gradient uppercase">{selectedSeats.join(", ")}</span>
+                    </div>
+                 </div>
+               </div>
+               <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                 <Link to="/cinema" className="btn-luxe !px-16">Return to Vault</Link>
+                 <Link to="/profile" className="px-12 py-5 glass-pane border border-[var(--border)] text-[10px] font-black uppercase tracking-widest text-ink-gradient rounded-full hover:border-accent transition-all">My Reservations</Link>
+               </div>
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
 
 

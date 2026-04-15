@@ -154,12 +154,37 @@ export const BRANDS: Brand[] = [
   { slug: "gucci", name: "Gucci", category: "luxury", floor: "Level 4", hours: "10:30 AM – 9:00 PM", description: "Italian luxury house featuring ready-to-wear, leather goods, and accessories.", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop" },
   { slug: "burberry", name: "Burberry", category: "luxury", floor: "Level 4", hours: "10:30 AM – 9:00 PM", description: "British luxury label known for outerwear, tailoring, and iconic check patterns.", image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600&auto=format&fit=crop" },
   { slug: "tiffany-co", name: "Tiffany & Co.", category: "luxury", floor: "Level 4", hours: "10:30 AM – 9:00 PM", description: "Fine jewelry and luxury gifting from the iconic Tiffany blue box maison.", image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=600&auto=format&fit=crop" },
+  { slug: "louis-vuitton", name: "Louis Vuitton", category: "luxury", floor: "Level 4", hours: "10:30 AM – 9:00 PM", description: "Maison of heritage and innovation, offering the finest in leather goods, fashion, and travel accessories.", image: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=600&auto=format&fit=crop" },
+  { slug: "under-armour", name: "Under Armour", category: "sportswear", floor: "Level 1", hours: "10:00 AM – 9:00 PM", description: "Empowering athletes with high-performance sports apparel, footwear, and accessories.", image: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600&auto=format&fit=crop" },
+  { slug: "kiehls", name: "Kiehl's", category: "beauty-personal-care", floor: "Level 2", hours: "10:00 AM – 9:00 PM", description: "Natural skincare and apothecary traditions since 1851. Experience personalized skin consultations and premium formulas.", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop" },
 ];
 
-// ─── Dining (Bengaluru Focus) ───
+// ─── Dining (UB City Elite Portfolio) ───
 export const RESTAURANTS: Restaurant[] = [
-  { slug: "twin-city-grill", name: "Twin City Grill", floor: "Level 1", hours: "11:00 AM – 9:00 PM", description: "A classic American grill featuring Northern Woods Walleye.", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop" },
-  { slug: "shake-shack", name: "Shake Shack", floor: "Level 3", hours: "11:00 AM – 9:30 PM", description: "Modern-day roadside burger stand known for its Angus beef burgers.", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop" },
+  { 
+    slug: "shiro", 
+    name: "Shiro", 
+    floor: "Level 2", 
+    hours: "12:00 PM – 11:30 PM", 
+    description: "Immersive Japanese dining with dramatic interiors and panoramic city views. A cornerstone of Bengaluru's luxury nightlife.", 
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200" 
+  },
+  { 
+    slug: "farzi-cafe", 
+    name: "Farzi Cafe", 
+    floor: "Level 2", 
+    hours: "12:00 PM – 1:00 AM", 
+    description: "Modern Indian bistro that merges global techniques with traditional comfort. Known for its molecular gastronomy and vibrant energy.", 
+    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1200" 
+  },
+  { 
+    slug: "toscano", 
+    name: "Toscano", 
+    floor: "Level 1", 
+    hours: "11:00 AM – 10:30 PM", 
+    description: "Classic Italian wine bar and restaurant offering artisanal pizzas, handmade pastas, and an extensive curated wine list.", 
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200" 
+  },
 ];
 
 export const UPCOMING_EVENTS: MallEvent[] = [
@@ -179,7 +204,7 @@ export const CONTACT = {
   email: "info@ubcitybangalore.in",
   feedback: "contact@ubcitybangalore.in",
   hours: "Mon–Sun: 10:30 AM – 10:00 PM",
-  mapEmbed: "https://www.google.com/maps?q=UB%20City%20Bengaluru&output=embed",
+  mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3887.9701729063226!2d77.59395197593678!3d12.97116748734414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae167191f6f147%3A0x6a0a09e0ea3a5d8!2sUB%20City!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
 };
 
 // Helpers

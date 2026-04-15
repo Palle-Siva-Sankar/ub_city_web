@@ -19,6 +19,8 @@ export function Checkout() {
   const [bankRef, setBankRef] = useState("");
   const [cancelReason, setCancelReason] = useState("Changed my mind");
 
+  const [isCancelled, setIsCancelled] = useState(false);
+
   const handlePlaceOrder = async () => {
     setStep(3);
     const id = placeOrder(cart, total * 1.08);
@@ -26,7 +28,12 @@ export function Checkout() {
     clearCart();
   };
 
-  if (cart.length === 0 && step !== 3) {
+  const handleCancelOrder = () => {
+    setIsCancelled(true);
+    setStep(4);
+  };
+
+  if (cart.length === 0 && step !== 3 && step !== 4) {
       navigate("/shopping");
       return null;
   }
@@ -49,7 +56,7 @@ export function Checkout() {
            ].map((s, i) => (
              <div key={s.id} className="flex items-center gap-4 md:gap-8">
                <div className={`flex items-center gap-4 px-8 py-4 rounded-full transition-all duration-700 ${
-                   step === s.id ? "bg-accent shadow-gold scale-110" : step > s.id ? "bg-accent/20 border border-accent/20" : "glass-pane border border-[var(--border)] opacity-30"
+                   step === s.id ? "bg-accent shadow-gold scale-110" : step > s.id && step < 4 ? "bg-accent/20 border border-accent/20" : "glass-pane border border-[var(--border)] opacity-30"
                }`}>
                   <s.icon className={`w-5 h-5 ${step === s.id ? "text-black" : "text-accent"}`} />
                   <span className={`text-[10px] font-black uppercase tracking-[0.4em] ${step === s.id ? "text-black" : "text-accent"}`}>{s.label}</span>
@@ -76,11 +83,19 @@ export function Checkout() {
                   </div>
                   <div className="space-y-4">
                      <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Contact Protocol</label>
-                     <input type="text" placeholder="+1 (____) ____" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" />
+                     <input type="text" placeholder="+91 XXXX XXX XXX" className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" />
                   </div>
                   <div className="md:col-span-2 space-y-4">
                      <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Delivery Coordinate (Address)</label>
                      <input type="text" value={shipping.address} onChange={e => setShipping({...shipping, address: e.target.value})} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" placeholder="e.g. 7th Heaven, Elite District" />
+                  </div>
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">City</label>
+                     <input type="text" value={shipping.city} onChange={e => setShipping({...shipping, city: e.target.value})} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" placeholder="Bengaluru" />
+                  </div>
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black uppercase tracking-[0.4em] text-accent ml-8">Zip Code</label>
+                     <input type="text" value={shipping.zip} onChange={e => setShipping({...shipping, zip: e.target.value})} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-ink-gradient font-bold focus:border-accent outline-none transition-all text-lg placeholder:opacity-30" placeholder="560001" />
                   </div>
                </div>
                <button onClick={() => setStep(2)} className="btn-luxe w-full mt-20 py-8">Continue to Acquisition <ChevronRight className="w-6 h-6 ml-4" /></button>
@@ -179,7 +194,7 @@ export function Checkout() {
                className="text-center py-20"
             >
                <div className="w-40 h-40 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-16 border border-accent/20 shadow-gold">
-                  <Sparkles className="w-20 h-20 text-accent animate-pulse" />
+                  <CheckCircle2 className="w-20 h-20 text-accent" />
                </div>
                <p className="text-accent text-xs font-black uppercase tracking-[0.6em] mb-6">Acquisition Successful</p>
                <h2 className="text-5xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-16 leading-none">
@@ -190,14 +205,14 @@ export function Checkout() {
                   <p className="text-4xl font-black text-ink-gradient font-['Outfit'] tracking-tighter uppercase leading-none">{orderId}</p>
                </div>
                <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-                  <button onClick={() => navigate("/profile#orders")} className="btn-luxe px-20 py-6">Track Progress</button>
+                  <button onClick={() => navigate("/profile")} className="btn-luxe px-20 py-6">Track Progress</button>
                   <button onClick={() => navigate("/shopping")} className="text-[10px] font-black uppercase tracking-[0.6em] text-ink-gradient hover:text-accent transition-all flex items-center gap-4">
                      Continue Discovery <ChevronRight className="w-5 h-5" />
                   </button>
                </div>
                <div className="max-w-md mx-auto mt-24 pt-16 border-t border-[var(--border)]">
                   <p className="text-[10px] text-accent/40 uppercase tracking-[0.4em] mb-6 leading-none">Order Cancellation Request</p>
-                  <div className="relative">
+                  <div className="flex flex-col gap-6">
                     <select value={cancelReason} onChange={(e) => setCancelReason(e.target.value)} className="w-full glass-pane border border-[var(--border)] rounded-[2.5rem] px-10 py-6 text-xs font-black uppercase tracking-[0.2em] text-ink-gradient outline-none appearance-none">
                       <option>Changed my mind</option>
                       <option>Found better price</option>
@@ -205,8 +220,30 @@ export function Checkout() {
                       <option>Ordered by mistake</option>
                       <option>Payment issue</option>
                     </select>
+                    <button onClick={handleCancelOrder} className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 hover:text-red-400 transition-colors">Terminate Order Transaction</button>
                   </div>
                </div>
+            </motion.div>
+          )}
+
+          {step === 4 && (
+            <motion.div 
+               key="step4" 
+               initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+               className="text-center py-20"
+            >
+               <div className="w-40 h-40 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-16 border border-red-500/20 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
+                  <Box className="w-20 h-20 text-red-500" />
+               </div>
+               <p className="text-red-500 text-xs font-black uppercase tracking-[0.6em] mb-6">Transaction Terminated</p>
+               <h2 className="text-5xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-16 leading-none">
+                  Order <br /> <span className="text-red-500">Cancelled.</span>
+               </h2>
+               <div className="glass-pane p-12 rounded-[4rem] border border-[var(--border)] max-w-xl mx-auto mb-20 shadow-2xl">
+                  <p className="text-xl text-[color:var(--text-dim)] font-medium italic mb-4">"Refund Process Started"</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Your capital will be returned to the original node within 3-5 operational days.</p>
+               </div>
+               <button onClick={() => navigate("/shopping")} className="btn-luxe px-20 py-6">Return to Marketplace</button>
             </motion.div>
           )}
         </AnimatePresence>

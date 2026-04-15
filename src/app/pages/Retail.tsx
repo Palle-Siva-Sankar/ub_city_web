@@ -23,7 +23,7 @@ export function Retail() {
   return (
     <div className="page-wrapper bg-page transition-colors duration-500">
       {/* HERO CINEMATIC (Video-first) */}
-      <section className="relative min-h-[72vh] md:h-screen flex items-center justify-center overflow-hidden bg-page hero-readable">
+      <section className="relative min-h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-page hero-readable">
         <HeroVideoEmbed
           title="Retail Hero Video"
           posterImage={moaAerial}
@@ -37,11 +37,11 @@ export function Retail() {
         
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pointer-events-none">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
-            <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8">Strategic Retail Environments</p>
-            <h1 className="text-6xl md:text-9xl font-black font-['Outfit'] text-ink-gradient uppercase leading-none tracking-tighter mb-8 shadow-2xl">
+            <p className="text-accent text-[9px] md:text-[10px] font-black tracking-[0.6em] uppercase mb-6 md:mb-8">Strategic Retail Environments</p>
+            <h1 className="text-4xl sm:text-6xl md:text-9xl font-black font-['Outfit'] text-ink-gradient uppercase leading-[0.9] tracking-tighter mb-8 shadow-2xl">
               Retail <br/><span className="text-gradient">Redefined.</span>
             </h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-xl md:text-2xl text-[color:var(--text-dim)] max-w-2xl mx-auto font-medium leading-relaxed">
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-lg md:text-2xl text-[color:var(--text-dim)] max-w-2xl mx-auto font-medium leading-relaxed px-4 md:px-0">
               A premium, high-intent retail environment in the heart of Bengaluru’s CBD—built for flagships, boutiques, and category leaders.
             </motion.p>
           </motion.div>
@@ -105,6 +105,24 @@ export function Retail() {
             </div>
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* FINAL CTA / CLOSURE TO REMOVE GAP */}
+      <section className="relative py-32 px-6 md:px-12 bg-page-bg-alt border-t border-[var(--border)] z-10">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-16">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-6xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-8">
+              Architect Your <span className="text-gradient">Retail Legacy.</span>
+            </h2>
+            <p className="text-lg text-[color:var(--text-dim)] font-medium italic border-l-4 border-accent pl-8 leading-relaxed">
+              From flagship anchors to experimental pop-ups, find your place in Bengaluru's most prestigious commercial district.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+             <Link to="/leasing" className="btn-luxe !px-12 !py-6 text-center shadow-gold">Lease Now</Link>
+             <Link to="/reach-us" className="px-12 py-6 rounded-full glass-pane border border-[var(--border)] text-ink-gradient font-black tracking-widest uppercase text-[10px] hover:border-accent text-center transition-all">Visit Site</Link>
+          </div>
         </div>
       </section>
     </div>

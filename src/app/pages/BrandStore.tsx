@@ -132,11 +132,12 @@ export function BrandStore() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05, duration: 0.8 }}
-              className="glass-pane rounded-[3rem] overflow-hidden lighting-card border border-[var(--border)] shadow-xl group"
+              className="glass-pane rounded-[3rem] overflow-hidden lighting-card border border-[var(--border)] shadow-xl group relative"
             >
+              <Link to={`/shopping/product/${product.id}`} className="absolute inset-0 z-[5]" />
               <div className="relative h-72 overflow-hidden">
                 <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" loading="lazy" decoding="async" onError={handleImageError} />
-                <div className="absolute top-6 right-6">
+                <div className="absolute top-6 right-6 z-10">
                    <button
                         onClick={() => toggle(product.id)}
                         className="w-12 h-12 rounded-full glass-pane border border-white/20 flex items-center justify-center hover:bg-black hover:text-white transition-all shadow-lg"
@@ -156,9 +157,15 @@ export function BrandStore() {
                      <span className="text-2xl font-black text-ink-gradient font-['Outfit']">{formatINR(product.price * 83)}</span>
                   </div>
                 </div>
-                <button onClick={() => addItemToCart(product)} className="btn-luxe w-full !py-4 !text-[10px]">
-                  <ShoppingCart className="w-4 h-4 mr-3" /> Initialize Acquisition
-                </button>
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between glass-pane rounded-2xl px-6 py-3 border border-[var(--border)]">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-accent">Availability</span>
+                    <span className="text-[10px] font-black text-ink-gradient uppercase">In Stock</span>
+                  </div>
+                  <button onClick={() => addItemToCart(product)} className="btn-luxe w-full !py-5 !text-[11px] shadow-gold">
+                    <ShoppingCart className="w-4 h-4 mr-3" /> Add to Cart
+                  </button>
+                </div>
               </div>
             </motion.article>
           ))}

@@ -53,8 +53,8 @@ export function ShoppingCategory() {
 
   return (
     <div className="page-wrapper bg-page min-h-screen pt-32 transition-colors duration-500">
-      <section className="px-6 md:px-12 mb-16">
-        <div className="max-w-[1400px] mx-auto rounded-[4rem] overflow-hidden relative h-[450px] lighting-card border border-[var(--border)] shadow-2xl">
+      <section className="px-4 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-[1400px] mx-auto rounded-[3rem] md:rounded-[4rem] overflow-hidden relative h-[350px] md:h-[450px] lighting-card border border-[var(--border)] shadow-2xl">
           <motion.img 
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
@@ -67,17 +67,17 @@ export function ShoppingCategory() {
           <div className="video-gradient-mask absolute inset-0" />
           <div className="absolute inset-0 bg-page/20 dark:bg-black/20 pointer-events-none" />
           
-          <div className="absolute inset-0 p-12 md:p-20 flex flex-col justify-end relative z-10">
-            <Link to="/shopping" className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-10 w-fit">
+          <div className="absolute inset-x-0 bottom-0 p-8 md:p-20 flex flex-col justify-end relative z-10">
+            <Link to="/shopping" className="group inline-flex items-center gap-4 px-6 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.4em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mb-6 md:mb-10 w-fit">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" /> Back to Categories
             </Link>
-            <div className="flex flex-col lg:flex-row items-baseline gap-8 mb-6">
-                <h1 className="text-5xl md:text-[7rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none">
+            <div className="flex flex-col md:flex-row items-baseline gap-4 md:gap-8 mb-4 md:mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-[7rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none">
                 {category.label}
                 </h1>
-                <div className="px-6 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-[10px] font-black uppercase tracking-[0.4em]">Collection</div>
+                <div className="px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-accent text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em]">Collection</div>
             </div>
-             <p className="text-xl md:text-2xl text-ink-gradient/80 mt-6 max-w-3xl font-medium italic border-l-2 border-accent/30 pl-8 leading-relaxed">
+             <p className="text-sm md:text-2xl text-ink-gradient/80 mt-2 md:mt-6 max-w-3xl font-medium italic border-l-2 border-accent/30 pl-4 md:pl-8 leading-relaxed opacity-80">
                 Premium collections curated for your lifestyle. Explore our latest arrivals below.
              </p>
           </div>

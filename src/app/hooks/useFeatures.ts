@@ -68,23 +68,48 @@ function safeParse<T>(raw: string | null, fallback: T): T {
   }
 }
 
+function getScopedKey(baseKey: string, email?: string) {
+  return email ? `${baseKey}_${email}` : baseKey;
+}
+
 // ─── Wishlist Hook ───
 export function useWishlist() {
   const [wishlist, setWishlist] = useState<string[]>([]);
+  const { user } = useUserSession();
 
   useEffect(() => {
-    const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-    const userEmail = userSession?.user?.email;
-    const key = userEmail ? `${WISHLIST_STORAGE_KEY}_${userEmail}` : WISHLIST_STORAGE_KEY;
-    setWishlist(safeParse<string[]>(localStorage.getItem(key), []));
-  }, []);
+    const key = getScopedKey(WISHLIST_STORAGE_KEY, user?.email);
+    const guestKey = WISHLIST_STORAGE_KEY;
+    
+    let currentData = safeParse<string[]>(localStorage.getItem(key), []);
+    
+    // Migration: If we just logged in, merge guest wishlist
+    if (user) {
+      const guestData = safeParse<string[]>(localStorage.getItem(guestKey), []);
+      if (guestData.length > 0) {
+        currentData = Array.from(new Set([...currentData, ...guestData]));
+        localStorage.removeItem(guestKey);
+      }
+    }
+    
+    setWishlist(currentData);
+  }, [user?.email]);
 
   useEffect(() => {
-    const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-    const userEmail = userSession?.user?.email;
-    const key = userEmail ? `${WISHLIST_STORAGE_KEY}_${userEmail}` : WISHLIST_STORAGE_KEY;
+    const key = getScopedKey(WISHLIST_STORAGE_KEY, user?.email);
     localStorage.setItem(key, JSON.stringify(wishlist));
-  }, [wishlist]);
+  }, [wishlist, user?.email]);
+
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      const key = getScopedKey(WISHLIST_STORAGE_KEY, user?.email);
+      if (e.key === key) {
+        setWishlist(safeParse<string[]>(e.newValue, []));
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, [user?.email]);
 
   const toggle = useCallback((slug: string) => {
     setWishlist(prev => {
@@ -98,20 +123,48 @@ export function useWishlist() {
 // ─── Cart Hook (Marketplace Ready) ───
 export function useCart() {
     const [cart, setCart] = useState<CartItem[]>([]);
+    const { user } = useUserSession();
 
     useEffect(() => {
-        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-        const userEmail = userSession?.user?.email;
-        const key = userEmail ? `${CART_STORAGE_KEY}_${userEmail}` : CART_STORAGE_KEY;
-        setCart(safeParse<CartItem[]>(localStorage.getItem(key), []));
-    }, []);
+        const key = getScopedKey(CART_STORAGE_KEY, user?.email);
+        const guestKey = CART_STORAGE_KEY;
+        
+        let currentData = safeParse<CartItem[]>(localStorage.getItem(key), []);
+        
+        if (user) {
+            const guestData = safeParse<CartItem[]>(localStorage.getItem(guestKey), []);
+            if (guestData.length > 0) {
+                // Merge quantities for same items
+                guestData.forEach(gItem => {
+                    const existing = currentData.find(cItem => cItem.id === gItem.id);
+                    if (existing) {
+                        existing.quantity += gItem.quantity;
+                    } else {
+                        currentData.push(gItem);
+                    }
+                });
+                localStorage.removeItem(guestKey);
+            }
+        }
+        
+        setCart(currentData);
+    }, [user?.email]);
 
     useEffect(() => {
-        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-        const userEmail = userSession?.user?.email;
-        const key = userEmail ? `${CART_STORAGE_KEY}_${userEmail}` : CART_STORAGE_KEY;
+        const key = getScopedKey(CART_STORAGE_KEY, user?.email);
         localStorage.setItem(key, JSON.stringify(cart));
-    }, [cart]);
+    }, [cart, user?.email]);
+
+    useEffect(() => {
+        const handleStorage = (e: StorageEvent) => {
+            const key = getScopedKey(CART_STORAGE_KEY, user?.email);
+            if (e.key === key) {
+                setCart(safeParse<CartItem[]>(e.newValue, []));
+            }
+        };
+        window.addEventListener("storage", handleStorage);
+        return () => window.removeEventListener("storage", handleStorage);
+    }, [user?.email]);
 
     const addToCart = useCallback((product: Product) => {
         setCart(prev => {
@@ -142,8 +195,9 @@ export function useCart() {
 
     const clearCart = useCallback(() => {
         setCart([]);
-        localStorage.removeItem(CART_STORAGE_KEY);
-    }, []);
+        const key = getScopedKey(CART_STORAGE_KEY, user?.email);
+        localStorage.removeItem(key);
+    }, [user?.email]);
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -154,6 +208,7 @@ export function useCart() {
 // ─── Order Hook (Live Tracking Simulation) ───
 export function useOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
+    const { user } = useUserSession();
 
     const appendUpdateIfMissing = useCallback((order: Order, label: string, tone: OrderUpdate["tone"], note: string) => {
         const updates = order.updates || [];
@@ -217,20 +272,27 @@ export function useOrders() {
     }, [appendUpdateIfMissing]);
 
     useEffect(() => {
-        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-        const userEmail = userSession?.user?.email;
-        const key = userEmail ? `${ORDER_STORAGE_KEY}_${userEmail}` : ORDER_STORAGE_KEY;
+        const key = getScopedKey(ORDER_STORAGE_KEY, user?.email);
         const savedOrders = safeParse<Order[]>(localStorage.getItem(key), []);
         const normalized = savedOrders.map(normalizeOrder).map(evolveOrderStatus);
         setOrders(normalized);
-    }, [evolveOrderStatus, normalizeOrder]);
+    }, [evolveOrderStatus, normalizeOrder, user?.email]);
 
     useEffect(() => {
-        const userSession = safeParse<StoredUserSession | null>(localStorage.getItem(USER_SESSION_STORAGE_KEY), null);
-        const userEmail = userSession?.user?.email;
-        const key = userEmail ? `${ORDER_STORAGE_KEY}_${userEmail}` : ORDER_STORAGE_KEY;
+        const key = getScopedKey(ORDER_STORAGE_KEY, user?.email);
         localStorage.setItem(key, JSON.stringify(orders));
-    }, [orders]);
+    }, [orders, user?.email]);
+
+    useEffect(() => {
+        const handleStorage = (e: StorageEvent) => {
+            const key = getScopedKey(ORDER_STORAGE_KEY, user?.email);
+            if (e.key === key) {
+                setOrders(safeParse<Order[]>(e.newValue, []));
+            }
+        };
+        window.addEventListener("storage", handleStorage);
+        return () => window.removeEventListener("storage", handleStorage);
+    }, [user?.email]);
 
     useEffect(() => {
         const timer = window.setInterval(() => {
@@ -289,28 +351,54 @@ export function useOrders() {
 // ─── Recently Viewed Stores ───
 export function useRecentlyViewed() {
   const [recent, setRecent] = useState<string[]>([]);
+  const { user } = useUserSession();
 
   useEffect(() => {
-    const saved = localStorage.getItem("mall_recent");
-    if (saved) setRecent(JSON.parse(saved));
-  }, []);
+    const key = getScopedKey("mall_recent", user?.email);
+    const guestKey = "mall_recent";
+    
+    let currentData = safeParse<string[]>(localStorage.getItem(key), []);
+    
+    if (user) {
+      const guestData = safeParse<string[]>(localStorage.getItem(guestKey), []);
+      if (guestData.length > 0) {
+        currentData = Array.from(new Set([...currentData, ...guestData])).slice(0, 8);
+        localStorage.removeItem(guestKey);
+      }
+    }
+    
+    setRecent(currentData);
+  }, [user?.email]);
 
   const addViewed = useCallback((slug: string) => {
     setRecent(prev => {
       const filtered = prev.filter(s => s !== slug);
       const next = [slug, ...filtered].slice(0, 8);
-      localStorage.setItem("mall_recent", JSON.stringify(next));
+      const key = getScopedKey("mall_recent", user?.email);
+      localStorage.setItem(key, JSON.stringify(next));
       return next;
     });
-  }, []);
+  }, [user?.email]);
 
   return { recent, addViewed };
 }
 
-// ─── Newsletter Subscription ───
+// ─── Newsletter Subscription (Intelligence Feed) ───
 export function useNewsletter() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [feedActive, setFeedActive] = useState(true);
+  const { user } = useUserSession();
+
+  useEffect(() => {
+    const key = user ? `mall_subscribers_${user.email}` : "mall_subscribers";
+    const subs = JSON.parse(localStorage.getItem(key) || "[]");
+    if (subs.length > 0) {
+      setIsSubscribed(true);
+    } else {
+      setIsSubscribed(false);
+    }
+  }, [user?.email]);
 
   const subscribe = useCallback(async (emailInput: string) => {
     setStatus("loading");
@@ -318,15 +406,17 @@ export function useNewsletter() {
     
     if (emailInput && emailInput.includes("@")) {
       setStatus("success");
-      const subs = JSON.parse(localStorage.getItem("mall_subscribers") || "[]");
+      setIsSubscribed(true);
+      const key = user ? `mall_subscribers_${user.email}` : "mall_subscribers";
+      const subs = JSON.parse(localStorage.getItem(key) || "[]");
       subs.push({ email: emailInput, date: new Date().toISOString() });
-      localStorage.setItem("mall_subscribers", JSON.stringify(subs));
+      localStorage.setItem(key, JSON.stringify(subs));
     } else {
       setStatus("error");
     }
-  }, []);
+  }, [user?.email]);
 
-  return { status, email, setEmail, subscribe };
+  return { status, subscribe, isSubscribed, feedActive };
 }
 
 // ─── User Session Management ───

@@ -80,7 +80,12 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             </div>
 
             {/* Content Results */}
-            <div className="custom-scrollbar max-h-[62vh] overflow-y-auto pr-2 sm:pr-4">
+            <div 
+              className="relative z-10 custom-scrollbar max-h-[62vh] overflow-y-auto pr-2 sm:pr-4" 
+              data-lenis-prevent="true"
+              style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+              onPointerDown={(e) => e.stopPropagation()}
+            >
               <AnimatePresence mode="wait">
                 {query.length > 0 ? (
                   isEmpty ? (

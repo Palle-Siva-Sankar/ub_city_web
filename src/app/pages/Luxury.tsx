@@ -105,20 +105,27 @@ export function Luxury() {
       {/* GLASSMORPHIC FEATURES GRID */}
       <section className="py-40 px-6 md:px-12 bg-page relative z-20 border-t border-[var(--border)]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
-              { title: "Bespoke Architecture", desc: "Italian marble, custom glass facades, and tailored lighting for absolute brand purity." },
-              { title: "VIP Concierge", desc: "Private styling suites, valet, and a dedicated high-net-worth individual support team." },
-              { title: "Unmatched Exclusivity", desc: "Hermetically curated adjacencies ensuring your brand sits among true peers." }
+              { title: "Bespoke Architecture", desc: "Italian marble, custom glass facades, and tailored lighting for absolute brand purity.", to: "/opportunity/bespoke-architecture" },
+              { title: "VIP Concierge", desc: "Private styling suites, valet, and a dedicated high-net-worth individual support team.", to: "/opportunity/vip-concierge" },
+              { title: "Unmatched Exclusivity", desc: "Hermetically curated adjacencies ensuring your brand sits among true peers.", to: "/opportunity/unmatched-exclusivity" }
             ].map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.8 }}
-                className="glass-pane lighting-card group relative overflow-hidden rounded-[3.5rem] p-12 transition-all duration-700 border border-[var(--border)]">
-                <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700">
-                  <Sparkles className="w-10 h-10 text-accent opacity-30" />
-                </div>
-                <h3 className="text-3xl font-['Outfit'] font-black text-ink-gradient uppercase tracking-tighter mb-6">{f.title}</h3>
-                <p className="text-[color:var(--text-dim)] text-lg font-medium leading-relaxed mb-8">{f.desc}</p>
-                <div className="h-1 w-16 bg-accent opacity-20 group-hover:w-full group-hover:opacity-100 transition-all duration-700 mt-auto" />
+                className="group relative">
+                <Link to={f.to} className="glass-pane active-card lighting-card rounded-[3.5rem] p-12 block h-full border border-[var(--border)] group-hover:border-accent transition-all duration-700 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-10 opacity-40 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700">
+                    <Sparkles className="w-10 h-10 text-accent" />
+                  </div>
+                  <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 opacity-60">Luxury Protocol</p>
+                  <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none group-hover:text-accent transition-colors">{f.title}</h3>
+                  <p className="text-[color:var(--text-dim)] text-xs font-black uppercase tracking-[0.2em] leading-relaxed mb-12 opacity-80 group-hover:opacity-100">{f.desc}</p>
+                  <div className="flex items-center justify-between">
+                     <span className="text-[10px] font-black text-accent uppercase tracking-widest border-b border-accent/30 pb-1">Establish Protocol</span>
+                     <ArrowRight className="w-6 h-6 text-accent group-hover:translate-x-3 transition-transform" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-accent group-hover:w-full transition-all duration-700" />
+                </Link>
               </motion.div>
             ))}
           </div>

@@ -22,6 +22,7 @@ const Leasing = lazy(() => import("./pages/Leasing").then(m => ({ default: m.Lea
 const Sponsorship = lazy(() => import("./pages/Sponsorship").then(m => ({ default: m.Sponsorship })));
 const Venues = lazy(() => import("./pages/Venues").then(m => ({ default: m.Venues })));
 const Events = lazy(() => import("./pages/Events").then(m => ({ default: m.Events })));
+const Attractions = lazy(() => import("./pages/Attractions").then(m => ({ default: m.Attractions })));
 const Terms = lazy(() => import("./pages/Terms").then(m => ({ default: m.Terms })));
 
 const StrategyDeck = lazy(() => import("./pages/StrategyDeck").then(m => ({ default: m.StrategyDeck })));
@@ -43,6 +44,9 @@ const ProfilePreferencePage = lazy(() => import("./pages/ProfilePreferencePage")
 const ProfileActionPage = lazy(() => import("./pages/ProfileActionPage").then(m => ({ default: m.ProfileActionPage })));
 const Retail = lazy(() => import("./pages/Retail").then(m => ({ default: m.Retail })));
 const Luxury = lazy(() => import("./pages/Luxury").then(m => ({ default: m.Luxury })));
+const SponsorshipTierDetail = lazy(() => import("./pages/SponsorshipTierDetail").then(m => ({ default: m.SponsorshipTierDetail })));
+const OperationsDetail = lazy(() => import("./pages/OperationsDetail").then(m => ({ default: m.OperationsDetail })));
+const ProductDetail = lazy(() => import("./pages/ProductDetail").then(m => ({ default: m.ProductDetail })));
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +58,7 @@ export const router = createBrowserRouter([
       // Consumer-facing (MOA Marketplace)
       { path: "shopping", element: <Shopping /> },
       { path: "shopping/category/:categorySlug", element: <ShoppingCategory /> },
+      { path: "shopping/product/:productId", element: <ProductDetail /> },
       { path: "shopping/:brandSlug", element: <BrandStore /> },
       { path: "dine", element: <Dine /> },
       { path: "dine/menu/:slug", element: <DiningDetail /> },
@@ -89,8 +94,11 @@ export const router = createBrowserRouter([
       { path: "entertainment/:slug", element: <EntertainmentDetail /> },
       { path: "events", element: <Events /> },
       { path: "sponsorship", element: <Sponsorship /> },
+      { path: "sponsorship/:tierSlug", element: <SponsorshipTierDetail /> },
+      { path: "operations/:slug", element: <OperationsDetail /> },
       { path: "leasing", element: <Leasing /> },
       { path: "venues", element: <Venues /> },
+      { path: "attractions", element: <Attractions /> },
 
       // Dynamic engines
       { path: "inquire/:action", element: <Inquire /> },

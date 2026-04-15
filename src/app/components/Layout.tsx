@@ -69,18 +69,23 @@ export function Layout() {
         }
     }, [location, lenis]);
 
-    // Advanced Scroll Control: Synchronize Lenis with menu & overlay state
     useEffect(() => {
-        if (!lenis) return;
-        if (isMenuOpen || isSearchOpen || isOrdersOpen) {
-            lenis.stop();
+        const anyOverlayOpen = isMenuOpen || isSearchOpen || isOrdersOpen;
+
+        if (anyOverlayOpen) {
+            // Stop Lenis for ALL overlays so it doesn't intercept touch events
+            if (lenis) lenis.stop();
+            // Only prevent background page scroll — NOT touchAction
             document.body.style.overflow = "hidden";
-            document.body.style.touchAction = "none";
         } else {
-            lenis.start();
             document.body.style.overflow = "";
-            document.body.style.touchAction = "";
+            if (lenis) lenis.start();
         }
+
+        return () => {
+            document.body.style.overflow = "";
+            if (lenis) lenis.start();
+        };
     }, [isMenuOpen, isSearchOpen, isOrdersOpen, lenis]);
 
     return (
@@ -186,6 +191,10 @@ export function Layout() {
                             {isDark ? <Sun className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" /> : <Moon className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />}
                         </button>
                         
+                        <Link to="/profile" className="lg:hidden w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
+                             <User className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />
+                        </Link>
+
                         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all">
                             {isMenuOpen ? <X className="w-5 h-5 text-accent" /> : <Menu className="w-5 h-5 text-ink-gradient" />}
                         </button>
@@ -193,133 +202,158 @@ export function Layout() {
                 </div>
             </header>
 
-            {/* ─── Mobile Nav ─── */}
+            {/* ─── Mobile Nav Drawer (Amazon Style) ─── */}
             <AnimatePresence mode="wait">
                 {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="fixed inset-0 z-40 lg:hidden h-[100dvh] w-screen overflow-y-auto overflow-x-hidden bg-page/98 dark:bg-black/98 custom-scrollbar mobile-nav-physics pt-32 px-8 pb-32"
-                        style={{ WebkitOverflowScrolling: 'touch' }}
-                    >
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 blur-[120px] pointer-events-none" />
+                    <>
+                        {/* Backdrop */}
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md lg:hidden"
+                            onClick={() => setIsMenuOpen(false)}
+                            style={{ touchAction: 'none' }} // Prevent scrolling on backdrop
+                        />
                         
-                        <nav className="relative z-10 flex flex-col gap-12">
-                            <div className="space-y-6 mobile-nav-section">
-                                 <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Navigation</p>
-                                <div className="grid grid-cols-1 gap-4">
-                                    {navItems.map((item) => (
-                                        <Link
-                                            key={item.path}
-                                            to={item.path}
-                                            className="text-2xl font-black font-['Outfit'] tracking-tighter py-2 text-ink-gradient hover:text-accent transition-all duration-500 uppercase leading-none border-b border-[var(--border)]/10"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            {item.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="space-y-6 mobile-nav-section">
-                                 <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Categories</p>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {SHOPPING_CATEGORIES.slice(0, 6).map((cat) => (
-                                        <Link
-                                            key={cat.slug}
-                                            to={`/shopping/category/${cat.slug}`}
-                                            className="glass-pane border border-[var(--border)] rounded-3xl p-6 text-xs font-black uppercase tracking-widest text-ink-gradient hover:border-accent hover:text-accent transition-all"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            {cat.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="space-y-6 mobile-nav-section">
-                                 <p className="text-[11px] font-black uppercase tracking-[0.8em] text-accent">Order Management</p>
-                                <button 
-                                    onClick={() => { setIsMenuOpen(false); setIsOrdersOpen(true); }}
-                                    className="w-full glass-pane border border-accent/30 rounded-[2.5rem] p-8 flex items-center justify-between group hover:border-accent transition-all shadow-gold"
-                                >
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all">
-                                            <Package className="w-6 h-6" />
-                                        </div>
-                                        <div className="text-left">
-                                             <p className="text-lg font-black font-['Outfit'] text-ink-gradient uppercase leading-none">Track My Orders</p>
-                                             <p className="text-[9px] font-bold text-accent uppercase tracking-widest mt-1">Order History & Tracking</p>
-                                        </div>
-                                    </div>
-                                    <ArrowRight className="w-5 h-5 text-accent" />
+                        {/* Sliding Drawer */}
+                        <motion.div
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                            className="fixed top-0 right-0 bottom-0 z-50 lg:hidden w-[85vw] max-w-[380px] bg-page border-l border-[var(--border)] shadow-2xl overflow-y-auto overflow-x-hidden overscroll-contain"
+                            style={{ WebkitOverflowScrolling: 'touch' }}
+                            data-lenis-prevent="true"
+                        >
+                            {/* Drawer Header */}
+                            <div className="sticky top-0 z-20 bg-page/95 backdrop-blur-xl border-b border-[var(--border)] px-6 py-5 flex items-center justify-between">
+                                <Link to="/" className="text-xl font-bold tracking-tighter flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
+                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-gold flex items-center justify-center text-white text-xs font-black shadow-gold">UB</div>
+                                    <span className="text-ink-gradient">UB CITY</span>
+                                </Link>
+                                <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
+                                    <X className="w-5 h-5 text-ink-gradient group-hover:text-accent transition-colors" />
                                 </button>
                             </div>
 
-                            <motion.div 
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                className="mt-auto pt-10 border-t border-[var(--border)]"
-                            >
-                                <div className="grid grid-cols-4 gap-6 mb-12">
-                                    <Link to="/reach-us" className="flex flex-col items-center gap-4 group" onClick={() => setIsMenuOpen(false)}>
-                                        <div className="w-16 h-16 rounded-[1.5rem] glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-gold"><MapPin className="w-6 h-6" /></div>
-                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">Map</span>
-                                    </Link>
-                                    <Link to="/wishlist" className="flex flex-col items-center gap-4 group relative" onClick={() => setIsMenuOpen(false)}>
-                                        <div className="w-16 h-16 rounded-[1.5rem] glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-gold"><Heart className="w-6 h-6" /></div>
-                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">Wishlist</span>
-                                        {wishlistCount > 0 && <span className="absolute -top-1 right-2 w-6 h-6 bg-accent text-[10px] font-black text-white flex items-center justify-center rounded-xl shadow-gold">{wishlistCount}</span>}
-                                    </Link>
-                                    <Link to="/cart" className="flex flex-col items-center gap-4 group relative" onClick={() => setIsMenuOpen(false)}>
-                                        <div className="w-16 h-16 rounded-[1.5rem] glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-gold"><ShoppingCart className="w-6 h-6" /></div>
-                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">Cart</span>
-                                        {cartCount > 0 && <span className="absolute -top-1 right-2 w-6 h-6 bg-accent text-[10px] font-black text-white flex items-center justify-center rounded-xl shadow-gold">{cartCount}</span>}
-                                    </Link>
-                                    <Link to="/profile" className="flex flex-col items-center gap-4 group" onClick={() => setIsMenuOpen(false)}>
-                                        <div className="w-16 h-16 rounded-[1.5rem] glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-gold"><User className="w-6 h-6" /></div>
-                                         <span className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">Profile</span>
-                                    </Link>
+                            <nav className="p-6 flex flex-col gap-8">
+                                <div className="space-y-4">
+                                     <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent pl-2">Menu</p>
+                                    <div className="flex flex-col gap-2">
+                                        {navItems.map((item) => (
+                                            <Link
+                                                key={item.path}
+                                                to={item.path}
+                                                className="text-lg font-black font-['Outfit'] tracking-wide py-3 px-4 rounded-2xl glass-pane border border-transparent hover:border-[var(--border)] text-ink-gradient hover:text-accent transition-all duration-300 uppercase relative overflow-hidden group"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                <span className="relative z-10">{item.label}</span>
+                                                <div className="absolute inset-0 bg-accent/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out z-0" />
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <div className="flex items-center justify-center gap-3 flex-wrap">
-                                    {languages.map(lang => (
-                                        <button key={lang.code} className="px-6 py-3 rounded-full glass-pane border border-[var(--border)] text-[10px] font-black text-accent uppercase tracking-[0.4em] hover:bg-accent hover:text-white transition-all shadow-lg active:scale-95">
-                                            {lang.code}
-                                        </button>
-                                    ))}
+                                <div className="space-y-4">
+                                     <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent pl-2">Shop By Category</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {SHOPPING_CATEGORIES.slice(0, 6).map((cat) => (
+                                            <Link
+                                                key={cat.slug}
+                                                to={`/shopping/category/${cat.slug}`}
+                                                className="glass-pane border border-[var(--border)] rounded-2xl p-4 text-[10px] flex flex-col items-center justify-center text-center gap-2 font-black uppercase tracking-widest text-ink-gradient hover:border-accent hover:text-accent transition-all shadow-sm"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                {cat.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
-                            </motion.div>
-                        </nav>
-                </motion.div>
+
+                                <div className="space-y-4">
+                                     <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent pl-2">My Account</p>
+                                    <button 
+                                        onClick={() => { setIsMenuOpen(false); setIsOrdersOpen(true); }}
+                                        className="w-full glass-pane border border-[var(--border)] rounded-2xl p-5 flex items-center justify-between group hover:border-accent transition-all"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all">
+                                                <Package className="w-5 h-5" />
+                                            </div>
+                                            <div className="text-left">
+                                                 <p className="text-sm font-black font-['Outfit'] text-ink-gradient uppercase leading-none">Orders & Returns</p>
+                                                 <p className="text-[9px] font-bold text-accent uppercase tracking-widest mt-1">Track your items</p>
+                                            </div>
+                                        </div>
+                                        <ArrowRight className="w-4 h-4 text-accent" />
+                                    </button>
+                                </div>
+
+                                <div className="pt-6 border-t border-[var(--border)]">
+                                    <div className="grid grid-cols-4 gap-4 mb-8">
+                                        <Link to="/reach-us" className="flex flex-col items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-12 h-12 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-sm"><MapPin className="w-5 h-5" /></div>
+                                            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Map</span>
+                                        </Link>
+                                        <Link to="/wishlist" className="flex flex-col items-center gap-3 group relative" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-12 h-12 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-sm"><Heart className="w-5 h-5" /></div>
+                                            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Wish</span>
+                                            {wishlistCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-[9px] font-black text-white flex items-center justify-center rounded-lg shadow-gold">{wishlistCount}</span>}
+                                        </Link>
+                                        <Link to="/cart" className="flex flex-col items-center gap-3 group relative" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-12 h-12 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-sm"><ShoppingCart className="w-5 h-5" /></div>
+                                            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Cart</span>
+                                            {cartCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-[9px] font-black text-white flex items-center justify-center rounded-lg shadow-gold">{cartCount}</span>}
+                                        </Link>
+                                        <Link to="/profile" className="flex flex-col items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-12 h-12 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-sm"><User className="w-5 h-5" /></div>
+                                             <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Profile</span>
+                                        </Link>
+                                    </div>
+                                    <div className="text-center py-2">
+                                        <p className="text-[10px] font-black tracking-[0.5em] text-accent/50 uppercase">Language: EN</p>
+                                    </div>
+                                </div>
+                            </nav>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
 
             <main className="relative min-h-[60vh]">
-                <Suspense fallback={
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-page">
-                        <motion.div 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col items-center gap-6"
-                        >
-                            <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center animate-pulse border border-accent/40 shadow-gold">
-                                <Sparkles className="w-8 h-8 text-accent" />
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={location.pathname}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                    >
+                        <Suspense fallback={
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-page">
+                                <motion.div 
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="flex flex-col items-center gap-6"
+                                >
+                                    <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center animate-pulse border border-accent/40 shadow-gold">
+                                        <Sparkles className="w-8 h-8 text-accent" />
+                                    </div>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent animate-pulse">Synchronizing Architecture</p>
+                                </motion.div>
                             </div>
-                            <p className="text-[10px] font-black uppercase tracking-[0.8em] text-accent animate-pulse">Synchronizing Architecture</p>
-                        </motion.div>
-                    </div>
-                }>
-                    <Outlet />
-                </Suspense>
+                        }>
+                            <Outlet />
+                        </Suspense>
+                    </motion.div>
+                </AnimatePresence>
             </main>
 
             <AIAgent />
             <SalesDock />
-            <Footer />
+            <Footer hideCTA={location.pathname === "/dining" || location.pathname === "/leasing"} />
             <CookieBanner />
         </div>
     );

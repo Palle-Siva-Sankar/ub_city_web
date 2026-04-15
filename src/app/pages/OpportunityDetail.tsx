@@ -59,6 +59,27 @@ const opportunityMap: Record<string, OpportunityMeta> = {
     highlights: ["Scalable audience format", "Production-ready zones", "Event operations support"],
     inquirePath: "/inquire/venue-booking",
   },
+  "bespoke-architecture": {
+    title: "Bespoke Luxury Architecture",
+    category: "Design",
+    summary: "Precision-engineered environments featuring Italian marble, custom glass facades, and tailored lighting for absolute brand purity.",
+    highlights: ["Custom facade integration", "Premium material sourcing", "Architectural lighting control"],
+    inquirePath: "/inquire/leasing",
+  },
+  "vip-concierge": {
+    title: "VIP Concierge Protocol",
+    category: "Service",
+    summary: "Dedicated high-net-worth individual support team providing private styling suites, valet, and seamless premium logistics.",
+    highlights: ["Private styling suites", "Valet-first entry points", "Dedicated HNW desk"],
+    inquirePath: "/reach-us",
+  },
+  "unmatched-exclusivity": {
+    title: "Unmatched Brand Exclusivity",
+    category: "Strategic",
+    summary: "Hermetically curated adjacencies ensuring your brand sits alongside true global peers in a sovereign ecosystem.",
+    highlights: ["Curated tenant adjacency", "Category protection", "Strategic floor-plan mapping"],
+    inquirePath: "/leasing",
+  },
 };
 
 export function OpportunityDetail() {
@@ -96,16 +117,16 @@ export function OpportunityDetail() {
           
           <div className="flex flex-col lg:flex-row gap-20 items-start">
              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-8">
-                   <div className="w-12 h-px bg-accent" />
-                   <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase">{detail.category} Protocol</p>
+                <div className="flex items-center gap-4 mb-6 md:mb-8">
+                   <div className="w-8 md:w-12 h-px bg-accent" />
+                   <p className="text-accent text-[9px] md:text-[10px] font-black tracking-[0.6em] uppercase">{detail.category} Protocol</p>
                 </div>
-                <h1 className="text-6xl md:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-12">
+                <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-[0.9] mb-8 md:mb-12">
                   {detail.title.split(" ").map((word, i) => (
                     <span key={i} className={i === 1 ? "text-gradient" : ""}>{word} </span>
                   ))}
                 </h1>
-                <p className="text-2xl md:text-3xl text-ink-gradient/80 font-medium italic border-l-2 border-accent/20 pl-8 leading-relaxed mb-16">
+                <p className="text-lg md:text-2xl lg:text-3xl text-ink-gradient/80 font-medium italic border-l-2 border-accent/20 pl-6 md:pl-8 leading-relaxed mb-10 md:mb-16">
                    "{detail.summary}"
                 </p>
 
@@ -122,14 +143,20 @@ export function OpportunityDetail() {
              <div className="w-full lg:w-[450px] space-y-8">
                 <div className="glass-pane p-10 rounded-[3rem] border border-accent/20 bg-accent/5">
                    <h3 className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-8">Operational Highlights</h3>
-                   <div className="space-y-6">
-                      {detail.highlights.map((point, i) => (
-                        <div key={i} className="flex items-start gap-5 group">
-                           <div className="w-2 h-2 rounded-full bg-accent mt-1.5 shadow-gold group-hover:scale-150 transition-transform" />
-                           <p className="text-ink-gradient text-sm font-black uppercase tracking-widest leading-relaxed opacity-70 group-hover:opacity-100">{point}</p>
-                        </div>
-                      ))}
-                   </div>
+                    <div className="space-y-6">
+                       {detail.highlights.map((point, i) => {
+                         const slug = point.toLowerCase().replace(/ /g, "-");
+                         return (
+                           <Link key={i} to={`/operations/${slug}`} className="flex items-start gap-5 group py-2 border-b border-transparent hover:border-accent/10 transition-all">
+                              <div className="w-2 h-2 rounded-full bg-accent mt-1.5 shadow-gold group-hover:scale-150 transition-transform" />
+                              <div className="flex-1">
+                                <p className="text-ink-gradient text-sm font-black uppercase tracking-widest leading-relaxed opacity-70 group-hover:opacity-100">{point}</p>
+                                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-accent mt-1 opacity-0 group-hover:opacity-100 transition-all">Explore Protocol →</p>
+                              </div>
+                           </Link>
+                         );
+                       })}
+                    </div>
                 </div>
 
                 <div className="glass-pane p-10 rounded-[3rem] border border-[var(--border)] bg-page/50 backdrop-blur-3xl">

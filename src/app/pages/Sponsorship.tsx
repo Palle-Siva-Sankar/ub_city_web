@@ -78,21 +78,24 @@ export function Sponsorship() {
               icon: Eye, 
               desc: "10M+ annual impressions across our premium high-resolution digital network and immersive LED arrays.",
               metric: "10M+",
-              tag: "Coverage"
+              tag: "Coverage",
+              slug: "digital-dominance"
             },
             { 
               title: "Event Signature", 
               icon: Sparkles, 
               desc: "Own the stage at our world-class event plazas for exclusive launches, galas, and brand activations.",
               metric: "Top Tier",
-              tag: "Visibility"
+              tag: "Visibility",
+              slug: "event-signature"
             },
             { 
               title: "Integrated Rights", 
               icon: ShieldCheck, 
               desc: "A sovereign brand partnership with priority access to demographics and first-right for key activations.",
               metric: "VIP Scale",
-              tag: "Ownership"
+              tag: "Ownership",
+              slug: "integrated-rights"
             }
           ].map((tier, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
@@ -108,7 +111,7 @@ export function Sponsorship() {
               </div>
               <h3 className="text-3xl font-black font-['Outfit'] text-ink-gradient uppercase mb-6 tracking-tight leading-none">{tier.title}</h3>
               <p className="text-[color:var(--text-dim)] font-medium leading-relaxed mb-10 text-lg">{tier.desc}</p>
-              <Link to="/sponsorship/details" className="inline-flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest hover:gap-4 transition-all">Download Deck →</Link>
+              <Link to={`/sponsorship/${tier.slug}`} className="inline-flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest hover:gap-4 transition-all">Explore Tier →</Link>
             </motion.div>
           ))}
         </div>

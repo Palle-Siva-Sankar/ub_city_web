@@ -66,10 +66,10 @@ export function Dining() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-[1400px]">
                 {[
-                  { icon: ChefHat, title: "Fine Dining", desc: "Award-winning chef concepts", inquiry: "/dining/category/fine-dining" },
-                  { icon: Wine, title: "Lounges & Bars", desc: "Craft cocktails & late night", inquiry: "/dining/category/bars" },
-                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International food courts", inquiry: "/dining/category/fast-food" },
-                  { icon: Coffee, title: "Cafés", desc: "Artisanal coffee & pastries", inquiry: "/dining/category/cafes" }
+                  { icon: ChefHat, title: "Fine Dining", desc: "Award-winning chef concepts", inquiry: "/dine" },
+                  { icon: Wine, title: "Lounges & Bars", desc: "Craft cocktails & late night", inquiry: "/dine" },
+                  { icon: UtensilsCrossed, title: "Global Fare", desc: "International food courts", inquiry: "/dine" },
+                  { icon: Coffee, title: "Cafés", desc: "Artisanal coffee & pastries", inquiry: "/dine" }
                 ].map((item, i) => (
                   <Link key={i} to={item.inquiry} className="glass-pane active-card lighting-card p-8 md:p-14 rounded-[3rem] text-center transition-all cursor-pointer group shadow-2xl block border border-[var(--border)] hover:border-accent hover:shadow-gold duration-700 relative overflow-hidden">
                     <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -99,8 +99,8 @@ export function Dining() {
             Ready to <span className="text-gradient">Serve?</span>
           </h2>
           <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic mb-16 leading-relaxed px-10">Join the world's most prestigious culinary destination at UB City.</p>
-          <Link to="/opportunity/inline-retail" className="btn-luxe !px-20 !py-8 text-sm">
-            F&B Leasing Opportunities <ArrowRight className="w-6 h-6 ml-4" />
+          <Link to="/opportunity/inline-retail" className="btn-luxe !px-10 md:!px-20 !py-6 md:!py-8 text-[10px] md:text-sm shadow-gold">
+            F&B Leasing Opportunities <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-4" />
           </Link>
         </div>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent shadow-gold" />

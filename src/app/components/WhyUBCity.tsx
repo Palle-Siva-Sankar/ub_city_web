@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router";
 
 function Bar({ label, value, max }: { label: string; value: number; max: number }) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
@@ -50,15 +51,15 @@ export function WhyUBCity() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
-              { k: "Built-up Area", v: "1.5M+ sq ft", d: "Mixed-use scale across retail, offices, hospitality." },
-              { k: "Site", v: "13 acres", d: "Prime CBD location with premium access and visibility." },
-              { k: "Footfall", v: "500k+ / month", d: "Consistent traffic with weekend & festive peaks." },
+              { k: "Built-up Area", v: "1.5M+ sq ft", d: "Mixed-use scale across retail, offices, hospitality.", to: "/opportunity/flagship-anchor" },
+              { k: "Site", v: "13 acres", d: "Prime CBD location with premium access and visibility.", to: "/opportunity/inline-retail" },
+              { k: "Footfall", v: "500k+ / month", d: "Consistent traffic with weekend & festive peaks.", to: "/demographics" },
             ].map((c) => (
-              <div key={c.k} className="glass-pane lighting-card rounded-[2.2rem] p-6 sm:p-8 border border-[var(--border)]">
-                <p className="text-[10px] font-black tracking-[0.35em] uppercase text-ink-gradient/50">{c.k}</p>
-                <p className="mt-2 text-3xl sm:text-4xl font-black font-['Outfit'] text-ink-gradient tracking-tight">{c.v}</p>
-                <p className="mt-3 text-sm text-[color:var(--text-dim)]">{c.d}</p>
-              </div>
+              <Link key={c.k} to={c.to} className="glass-pane active-card lighting-card rounded-[2.2rem] p-6 sm:p-8 border border-[var(--border)] group block hover:border-accent transition-all duration-500">
+                <p className="text-[10px] font-black tracking-[0.35em] uppercase text-accent mb-4 opacity-70 group-hover:opacity-100">{c.k}</p>
+                <p className="mt-2 text-3xl sm:text-4xl font-black font-['Outfit'] text-ink-gradient tracking-tight uppercase leading-none group-hover:text-accent transition-colors">{c.v}</p>
+                <p className="mt-6 text-xs text-[color:var(--text-dim)] font-black uppercase tracking-widest leading-relaxed opacity-60 group-hover:opacity-100">{c.d}</p>
+              </Link>
             ))}
           </div>
         </motion.div>

@@ -19,15 +19,15 @@ export function Venues() {
 
   return (
     <div className="page-wrapper bg-page transition-colors duration-500">
-      <section ref={containerRef} className="relative h-[120vh] lg:h-[150vh] px-6 md:px-12 pt-24 virtual-section">
-        <div className="sticky top-24 h-[80vh] w-full overflow-hidden rounded-[4rem] premium-card">
+      <section ref={containerRef} className="relative h-[150vh] lg:h-[200vh] pt-0 virtual-section">
+        <div className="sticky top-0 h-screen w-full overflow-hidden premium-card">
           <img
             src={moaEvent}
             alt="Venues hero"
-            className="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale"
+            className="absolute inset-0 w-full h-full object-cover opacity-30 filter grayscale"
           />
           <motion.div className="absolute inset-0" style={{ opacity: videoOpacity }}>
-            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-50">
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-40">
               <source src={VIDEOS.citySkyline} type="video/mp4" />
             </video>
             <div className="video-gradient-mask" />
@@ -35,11 +35,15 @@ export function Venues() {
           
           <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-8 pointer-events-none">
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }}>
-              <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8">Not A Mall. A Commercial District.</p>
-              <h1 className="text-6xl md:text-9xl font-black font-['Outfit'] text-ink-gradient uppercase leading-none tracking-tighter mb-8 shadow-2xl">
-                Global <span className="text-gradient">Venues.</span>
+              <div className="flex items-center justify-center gap-4 mb-10">
+                 <div className="w-12 h-px bg-accent" />
+                 <p className="text-accent text-[11px] font-black tracking-[0.6em] uppercase">The Venue Registry</p>
+                 <div className="w-12 h-px bg-accent" />
+              </div>
+              <h1 className="text-6xl md:text-9xl lg:text-[12rem] font-black font-['Outfit'] text-ink-gradient uppercase leading-[0.85] tracking-tighter mb-12 shadow-2xl">
+                Global <br/><span className="text-gradient">Venues.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-[color:var(--text-dim)] max-w-2xl mx-auto font-medium leading-relaxed">
+              <p className="text-xl md:text-3xl text-[color:var(--text-dim)] max-w-3xl mx-auto font-medium leading-relaxed italic border-l-4 border-accent pl-10 text-left">
                 12 customizable environments for launches, culture, and business events across Bengaluru’s premium core.
               </p>
             </motion.div>

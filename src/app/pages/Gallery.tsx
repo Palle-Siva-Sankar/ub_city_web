@@ -6,18 +6,18 @@ import { VIDEOS, POSTERS } from "../data/mediaAssets";
 import { HeroVideoEmbed } from "../components/HeroVideoEmbed";
 
 const GALLERY_IMAGES = [
-  { src: "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=800&auto=format&fit=crop", caption: "Mall Atrium" },
-  { src: "https://images.unsplash.com/photo-1567449303078-57ad995bd329?q=80&w=800&auto=format&fit=crop", caption: "Luxury Wing" },
-  { src: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800&auto=format&fit=crop", caption: "Fashion Boulevard" },
-  { src: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=800&auto=format&fit=crop", caption: "Retail Floor" },
-  { src: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800&auto=format&fit=crop", caption: "Luxury Atrium Lounge" },
-  { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=800&auto=format&fit=crop", caption: "INOX Cinema" },
-  { src: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop", caption: "Fine Dining" },
-  { src: "https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=800&auto=format&fit=crop", caption: "Entertainment Zone" },
-  { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop", caption: "Food Court" },
-  { src: "https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=800&auto=format&fit=crop", caption: "Sportswear District" },
-  { src: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?q=80&w=800&auto=format&fit=crop", caption: "Ethnic Fashion" },
-  { src: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?q=80&w=800&auto=format&fit=crop", caption: "Tech Hub" },
+  { src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200", caption: "The Grand Atrium" },
+  { src: "https://images.unsplash.com/photo-1600585154340-be6199fbfd0b?q=80&w=1200", caption: "Elite Residential Wing" },
+  { src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200", caption: "Luxury Retail Avenue" },
+  { src: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1200", caption: "Premium Shopping Floor" },
+  { src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200", caption: "Fine Gastronomy" },
+  { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200", caption: "UB City Cinemas" },
+  { src: "https://images.unsplash.com/photo-1574092167134-2e212165319d?q=80&w=1200", caption: "Evening Skyline" },
+  { src: "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200", caption: "Event Rotunda" },
+  { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200", caption: "Artisan Courtyard" },
+  { src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1200", caption: "Nightlife District" },
+  { src: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?q=80&w=1200", caption: "Corporate Plazas" },
+  { src: "https://images.unsplash.com/photo-1541746972996-4e0b0f43e01a?q=80&w=1200", caption: "Concierge Desks" },
 ];
 
 export function Gallery() {

@@ -63,8 +63,7 @@ export function About() {
                 transition={{ delay: index * 0.1, duration: 1 }}
                 className="scroll-reveal compositor-layer"
               >
-                <Link to={item.to} className="glass-pane lighting-card rounded-[4rem] p-12 block h-full border border-[var(--border)] group hover:border-accent hover:shadow-gold transition-all duration-700 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-[60px] pointer-events-none" />
+                <Link to={item.to} className="glass-pane active-card lighting-card rounded-[4rem] p-12 block h-full border border-[var(--border)] group hover:border-accent hover:shadow-gold transition-all duration-700 relative overflow-hidden">
                   <div className="w-20 h-20 rounded-[1.8rem] bg-accent/10 border border-accent/20 flex items-center justify-center mb-10 group-hover:bg-accent group-hover:text-black transition-all shadow-lg relative z-10">
                     <item.icon className="w-10 h-10" />
                   </div>

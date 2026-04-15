@@ -168,8 +168,8 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
         </div>
       ) : null}
 
-      {/* Navigation Arrows (Visible in Light Mode) */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-6 md:px-12 flex justify-between pointer-events-none">
+      {/* Navigation Arrows Hidden by Request */}
+      <div className="hidden absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-6 md:px-12 md:flex justify-between pointer-events-none opacity-0">
         <button
           onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)}
           className="w-16 h-16 rounded-full glass-pane border border-accent/30 flex items-center justify-center text-accent hover:bg-accent hover:text-black transition-all pointer-events-auto backdrop-blur-3xl shadow-gold group"

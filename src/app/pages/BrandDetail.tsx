@@ -246,20 +246,23 @@ export function BrandDetail() {
                </Link>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
                {related.map((r, i) => (
-                  <motion.div key={r.slug} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                    <Link to={`/brand/${r.slug}`} className="glass-pane lighting-card group rounded-[4rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all p-10 shadow-xl hover:shadow-gold duration-700">
-                       <div className="aspect-[16/11] overflow-hidden rounded-[3rem] mb-12 shadow-inner border border-[var(--border)]">
-                          <img src={r.image} alt={r.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.6] group-hover:grayscale-0" />
-                       </div>
-                       <div className="px-6 pb-2">
-                          <p className="text-accent text-[8px] font-black uppercase tracking-[0.5em] mb-4 opacity-60">Partner Portfolio</p>
-                          <h4 className="text-4xl font-black text-ink-gradient uppercase tracking-tighter mb-8 group-hover:text-accent transition-colors font-['Outfit'] leading-none">{r.name}</h4>
-                          <div className="flex items-center gap-4">
-                             <MapPin className="w-6 h-6 text-accent" />
-                             <p className="text-[10px] text-[color:var(--text-dim)] font-black uppercase tracking-[0.4em]">{r.floor}</p>
-                          </div>
+                  <motion.div key={r.slug} initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="group">
+                    <Link to={`/brand/${r.slug}`} className="glass-pane active-card lighting-card rounded-[4rem] overflow-hidden border border-[var(--border)] hover:border-accent transition-all p-12 shadow-xl hover:shadow-gold duration-700 block relative">
+                       <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 backdrop-blur-3xl transition-all duration-700" />
+                       <div className="relative z-10">
+                         <div className="aspect-[16/11] overflow-hidden rounded-[3rem] mb-12 shadow-inner border border-[var(--border)]">
+                            <img src={r.image} alt={r.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.6] group-hover:grayscale-0" />
+                         </div>
+                         <div className="px-6 pb-2">
+                            <p className="text-accent text-[8px] font-black uppercase tracking-[0.5em] mb-4 opacity-60">Partner Portfolio</p>
+                            <h4 className="text-4xl font-black text-ink-gradient uppercase tracking-tighter mb-8 group-hover:text-accent transition-colors font-['Outfit'] leading-none">{r.name}</h4>
+                            <div className="flex items-center gap-4">
+                               <MapPin className="w-6 h-6 text-accent" />
+                               <p className="text-[10px] text-[color:var(--text-dim)] font-black uppercase tracking-[0.4em]">{r.floor}</p>
+                            </div>
+                         </div>
                        </div>
                     </Link>
                   </motion.div>
