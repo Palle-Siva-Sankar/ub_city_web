@@ -58,10 +58,13 @@ export function Dine() {
             <p className="text-xl hero-video-subtitle font-medium max-w-2xl mx-auto leading-relaxed hero-video-glass p-6 rounded-3xl text-[color:var(--text-dim)]">
               From chef-led dining rooms to artisanal patisseries, {RESTAURANTS.length} culinary destinations await at UB City.
             </p>
-            <div className="location-pill mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-[color:var(--text-dim)] glass-pane border border-[var(--border)]">
-              <MapPin className="w-4 h-4 text-accent" />
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('open-location'))}
+              className="location-pill mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black text-accent hover:text-white glass-pane border border-accent/20 hover:border-accent transition-all active:scale-95 group/loc"
+            >
+              <MapPin className="w-4 h-4 text-accent group-hover/loc:animate-bounce" />
               {locationInfo.loading ? "Detecting location..." : `Dining near ${locationInfo.city}`}
-            </div>
+            </button>
           </motion.div>
         </div>
       </section>
@@ -140,7 +143,7 @@ export function Dine() {
             />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 section-optimize">
             {DINING_VARIETIES.map((item, index) => (
               <motion.div
                 key={item.slug}

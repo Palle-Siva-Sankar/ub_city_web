@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X, Sun, Moon, Search, Globe, User, ChevronDown, Heart, ShoppingCart, MapPin, ArrowLeft, Package, ArrowRight, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { SearchOverlay } from "./SearchOverlay";
+import { LocationOverlay } from "./LocationOverlay";
 import { OrdersHub } from "./OrdersHub";
 import { CookieBanner } from "./CookieBanner";
 import { Footer } from "./Footer";
@@ -45,6 +46,7 @@ export function Layout() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isOrdersOpen, setIsOrdersOpen] = useState(false);
+    const [isLocationOpen, setIsLocationOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const { count: wishlistCount } = useWishlist();
@@ -56,8 +58,15 @@ export function Layout() {
     
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
+        const handleLocationTrigger = () => setIsLocationOpen(true);
+        
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("open-location", handleLocationTrigger);
+        
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("open-location", handleLocationTrigger);
+        };
     }, []);
 
     const lastPathname = useRef(location.pathname);
@@ -78,7 +87,7 @@ export function Layout() {
     }, [location]);
 
     useEffect(() => {
-        const anyOverlayOpen = isMenuOpen || isSearchOpen || isOrdersOpen;
+        const anyOverlayOpen = isMenuOpen || isSearchOpen || isOrdersOpen || isLocationOpen;
 
         if (anyOverlayOpen) {
             document.body.style.overflow = "hidden";
@@ -89,7 +98,7 @@ export function Layout() {
         return () => {
             document.body.style.overflow = "";
         };
-    }, [isMenuOpen, isSearchOpen, isOrdersOpen]);
+    }, [isMenuOpen, isSearchOpen, isOrdersOpen, isLocationOpen]);
 
     return (
         <div className="relative min-h-screen">
@@ -356,6 +365,7 @@ export function Layout() {
             <SalesDock />
             <Footer hideCTA={!["/", "/reach-us"].includes(location.pathname)} />
             <CookieBanner />
+            <LocationOverlay isOpen={isLocationOpen} onClose={() => setIsLocationOpen(false)} />
         </div>
     );
 }

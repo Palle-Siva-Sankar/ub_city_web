@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router";
 import { Sparkles, MapPin, ArrowLeft } from "lucide-react";
 
@@ -82,12 +83,15 @@ export function Shopping() {
                   </p>
                   
                   <div className="mt-10 md:mt-14 flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                    <div className="inline-flex items-center gap-4 md:gap-5 px-8 md:px-10 py-3 md:py-4 rounded-full glass-pane border border-accent/20 text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] text-accent shadow-gold">
-                      <MapPin className="w-5 h-5 md:w-6 md:h-6 animate-pulse" />
+                    <button 
+                      onClick={() => window.dispatchEvent(new CustomEvent('open-location'))}
+                      className="inline-flex items-center gap-4 md:gap-5 px-8 md:px-10 py-3 md:py-4 rounded-full glass-pane border border-accent/20 text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] text-accent hover:border-accent hover:text-white transition-all active:scale-95 group/loc shadow-gold"
+                    >
+                      <MapPin className="w-5 h-5 md:w-6 md:h-6 group-hover/loc:animate-bounce" />
                       <span>
                         {locationInfo.loading ? "Locating..." : `Explore ${locationInfo.city}`}
                       </span>
-                    </div>
+                    </button>
                     {!locationInfo.loading && (
                       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 px-8 py-3 rounded-full bg-accent/20 border border-accent/30 text-[10px] font-black uppercase tracking-widest text-accent">
                         <div className="w-2.5 h-2.5 rounded-full bg-accent animate-ping" />
@@ -125,7 +129,7 @@ export function Shopping() {
                    </h2>
                 </div>
 
-                <div className="space-y-24 md:space-y-32">
+                <div className="space-y-24 md:space-y-32 section-optimize">
                   {featuredBrandWalls.map((row) => (
                     <div key={row.title} className="border-t border-[var(--border)] pt-16 md:pt-24 group/row">
                       <div className="flex items-center gap-8 md:gap-10 mb-12 md:mb-16">

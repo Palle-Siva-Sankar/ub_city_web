@@ -26,18 +26,18 @@ export function SalesDock() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.25 }}
-          className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[min(760px,calc(100vw-20px))]"
+          className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[min(500px,calc(100vw-24px))]"
         >
-          <div className="glass-pane lighting-card rounded-[2rem] border border-accent/20 flex items-center justify-between gap-4 px-3 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl relative overflow-hidden">
+          <div className="glass-pane lighting-card rounded-xl border border-accent/20 flex items-center justify-between gap-2 px-3 py-1 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent pointer-events-none" />
-            <div className="flex items-center gap-2 min-w-0 overflow-x-auto no-scrollbar scroll-smooth">
+            <div className="flex items-center gap-1.5 min-w-0 overflow-x-auto no-scrollbar scroll-smooth">
               {ACTIONS.map((a) => (
                 <Link
                   key={a.to}
                   to={a.to}
-                  className="group relative inline-flex items-center gap-3 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-[0.25em] transition-all min-w-0 border border-transparent hover:border-accent/40 bg-accent/5 hover:bg-accent hover:text-black shadow-lg"
+                  className="group relative inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[7.5px] font-black uppercase tracking-[0.15em] transition-all min-w-0 border border-transparent hover:border-accent/40 bg-accent/5 hover:bg-accent hover:text-black shadow-lg"
                 >
-                  <a.icon className="w-4 h-4 text-accent group-hover:text-black shrink-0 transition-colors" />
+                  <a.icon className="w-2.5 h-2.5 text-accent group-hover:text-black shrink-0 transition-colors" />
                   <span className="truncate">{a.label}</span>
                 </Link>
               ))}
@@ -46,10 +46,10 @@ export function SalesDock() {
             <button
               type="button"
               onClick={() => setHidden(true)}
-              className="shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-2xl border border-accent/20 bg-accent/5 hover:bg-accent hover:text-black transition-all group"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-lg border border-accent/20 bg-accent/5 hover:bg-accent hover:text-black transition-all group"
               aria-label="Terminate Dock"
             >
-              <X className="w-5 h-5 text-accent group-hover:text-black transition-colors" />
+              <X className="w-3 h-3 text-accent group-hover:text-black transition-colors" />
             </button>
           </div>
         </motion.div>

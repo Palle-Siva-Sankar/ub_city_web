@@ -42,9 +42,10 @@
 }
 
 @layer base {
-  *, ::before, ::after {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-duration: 500ms;
+  /* Targeted transitions only for interactive elements to improve general page responsiveness */
+  a, button, [role="button"], input, select, .active-card {
+    transition-property: background-color, border-color, color, fill, stroke, transform, opacity, filter, box-shadow;
+    transition-duration: 400ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -53,6 +54,15 @@
     scroll-padding-top: 96px;
     height: 100%;
     overflow-x: hidden;
+    /* Hide scrollbar for all browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
   }
 
   body {
@@ -62,11 +72,17 @@
   }
 
   /* Optimize desktop rendering performance for high-res screens */
-  .compositor-layer {
+  .compositor-layer, .glass-pane, .lighting-card, .btn-luxe {
      transform: translateZ(0);
      backface-visibility: hidden;
      perspective: 1000px;
      will-change: transform, opacity;
+  }
+
+  /* Lazy rendering for long vertical pages */
+  .section-optimize {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px; /* placeholder height to prevent scroll-jump */
   }
 
   html {
