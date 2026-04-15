@@ -49,6 +49,7 @@ export function Layout() {
     const { toggleTheme, isDark } = useTheme();
     const { count: wishlistCount } = useWishlist();
     const { count: cartCount } = useCart();
+    const { session } = useUserSession();
     const lenis = useLenis();
     
     // Core session-wide location bootstrap
@@ -169,32 +170,33 @@ export function Layout() {
                             </button>
 
                             {/* Login icon removed to prevent duplicate profile icons */}
-                            {/* Language Picker */}
-                            <div className="relative group">
-                                <button className="flex items-center gap-3 px-4 py-2 rounded-full glass-pane border border-[var(--border)] hover:border-accent transition-all">
-                                    <Globe className="w-4 h-4 text-ink-gradient" />
-                                    <span className="text-[10px] font-black text-ink-gradient uppercase tracking-widest">EN</span>
-                                </button>
-                                <div className="absolute top-full right-0 mt-4 w-48 glass-pane rounded-3xl p-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-700 shadow-2xl border border-[var(--border)] z-[60]">
-                                     <p className="text-[9px] font-black uppercase tracking-[0.4em] text-accent mb-4 px-3">Select Language</p>
-                                    <div className="space-y-1">
-                                        {languages.map((lang) => (
-                                            <button key={lang.code} className="w-full text-left px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest text-ink-gradient hover:bg-accent hover:text-black transition-all">
-                                                {lang.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <button onClick={toggleTheme} className="w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
                             {isDark ? <Sun className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" /> : <Moon className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />}
                         </button>
                         
-                        <Link to="/profile" className="w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
+                        <Link to={session?.user ? "/profile" : "/login"} className="w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all group">
                              <User className="w-4 h-4 text-ink-gradient group-hover:text-accent transition-colors" />
                         </Link>
+
+                        {/* Language Picker Moved Before Hamburger for Tab Screens */}
+                        <div className="relative group hidden sm:block">
+                            <button className="flex items-center gap-3 px-4 py-2 h-10 rounded-full glass-pane border border-[var(--border)] hover:border-accent transition-all">
+                                <Globe className="w-4 h-4 text-ink-gradient" />
+                                <span className="text-[10px] font-black text-ink-gradient uppercase tracking-widest hidden md:inline">EN</span>
+                            </button>
+                            <div className="absolute top-full right-0 mt-4 w-48 glass-pane rounded-3xl p-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-700 shadow-2xl border border-[var(--border)] z-[60]">
+                                 <p className="text-[9px] font-black uppercase tracking-[0.4em] text-accent mb-4 px-3">Select Language</p>
+                                <div className="space-y-1">
+                                    {languages.map((lang) => (
+                                        <button key={lang.code} className="w-full text-left px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest text-ink-gradient hover:bg-accent hover:text-black transition-all">
+                                            {lang.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
 
                         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden w-10 h-10 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:border-accent transition-all">
                             {isMenuOpen ? <X className="w-5 h-5 text-accent" /> : <Menu className="w-5 h-5 text-ink-gradient" />}
@@ -308,7 +310,7 @@ export function Layout() {
                                             <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Cart</span>
                                             {cartCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-[9px] font-black text-white flex items-center justify-center rounded-lg shadow-gold">{cartCount}</span>}
                                         </Link>
-                                        <Link to="/profile" className="flex flex-col items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
+                                        <Link to={session?.user ? "/profile" : "/login"} className="flex flex-col items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
                                             <div className="w-12 h-12 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all shadow-sm"><User className="w-5 h-5" /></div>
                                              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-accent">Profile</span>
                                         </Link>

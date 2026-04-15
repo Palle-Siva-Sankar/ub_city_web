@@ -101,12 +101,12 @@ export function AIAgent() {
                         onClick={() => setIsOpen(true)}
                         className="fixed bottom-24 right-6 md:right-12 z-[70] group touch-manipulation"
                     >
-                        <div className="relative flex items-center gap-3 md:gap-4 px-4 py-3 md:px-5 md:py-4 rounded-full glass-pane border border-accent/40 shadow-gold backdrop-blur-3xl transition-all duration-500 hover:border-accent transform-gpu active:scale-95">
+                        <div className="relative flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-2.5 rounded-full glass-pane border border-accent/40 shadow-gold backdrop-blur-3xl transition-all duration-500 hover:border-accent transform-gpu active:scale-95">
                             <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="relative w-7 h-7 md:w-8 md:h-8 rounded-full bg-accent flex items-center justify-center text-black shadow-[0_0_20px_rgba(198,163,95,0.6)] group-hover:rotate-[15deg] transition-all">
-                                 <Sparkles className="w-4 h-4 md:w-4 md:h-4 fill-[var(--btn-text-on-accent)] text-[var(--btn-text-on-accent)]" />
+                            <div className="relative w-6 h-6 md:w-7 md:h-7 rounded-full bg-accent flex items-center justify-center text-black shadow-[0_0_20px_rgba(198,163,95,0.6)] group-hover:rotate-[15deg] transition-all">
+                                 <Sparkles className="w-3.5 h-3.5 md:w-3.5 md:h-3.5 fill-[var(--btn-text-on-accent)] text-[var(--btn-text-on-accent)]" />
                             </div>
-                            <span className="relative text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-accent group-hover:text-ink-gradient">Concierge</span>
+                            <span className="relative text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-accent group-hover:text-ink-gradient">Concierge</span>
                         </div>
                     </motion.button>
                 )}
@@ -127,13 +127,12 @@ export function AIAgent() {
                             style={{ touchAction: 'none' }}
                         />
                         
-                        {/* Chat Panel - Simple Modal */}
                         <motion.div
                             initial={{ opacity: 0, y: 40, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 40, scale: 0.95 }}
                             transition={{ type: "spring", damping: 28, stiffness: 300, mass: 0.8 }}
-                            className="relative w-[92%] md:w-[380px] h-[75dvh] md:h-[550px] max-h-[90dvh] bg-page glass-pane border md:border-[var(--border)] rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto transform-gpu overflow-hidden mx-auto mb-4 md:mb-0 md:mr-12"
+                            className="relative w-[340px] md:w-[360px] h-[450px] max-w-[92vw] max-h-[85vh] bg-page glass-pane border border-[var(--border)] rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto transform-gpu overflow-hidden mb-6 md:mb-0 mr-4 md:mr-12"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-accent/10 blur-[100px] pointer-events-none z-0" />

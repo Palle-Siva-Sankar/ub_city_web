@@ -112,7 +112,7 @@ export function Dine() {
 
                     <div className="flex items-center justify-between">
                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">View Menu & Details</span>
-                       <div className="w-12 h-12 rounded-full border border-accent/30 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all">
+                       <div className="w-12 h-12 rounded-full border border-accent/30 flex items-center justify-center group-hover:bg-accent group-hover:text-[var(--btn-text-on-accent)] transition-all">
                         <ArrowRight className="w-5 h-5" />
                        </div>
                     </div>

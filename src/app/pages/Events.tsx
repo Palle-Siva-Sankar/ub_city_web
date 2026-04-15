@@ -60,7 +60,7 @@ export function Events() {
                 <button 
                   key={f}
                   onClick={() => setFilter(f as any)} 
-                  className={`px-8 py-3.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${filter === f ? "bg-accent text-black shadow-gold scale-105" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)] hover:text-white"}`}
+                  className={`px-8 py-3.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${filter === f ? "bg-accent text-[var(--btn-text-on-accent)] shadow-gold scale-105" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)] hover:text-accent"}`}
                 >
                   {f === "all" ? "All Events" : f.charAt(0).toUpperCase() + f.slice(1)}
                 </button>
@@ -96,7 +96,7 @@ export function Events() {
                       { icon: MapPin, text: event.location }
                     ].map((info, idx) => (
                       <div key={idx} className="flex items-center gap-5 text-[color:var(--text-dim)] text-[11px] font-black uppercase tracking-widest">
-                        <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center border border-accent/20 group-hover:bg-accent group-hover:text-black transition-all">
+                        <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center border border-accent/20 group-hover:bg-accent group-hover:text-[var(--btn-text-on-accent)] transition-all">
                           <info.icon className="w-5 h-5" />
                         </div>
                         {info.text}

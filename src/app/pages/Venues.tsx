@@ -76,7 +76,7 @@ export function Venues() {
                   <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                     className="glass-pane lighting-card p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-between transition-all group cursor-pointer border border-[var(--border)] h-full scroll-reveal compositor-layer">
                     <div className="flex items-center gap-4 md:gap-8">
-                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.2rem] bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all duration-500">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.2rem] bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-[var(--btn-text-on-accent)] transition-all duration-500">
                         <v.icon className="w-6 h-6 md:w-8 md:h-8" />
                       </div>
                       <div>
