@@ -273,7 +273,7 @@ export function Layout() {
                                             <Link
                                                 key={item.path}
                                                 to={item.path}
-                                                className="text-lg font-black font-['Outfit'] tracking-wide py-3 px-4 rounded-2xl glass-pane border border-transparent hover:border-[var(--border)] text-ink-gradient hover:text-accent transition-all duration-300 uppercase relative overflow-hidden group"
+                                                className="text-lg font-black font-['Outfit'] tracking-wide py-3 px-4 rounded-2xl glass-pane border border-transparent hover:border-[var(--border)] nav-mobile-label hover:text-accent transition-all duration-300 uppercase relative overflow-hidden group"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
                                                 <span className="relative z-10">{item.label}</span>
@@ -290,7 +290,7 @@ export function Layout() {
                                             <Link
                                                 key={cat.slug}
                                                 to={`/shopping/category/${cat.slug}`}
-                                                className="glass-pane border border-[var(--border)] rounded-2xl p-4 text-[10px] flex flex-col items-center justify-center text-center gap-2 font-black uppercase tracking-widest text-ink-gradient hover:border-accent hover:text-accent transition-all shadow-sm"
+                                                className="glass-pane border border-[var(--border)] rounded-2xl p-4 text-[10px] flex flex-col items-center justify-center text-center gap-2 font-black uppercase tracking-widest nav-mobile-label hover:border-accent hover:text-accent transition-all shadow-sm"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
                                                 {cat.label}

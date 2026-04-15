@@ -96,10 +96,11 @@
      will-change: transform, opacity;
   }
 
-  /* Lazy rendering for long vertical pages */
+  /* Lazy rendering for long vertical pages - Advanced Virtualization */
   .section-optimize {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 1000px; /* placeholder height to prevent scroll-jump */
+    contain-intrinsic-size: 1px 1200px; /* Placeholder to prevent scroll-jump */
+    contain: paint layout;
   }
 
   html {
@@ -344,15 +345,31 @@
 
 
   .text-ink-gradient {
-    color: var(--text-main); /* Fallback for transparency */
+    color: var(--text-main); /* High-stability fallback */
     background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
+  /* GUARANTEED VISIBILITY for Mobile Nav Drawer Labels */
+  .nav-mobile-label {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    color: var(--text-main) !important;
+    opacity: 1 !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.15em !important;
+    z-index: 50;
+  }
+
+  :root.light .nav-mobile-label {
+    color: #000000 !important;
+  }
+
   :root.light .text-ink-gradient {
-    color: #1f1f1f; /* Fallback for transparency */
+    color: #1f1f1f; /* High-stability fallback */
     background: linear-gradient(135deg, #1f1f1f 0%, #8a6c3a 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
