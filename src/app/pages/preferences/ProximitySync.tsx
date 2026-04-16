@@ -44,12 +44,12 @@ export function ProximitySync() {
             <div className="p-8 rounded-[2rem] border border-[var(--border)] bg-white/5 flex flex-col md:flex-row md:items-center justify-between gap-8">
               <div className="max-w-md">
                 <h3 className="text-xl font-black text-ink-gradient uppercase mb-2">Beacon Discovery</h3>
-                <p className="text-sm text-[color:var(--text-dim)] font-medium leading-relaxed italic">Synchronize with UB City's hyper-local beacon network for boutique navigation and real-time floor-specific experiences.</p>
+                <p className="text-sm text-[color:var(--text-dim)] font-medium leading-relaxed italic">Synchronize with Mall of America's hyper-local beacon network for boutique navigation and real-time floor-specific experiences.</p>
               </div>
               <button 
                 onClick={toggle}
                 className={`px-10 py-4 rounded-full font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-700 ${
-                  prefs.locationOffers ? "bg-accent text-black shadow-gold" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)]"
+                  prefs.locationOffers ? "bg-accent text-on-accent shadow-gold" : "glass-pane border border-[var(--border)] text-[color:var(--text-dim)]"
                 }`}
               >
                 {prefs.locationOffers ? "Discovery Active" : "Incognito Mode"}

@@ -10,16 +10,27 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // We use 'instant' behavior to ensure the user landed on the top before any paint occurs.
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
+    // Immediate scroll reset
+    const performScroll = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.body.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    };
 
-    // Fallback for older browsers or stubborn layout shifts
-    document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    document.body.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    performScroll();
+
+    // Fallback for lazy-loaded content or complex layout shifts
+    const timer = setTimeout(performScroll, 50);
+    const raf = requestAnimationFrame(performScroll);
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
   }, [pathname]);
 
   return null;

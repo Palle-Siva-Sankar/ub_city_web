@@ -16,7 +16,7 @@ function Bar({ label, value, max }: { label: string; value: number; max: number 
   );
 }
 
-export function WhyUBCity() {
+export function WhyMOA() {
   // Light, presentation-friendly metrics (avoid heavy chart libs).
   const footfallMax = 700;
   const catchmentMax = 10;
@@ -29,19 +29,19 @@ export function WhyUBCity() {
             <div className="max-w-3xl">
               <p className="text-[10px] font-black tracking-[0.5em] uppercase text-accent mb-4">Why This Property</p>
               <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-[0.95]">
-                UB City is a <span className="text-gradient">CBD destination</span>, not a strip.
+                MOA is a <span className="text-gradient">global hub</span>, not just a mall.
               </h2>
               <p className="mt-5 text-base sm:text-lg text-[color:var(--text-dim)] max-w-2xl">
-                Premium retail + dining + culture, positioned in Bengaluru’s core with consistent footfall and a high-intent audience.
+                North America's premier retail + entertainment destination with over 40 million annual guests and world-class engagement.
               </p>
             </div>
 
             <div className="glass-pane rounded-3xl border p-5 sm:p-6 w-full lg:w-[420px]" style={{ borderColor: "var(--card-border)" }}>
               <p className="text-[10px] font-black tracking-[0.4em] uppercase text-ink-gradient/50 mb-4">Snapshot</p>
               <div className="space-y-3">
-                <Bar label="Footfall/mo" value={500} max={footfallMax} />
-                <Bar label="Peak/mo" value={650} max={footfallMax} />
-                <Bar label="Catchment km" value={5} max={catchmentMax} />
+                <Bar label="Guests / yr" value={400} max={footfallMax} />
+                <Bar label="Brands" value={500} max={footfallMax} />
+                <Bar label="Sq Ft (M)" value={5.6} max={catchmentMax} />
               </div>
               <p className="mt-4 text-[11px] text-[color:var(--text-dim)]">
                 Use these as a talk-track baseline; refine with your official numbers in the deck.
@@ -51,9 +51,9 @@ export function WhyUBCity() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
-              { k: "Built-up Area", v: "1.5M+ sq ft", d: "Mixed-use scale across retail, offices, hospitality.", to: "/opportunity/flagship-anchor" },
-              { k: "Site", v: "13 acres", d: "Prime CBD location with premium access and visibility.", to: "/opportunity/inline-retail" },
-              { k: "Footfall", v: "500k+ / month", d: "Consistent traffic with weekend & festive peaks.", to: "/demographics" },
+              { k: "Total Area", v: "5.6M sq ft", d: "The largest shopping and entertainment complex in North America.", to: "/opportunity/flagship-anchor" },
+              { k: "Retailers", v: "520+ Stores", d: "Unrivaled category dominance from luxury to experiential retail.", to: "/opportunity/inline-retail" },
+              { k: "Annual Guests", v: "40M+ / year", d: "Captive audience with high dwell time and repeat visitation.", to: "/demographics" },
             ].map((c) => (
               <Link key={c.k} to={c.to} className="glass-pane active-card lighting-card rounded-[2.2rem] p-6 sm:p-8 border border-[var(--border)] group block hover:border-accent transition-all duration-500">
                 <p className="text-[10px] font-black tracking-[0.35em] uppercase text-accent mb-4 opacity-70 group-hover:opacity-100">{c.k}</p>

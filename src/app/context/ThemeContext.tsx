@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 type Theme = "dark" | "light";
 
@@ -13,7 +19,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem("moa-theme") as Theme;
-    return saved || "dark";
+    return saved || "light";
   });
 
   useEffect(() => {
@@ -31,7 +37,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === "dark" }}>
+    <ThemeContext.Provider
+      value={{ theme, toggleTheme, isDark: theme === "dark" }}
+    >
       {children}
     </ThemeContext.Provider>
   );

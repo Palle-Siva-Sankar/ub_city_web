@@ -5,7 +5,7 @@ export function Terms() {
   const sections = [
     {
       title: "Acceptance of Terms",
-      body: "By accessing and using UB City Bengaluru digital services, you agree to comply with these Terms and all applicable laws and regulations.",
+      body: "By accessing and using Mall of America Bloomington, MN digital services, you agree to comply with these Terms and all applicable laws and regulations.",
     },
     {
       title: "Account Responsibility",
@@ -13,7 +13,7 @@ export function Terms() {
     },
     {
       title: "Orders, Payments, and Cancellations",
-      body: "Order information, payment status, and cancellation policies are shown in your account area. UB City may update fulfillment timelines and order status as needed.",
+      body: "Order information, payment status, and cancellation policies are shown in your account area. Mall of America may update fulfillment timelines and order status as needed.",
     },
     {
       title: "Privacy and Data Usage",
@@ -25,7 +25,7 @@ export function Terms() {
     },
     {
       title: "Limitation of Liability",
-      body: "UB City is not liable for indirect or consequential damages arising from use of this website, to the extent permitted by law.",
+      body: "Mall of America is not liable for indirect or consequential damages arising from use of this website, to the extent permitted by law.",
     },
   ];
 
@@ -33,7 +33,7 @@ export function Terms() {
     <div className="page-wrapper bg-page min-h-screen pt-32 md:pt-40 transition-colors duration-500 pb-32">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="mb-12">
-            <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
+            <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-on-accent transition-all shadow-gold">
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
             </Link>
         </div>

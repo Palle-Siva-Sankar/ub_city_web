@@ -9,7 +9,7 @@ interface LocationOverlayProps {
 }
 
 const POPULAR_CITIES = [
-  { city: "Bengaluru", region: "Karnataka" },
+  { city: "Bloomington, MN", region: "Karnataka" },
   { city: "Mumbai", region: "Maharashtra" },
   { city: "Delhi", region: "NCR" },
   { city: "Hyderabad", region: "Telangana" },
@@ -94,7 +94,7 @@ export function LocationOverlay({ isOpen, onClose }: LocationOverlayProps) {
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 -translate-y-1/2 px-5 py-3 bg-accent text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:shadow-gold transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 px-5 py-3 bg-accent text-on-accent text-[10px] font-black uppercase tracking-widest rounded-xl hover:shadow-gold transition-all"
               >
                 Set
               </button>
@@ -133,7 +133,7 @@ export function LocationOverlay({ isOpen, onClose }: LocationOverlayProps) {
                     animate={{ scale: 1, rotate: 0 }}
                     className="w-20 h-20 rounded-full bg-accent flex items-center justify-center mb-6 shadow-gold"
                   >
-                    <Check className="w-10 h-10 text-black" strokeWidth={4} />
+                    <Check className="w-10 h-10 text-on-accent" strokeWidth={4} />
                   </motion.div>
                   <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Location Updated</h3>
                   <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em]">Synchronizing local catalog...</p>

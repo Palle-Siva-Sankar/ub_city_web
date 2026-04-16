@@ -7,7 +7,7 @@ type LocationState = {
   error: string | null;
 };
 
-const DEFAULT_LOCATION = { city: "Bengaluru", region: "Karnataka" };
+const DEFAULT_LOCATION = { city: "Bloomington", region: "Minnesota" };
 const LOCATION_CACHE_KEY = "mall_user_location";
 const LOCATION_CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 30; // 30 Day Persistence
 

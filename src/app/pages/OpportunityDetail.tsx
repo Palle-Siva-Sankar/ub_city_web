@@ -107,15 +107,15 @@ export function OpportunityDetail() {
       
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-32 relative z-10">
         <div className="mb-16">
-           <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-6 px-8 py-4 glass-pane border border-accent/30 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Perspective
+           <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-6 px-8 py-4 glass-pane border border-accent/30 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-on-accent transition-all shadow-gold !text-accent">
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform !text-accent" /> Return to Perspective
            </button>
         </div>
 
-        <section className="glass-pane lighting-card rounded-[4rem] p-12 md:p-24 border border-[var(--border)] shadow-2xl relative overflow-hidden">
+        <section className="glass-pane lighting-card rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 border border-[var(--border)] shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] pointer-events-none" />
           
-          <div className="flex flex-col lg:flex-row gap-20 items-start">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
              <div className="flex-1">
                 <div className="flex items-center gap-4 mb-6 md:mb-8">
                    <div className="w-8 md:w-12 h-px bg-accent" />
@@ -131,10 +131,10 @@ export function OpportunityDetail() {
                 </p>
 
                 <div className="flex flex-wrap gap-6 mt-16">
-                  <Link to={detail.inquirePath} className="btn-luxe !px-16 !py-6 text-sm">
-                    Initialize Dialogue <ArrowRight className="w-6 h-6 ml-4" />
+                  <Link to={detail.inquirePath} className="btn-luxe !px-10 !py-4 text-xs">
+                    Initialize Dialogue <ArrowRight className="w-5 h-5 ml-3" />
                   </Link>
-                  <Link to="/strategy" className="px-16 py-6 glass-pane border border-[var(--border)] text-ink-gradient font-black tracking-[0.4em] uppercase text-[10px] rounded-full hover:border-accent hover:text-accent transition-all shadow-xl">
+                  <Link to="/strategy" className="px-10 py-4 glass-pane border border-[var(--border)] font-black tracking-[0.4em] uppercase text-[10px] rounded-full hover:border-accent hover:text-accent transition-all shadow-xl !text-accent">
                      Executive Briefing
                   </Link>
                 </div>
@@ -162,7 +162,7 @@ export function OpportunityDetail() {
                 <div className="glass-pane p-10 rounded-[3rem] border border-[var(--border)] bg-page/50 backdrop-blur-3xl">
                    <p className="text-[10px] font-black tracking-[0.4em] text-accent uppercase mb-6 opacity-60 italic">Strategic Adjacency</p>
                    <p className="text-ink-gradient/60 text-xs font-medium leading-relaxed italic">
-                      All opportunities are subject to registry approval and brand alignment protocols within the UB City curated ecosystem.
+                      All opportunities are subject to registry approval and brand alignment protocols within the Mall of America curated ecosystem.
                    </p>
                 </div>
              </div>

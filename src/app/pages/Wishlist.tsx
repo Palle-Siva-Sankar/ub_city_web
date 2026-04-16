@@ -26,7 +26,7 @@ export function Wishlist() {
               Your <span className="text-red-500">Selection.</span>
             </h1>
             <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium max-w-3xl mx-auto italic leading-relaxed">
-              A private catalog of your favorite UB City destinations. Curated by you, secured for your next executive visit.
+              A private catalog of your favorite Mall of America destinations. Curated by you, secured for your next executive visit.
             </p>
           </motion.div>
         </div>

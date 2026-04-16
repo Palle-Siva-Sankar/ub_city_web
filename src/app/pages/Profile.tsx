@@ -17,7 +17,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { useUserSession } from "../hooks/useFeatures";
-import { formatINR } from "../utils/currency";
+import { formatUSD } from "../utils/currency";
 import { POSTERS } from "../data/mediaAssets";
 import { toast } from "sonner";
 
@@ -55,7 +55,7 @@ export function Profile() {
 
   const [profileForm, setProfileForm] = useState(() => 
     loadJson(PROFILE_FORM_KEY, {
-      name: user?.name || "UB City Member",
+      name: user?.name || "Mall of America Member",
       email: user?.email || "member@ubcity.com",
       phone: user?.phone || "",
     })
@@ -187,7 +187,7 @@ export function Profile() {
             </div>
             
             <div className="flex flex-wrap items-center gap-4">
-              <label className="px-8 py-3 rounded-full glass-pane border border-[var(--border)] text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-accent hover:text-black transition-all shadow-sm">
+              <label className="px-8 py-3 rounded-full glass-pane border border-[var(--border)] text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-accent hover:text-on-accent transition-all shadow-sm">
                  Change Photo
                 <input type="file" accept="image/*" className="hidden" onChange={handleProfilePhotoChange} />
               </label>
@@ -281,7 +281,7 @@ export function Profile() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { key: "orderUpdates", label: "Order Updates", icon: Package, desc: "Real-time order tracking notifications" },
-              { key: "promoAlerts", label: "Promo Alerts", icon: Sparkles, desc: "Exclusive UB City offers and news" },
+              { key: "promoAlerts", label: "Promo Alerts", icon: Sparkles, desc: "Exclusive Mall of America offers and news" },
               { key: "locationOffers", label: "Location Offers", icon: MapPin, desc: "Nearby store discovery notifications" },
             ].map((pref) => (
               <button

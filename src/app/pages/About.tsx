@@ -17,19 +17,19 @@ export function About() {
         <div className="relative z-10 text-center px-6 max-w-6xl">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5 }}>
             <div className="mb-12">
-               <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold mx-auto pointer-events-auto">
+               <Link to="/" className="group inline-flex items-center gap-4 px-8 py-3 glass-pane border border-accent/30 rounded-full text-[9px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-on-accent transition-all shadow-gold mx-auto pointer-events-auto">
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Nexus
                </Link>
             </div>
-            <div className="inline-flex items-center gap-4 px-8 py-3 rounded-full glass-pane border border-accent/40 mb-10 mx-auto group hover:bg-accent hover:text-black transition-all shadow-gold">
-              <Sparkles className="w-5 h-5 text-accent group-hover:text-black transition-colors" />
-              <span className="text-[10px] font-black tracking-[0.8em] uppercase text-accent group-hover:text-black transition-colors">The Destination Protocol</span>
+            <div className="inline-flex items-center gap-4 px-8 py-3 rounded-full glass-pane border border-accent/40 mb-10 mx-auto group hover:bg-accent hover:text-on-accent transition-all shadow-gold">
+              <Sparkles className="w-5 h-5 text-accent group-hover:text-on-accent transition-colors" />
+              <span className="text-[10px] font-black tracking-[0.8em] uppercase text-accent group-hover:text-on-accent transition-colors">The Destination Protocol</span>
             </div>
             <h1 className="text-7xl md:text-[10rem] font-black font-['Outfit'] tracking-tighter uppercase leading-none mb-12 text-ink-gradient shadow-2xl">
               The <span className="text-gradient">Collection.</span>
             </h1>
             <p className="text-2xl md:text-3xl font-black font-['Outfit'] italic max-w-4xl mx-auto leading-tight hero-video-glass p-12 rounded-[4rem] text-ink-gradient border border-[var(--border)] shadow-2xl">
-              Inspired by UB City-style luxury district experiences with premium shopping, dining, events, and art.
+              Inspired by Mall of America-style luxury district experiences with premium shopping, dining, events, and art.
             </p>
           </motion.div>
         </div>
@@ -64,7 +64,7 @@ export function About() {
                 className="scroll-reveal compositor-layer"
               >
                 <Link to={item.to} className="glass-pane active-card lighting-card rounded-[4rem] p-12 block h-full border border-[var(--border)] group hover:border-accent hover:shadow-gold transition-all duration-700 relative overflow-hidden">
-                  <div className="w-20 h-20 rounded-[1.8rem] bg-accent/10 border border-accent/20 flex items-center justify-center mb-10 group-hover:bg-accent group-hover:text-black transition-all shadow-lg relative z-10">
+                  <div className="w-20 h-20 rounded-[1.8rem] bg-accent/10 border border-accent/20 flex items-center justify-center mb-10 group-hover:bg-accent group-hover:text-on-accent transition-all shadow-lg relative z-10">
                     <item.icon className="w-10 h-10" />
                   </div>
                   <p className="text-[10px] font-black tracking-[0.6em] uppercase text-accent mb-6 opacity-70 group-hover:opacity-100">{item.label}</p>

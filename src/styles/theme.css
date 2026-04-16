@@ -35,16 +35,23 @@
   --font-inter: "Inter", sans-serif;
 
   /* Fluid Typography - Apple Inspired (Responsive Clamps) */
-  --text-hero: clamp(2.5rem, 8vw + 1rem, 11rem);  /* Dynamic scaling for hero titles */
-  --text-h1: clamp(2rem, 6vw + 1rem, 5.5rem);
-  --text-h2: clamp(1.5rem, 4vw + 1rem, 3.5rem);
-  --text-h3: clamp(1.1rem, 2vw + 1rem, 2.2rem);
+  --text-hero: clamp(2rem, 4vw + 1rem, 5.5rem);
+  --text-h1: clamp(1.75rem, 3.5vw + 1rem, 3.75rem);
+  --text-h2: clamp(1.25rem, 2.5vw + 0.5rem, 2.25rem);
+  --text-h3: clamp(1rem, 1.5vw + 0.5rem, 1.5rem);
 }
 
 @layer base {
   /* Targeted transitions only for interactive elements to improve general page responsiveness */
-  a, button, [role="button"], input, select, .active-card {
-    transition-property: background-color, border-color, color, fill, stroke, transform, opacity, filter, box-shadow;
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  .active-card {
+    transition-property:
+      background-color, border-color, color, fill, stroke, transform, opacity,
+      filter, box-shadow;
     transition-duration: 400ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -53,44 +60,48 @@
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
     height: 100%;
-    overflow-x: hidden;
     /* Hide scrollbar for all browsers */
     scrollbar-width: none;
     -ms-overflow-style: none;
     /* Hardware acceleration for the root */
-    transform: translateZ(0); 
+    transform: translateZ(0);
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* High-Performance Compositor Baseline 
-     We use solid/matte backgrounds to eliminate 'backdrop-filter' bottleneck during scrolling. */
-  .glass-pane, .lighting-card, .premium-card {
+  /* High-Performance Compositor Baseline */
+  .glass-pane,
+  .lighting-card,
+  .premium-card {
     background: var(--nav-bg) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
 
   /* Maintain clean scrollbar styling for premium feel */
-  html {
-     scrollbar-width: thin;
-     scrollbar-color: var(--accent) transparent;
-  }
-  
-  body {
-    -webkit-overflow-scrolling: touch;
+  html::-webkit-scrollbar {
+    display: none;
   }
 
   body {
-    min-height: 100%;
-    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    height: 100%;
+    position: relative;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 
   /* Optimize desktop rendering performance for high-res screens */
-  .compositor-layer, .glass-pane, .lighting-card, .btn-luxe, .hero-video-glass {
-     transform: translateZ(0);
-     backface-visibility: hidden;
-     perspective: 1000px;
-     will-change: transform, opacity;
+  .compositor-layer,
+  .glass-pane,
+  .lighting-card,
+  .btn-luxe,
+  .hero-video-glass {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
   }
 
   /* Lazy rendering for long vertical pages - Advanced Virtualization */
@@ -138,23 +149,23 @@
   :root.light {
     --page-bg: #ffffff;
     --page-bg-alt: #f5f5f7;
-    --accent: #000000;
-    --accent-gold: #b38c4d; /* More vibrant premium gold */
+    --accent: #0066cc; /* Apple Blue for real-world interactive feel */
+    --accent-gold: #b38c4d;
     --accent-dim: #8a6c3a;
     --accent-light: #d4b886;
-    --border: rgba(0, 0, 0, 0.08);
-    --glass: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(0, 0, 0, 0.05);
-    --text-main: #000000; /* Pure black for primary text */
-    --text-dim: #6e6e73;
+    --border: rgba(0, 0, 0, 0.1);
+    --glass: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --text-main: #111111;
+    --text-dim: #4a4a4f;
     --card-bg: #ffffff;
-    --card-border: rgba(0, 0, 0, 0.08);
+    --card-border: rgba(0, 0, 0, 0.12);
     --input-border: rgba(0, 0, 0, 0.1);
     --nav-bg: rgba(255, 255, 255, 0.88);
     --btn-text-on-accent: #ffffff;
     --shadow-luxe: 0 25px 70px rgba(0, 0, 0, 0.1);
     --shadow-gold: 0 0 35px rgba(179, 140, 77, 0.2);
-    --accent-soft: rgba(0, 0, 0, 0.05);
+    --accent-soft: rgba(0, 102, 204, 0.05);
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
     color-scheme: light;
@@ -163,8 +174,12 @@
   body {
     background-color: var(--page-bg);
     color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons",
+      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
@@ -175,11 +190,12 @@
     display: none; /* Removing the heavy radial gradient backgrounds */
   }
 
-
   .page-wrapper {
     color: var(--text-main);
     background: var(--page-bg);
-    transition: background-color 0.7s ease, color 0.5s ease;
+    transition:
+      background-color 0.7s ease,
+      color 0.5s ease;
     position: relative;
     isolation: isolate;
     overflow-x: hidden;
@@ -192,7 +208,11 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--page-bg-alt) 20%, transparent));
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--page-bg-alt) 20%, transparent)
+    );
     opacity: 0.35;
     z-index: -1;
   }
@@ -209,8 +229,9 @@
     font-weight: 900;
   }
 
-  /* Critical readability fix: many pages use text-page classes */
-  .page-wrapper .text-page {
+  /* Critical readability fix: many pages use text-page or text-white classes */
+  .page-wrapper .text-page,
+  .page-wrapper .text-white {
     color: var(--text-main) !important;
   }
 
@@ -222,8 +243,25 @@
   .page-wrapper .text-page\/50,
   .page-wrapper .text-page\/40,
   .page-wrapper .text-page\/30,
-  .page-wrapper .text-page\/20 {
+  .page-wrapper .text-page\/20,
+  .page-wrapper .text-white\/95,
+  .page-wrapper .text-white\/90,
+  .page-wrapper .text-white\/80,
+  .page-wrapper .text-white\/70,
+  .page-wrapper .text-white\/60,
+  .page-wrapper .text-white\/50,
+  .page-wrapper .text-white\/40,
+  .page-wrapper .text-white\/30,
+  .page-wrapper .text-white\/20 {
     color: var(--text-dim) !important;
+    opacity: 1 !important;
+  }
+
+  /* Force icon visibility in light mode, but allow overrides for active/accent/colored states */
+  :root.light
+    .lucide:not([class*="text-"]):not(.bg-accent *):not(button:active *),
+  :root.light svg:not([class*="text-"]):not(.bg-accent *):not(button:active *) {
+    stroke: var(--text-main);
     opacity: 1 !important;
   }
 
@@ -239,7 +277,9 @@
 @layer components {
   /* Interaction System (Apple-like physics) */
   .spring-interaction {
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+    transition:
+      transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.3s ease;
   }
 
   .premium-card {
@@ -248,7 +288,10 @@
     border-radius: 20px;
     box-shadow: var(--shadow-luxe);
     position: relative;
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
     overflow: hidden;
   }
 
@@ -287,7 +330,10 @@
   }
 
   .glass-pane-hover {
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    transition:
+      transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
   }
 
   .glass-pane-hover:hover {
@@ -299,10 +345,12 @@
     position: relative;
     overflow: hidden;
     will-change: transform, opacity;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    transition:
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.4s ease;
     border: 1px solid var(--card-border);
-    padding: 2rem !important;
-    border-radius: 2.5rem !important;
+    padding: 1.5rem !important;
+    border-radius: 1.75rem !important;
   }
 
   /* Efficient hover lighting using opacity only */
@@ -310,7 +358,11 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--accent) 8%, transparent),
+      transparent 70%
+    );
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -328,22 +380,29 @@
 
   /* Specific typography styling for Apple UI */
   .text-gradient {
-    background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-gold) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--text-main) 0%,
+      var(--accent-gold) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  :root.light .text-gradient {
-     background: linear-gradient(135deg, #000000 0%, #d4af37 100%);
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
-  }
 
+  :root.light .text-gradient {
+    background: linear-gradient(135deg, #000000 0%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .text-ink-gradient {
     color: var(--text-main); /* High-stability fallback */
-    background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-gold) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--text-main) 0%,
+      var(--accent-gold) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -414,44 +473,45 @@
     color: var(--text-main);
   }
 
-  .glass-pane p,
-  .glass-pane span {
+  .glass-pane p {
     color: var(--text-dim);
   }
 
   /* Light mode strict text mapping for Tailwind utility classes */
-  :root.light .text-white,
   :root.light .text-white\/95,
   :root.light .text-white\/90,
-  :root.light .text-white\/85,
   :root.light .text-white\/80,
-  :root.light .text-white\/75,
   :root.light .text-white\/70,
-  :root.light .text-white\/65,
   :root.light .text-white\/60,
-  :root.light .text-white\/55,
   :root.light .text-white\/50,
   :root.light .text-white\/40,
   :root.light .text-white\/30,
   :root.light .text-white\/20,
-  :root.light .text-white\/10,
-  :root.light .text-page {
-    color: #121a2e !important;
-    opacity: 1 !important;
-  }
-
-  :root.light .text-page-text-muted,
+  :root.light .text-page\/95,
   :root.light .text-page\/90,
   :root.light .text-page\/80,
   :root.light .text-page\/70,
   :root.light .text-page\/60,
-  :root.light .text-page\/55,
-  :root.light .text-page\/50,
-  :root.light .text-page\/40,
-  :root.light .text-page\/30,
-  :root.light .text-page\/20 {
-    color: rgba(32, 42, 68, 0.84) !important;
+  :root.light .text-ink-gradient,
+  :root.light .text-ink-gradient\/90,
+  :root.light .text-ink-gradient\/80,
+  :root.light .text-ink-gradient\/70,
+  :root.light .text-ink-gradient\/60,
+  :root.light .text-ink-gradient\/50 {
+    color: var(--text-main) !important;
     opacity: 1 !important;
+  }
+
+  /* Semi-transparent text variables mapping for light mode */
+  :root.light .opacity-20,
+  :root.light .opacity-30,
+  :root.light .opacity-40,
+  :root.light .opacity-50,
+  :root.light .opacity-60,
+  :root.light .opacity-70,
+  :root.light .opacity-80 {
+    opacity: 1 !important;
+    color: var(--text-dim) !important;
   }
 
   :root.light .text-white\/15,
@@ -462,8 +522,13 @@
     opacity: 1 !important;
   }
 
-  :root.light .text-muted-custom {
-    color: rgba(31, 40, 63, 0.82) !important;
+  :root.light .text-muted-custom,
+  :root.light .nav-mobile-label,
+  :root.light .text-ink-gradient,
+  :root.light .text-ink-gradient\/90,
+  :root.light .text-ink-gradient\/80,
+  :root.light .text-ink-gradient\/70 {
+    color: #111a31 !important;
     opacity: 1 !important;
   }
 
@@ -475,25 +540,24 @@
 
   /* Strict Light Mode Contrast Overrides for UI Elements */
   :root.light .bg-accent,
-  :root.light .group:hover .bg-accent,
   :root.light .bg-accent\/90 {
     color: var(--btn-text-on-accent) !important;
   }
 
   :root.light .bg-accent *,
-  :root.light .group:hover .bg-accent * {
+  :root.light .bg-accent * {
     color: var(--btn-text-on-accent) !important;
   }
-  
+
   :root.light button:active,
   :root.light button.active {
-     background-color: var(--accent) !important;
-     color: var(--btn-text-on-accent) !important;
+    background-color: var(--accent) !important;
+    color: var(--btn-text-on-accent) !important;
   }
-  
+
   :root.light button:active *,
   :root.light button.active * {
-     color: var(--btn-text-on-accent) !important;
+    color: var(--btn-text-on-accent) !important;
   }
 
   /* Ensure neutral bordered CTA/link buttons remain readable in light mode */
@@ -539,7 +603,7 @@
       padding-top: 4rem;
       padding-bottom: 4rem;
     }
-    
+
     /* Performance: Reduce blur on mobile for 60fps */
     .backdrop-blur-3xl {
       backdrop-filter: blur(10px) !important;
@@ -563,18 +627,34 @@
     will-change: transform, opacity;
   }
 
-  /* Section Virtualization — disabled content-visibility to prevent scroll-stuck */
+  /* Optimized Media Rendering */
+  img,
+  video {
+    image-rendering: -webkit-optimize-contrast;
+    content-visibility: auto;
+  }
+
+  /* Section Virtualization — improved for modern browsers */
   .virtual-section {
-    /* content-visibility removed: caused layout miscalculation and scroll trapping */
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+    contain: layout style paint;
   }
 
   /* Compositor Promotion & Paint Hardening */
   .compositor-layer {
-     transform: translateZ(0);
-     isolation: isolate;
-     backface-visibility: hidden;
-     perspective: 1000px;
-     will-change: transform, opacity;
+    transform: translateZ(0);
+    isolation: isolate;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
+    contain: layout paint;
+  }
+
+  /* Reduce paint complexity on high-load sections */
+  .high-perf-section {
+    transform: translateZ(0);
+    contain: paint;
   }
 
   .paint-contained {
@@ -583,13 +663,13 @@
 
   /* ═══════════ "NATIVE MOTION" (OPTIMIZED) ═══════════ */
   @keyframes reveal-up {
-    from { 
-      opacity: 0; 
-      transform: translateY(30px) scale(0.99); 
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.99);
     }
-    to { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 
@@ -600,8 +680,14 @@
   }
 
   @keyframes fluidScale {
-    from { transform: scale(0.98); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+      transform: scale(0.98);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 
   .animate-fluid {
@@ -616,35 +702,50 @@
   }
 
   /* Premium Card & Component Styling - GOLD LUXE INTERACTIVE */
-  .glass-pane, .lighting-card, .premium-card {
+  .glass-pane,
+  .lighting-card,
+  .premium-card {
     border: 1px solid var(--border) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    transition:
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
     contain: paint layout;
     image-rendering: -webkit-optimize-contrast;
   }
 
-  .glass-pane:hover, .lighting-card:hover, .premium-card:hover {
+  .glass-pane:hover,
+  .lighting-card:hover,
+  .premium-card:hover {
     border: 2px solid var(--accent-gold) !important;
-    box-shadow: 
+    box-shadow:
       0 15px 40px rgba(0, 0, 0, 0.6),
       0 0 20px rgba(198, 163, 95, 0.15) !important;
     transform: translateY(-4px) scale(1.02);
     z-index: 10;
   }
 
-  .dark .glass-pane, .dark .lighting-card, .dark .premium-card {
+  .dark .glass-pane,
+  .dark .lighting-card,
+  .dark .premium-card {
     background: rgba(0, 0, 0, 0.9) !important;
     border: 2px solid var(--accent-gold) !important;
-    box-shadow: 
+    box-shadow:
       0 40px 100px rgba(0, 0, 0, 1),
       0 0 50px rgba(198, 163, 95, 0.3) !important;
   }
 
   /* CSS-Native Scroll Reveal (Hardware Accelerated & Cross-Browser) */
   @keyframes revealUp {
-    from { opacity: 0; transform: translateY(20px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .scroll-reveal-luxe {
@@ -663,16 +764,19 @@
   }
 
   /* Premium Buttons */
-  button, .btn-luxe {
+  button,
+  .btn-luxe {
     border: 1px solid transparent;
   }
 
-  .dark button:not(.btn-luxe), .dark .btn-luxe {
+  .dark button:not(.btn-luxe),
+  .dark .btn-luxe {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   }
 
-  .dark button.bg-accent, .dark .btn-luxe.bg-accent {
+  .dark button.bg-accent,
+  .dark .btn-luxe.bg-accent {
     border: 1px solid rgba(198, 163, 95, 0.4) !important;
     box-shadow: 0 0 15px rgba(198, 163, 95, 0.15) !important;
   }
@@ -690,23 +794,23 @@
     z-index: -1;
   }
 
-
-
   /* Global smooth scroll fallback */
   html {
     scroll-behavior: smooth;
   }
-  
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
 
   /* Smooth interactions */
-  a, button {
+  a,
+  button {
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  a:hover, button:hover {
+  a:hover,
+  button:hover {
     opacity: 0.8;
   }
 
@@ -737,7 +841,11 @@
   .hero-video-title {
     color: #f8faff !important;
     text-shadow: 0 8px 30px rgba(0, 0, 0, 0.52);
-    font-size: clamp(3.5rem, 8vw, 7.5rem) !important; /* Scaled down from 11rem+ */
+    font-size: clamp(
+      3.5rem,
+      8vw,
+      7.5rem
+    ) !important; /* Scaled down from 11rem+ */
     line-height: 0.9 !important;
   }
 
@@ -754,6 +862,7 @@
     backdrop-filter: blur(10px);
   }
 
+  /* GUARANTEE LIGHT TEXT ON DARK HEROES REGARDLESS OF THEME */
   .video-gradient-mask + div h1,
   .video-gradient-mask + div h2,
   .video-gradient-mask + div h3,
@@ -761,11 +870,15 @@
   .video-gradient-mask ~ div h1,
   .video-gradient-mask ~ div h2,
   .video-gradient-mask ~ div h3,
-  .video-gradient-mask ~ div p {
-    color: #f8f9ff;
+  .video-gradient-mask ~ div p,
+  .hero-video-glass,
+  .hero-video-glass * {
+    color: #f8f9ff !important;
+    -webkit-text-fill-color: #f8f9ff !important;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
   }
 
+  /* Remove the light-mode override that was making hero text dark */
   :root.light .video-gradient-mask + div h1,
   :root.light .video-gradient-mask + div h2,
   :root.light .video-gradient-mask + div h3,
@@ -774,18 +887,27 @@
   :root.light .video-gradient-mask ~ div h2,
   :root.light .video-gradient-mask ~ div h3,
   :root.light .video-gradient-mask ~ div p {
-    color: #121a2e;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+    color: #f8f9ff !important;
+    -webkit-text-fill-color: #f8f9ff !important;
   }
 
   @keyframes shimmerSweep {
-    0% { transform: translateX(-120%) skewX(-15deg); }
-    100% { transform: translateX(120%) skewX(-15deg); }
+    0% {
+      transform: translateX(-120%) skewX(-15deg);
+    }
+    100% {
+      transform: translateX(120%) skewX(-15deg);
+    }
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   @keyframes shine {
@@ -809,14 +931,19 @@
     font-size: 10px;
     transition: all 500ms ease;
     transform: scale(1);
-    background: linear-gradient(135deg, var(--accent-gold), var(--accent), var(--accent-gold));
+    background: linear-gradient(
+      135deg,
+      var(--accent-gold),
+      var(--accent),
+      var(--accent-gold)
+    );
     color: var(--btn-text-on-accent) !important;
     box-shadow: var(--shadow-gold);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
   }
-  
+
   :root.light .btn-luxe {
     background: #000000;
     color: #ffffff !important;
@@ -837,6 +964,14 @@
     color: var(--btn-text-on-accent) !important;
   }
 
+  .border-on-accent {
+    border-color: var(--btn-text-on-accent) !important;
+  }
+
+  .bg-on-accent {
+    background-color: var(--btn-text-on-accent) !important;
+  }
+
   .btn-luxe:active {
     transform: scale(0.95); /* active:scale-95 */
   }
@@ -851,12 +986,46 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.35) 50%, transparent 80%);
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 80%
+    );
     transform: translateX(-120%);
   }
 
   .btn-luxe:hover::after {
     animation: shimmerSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* ═══════════ BUTTON TEXT VISIBILITY SAFEGUARDS ═══════════ */
+
+  /* DARK MODE: btn-luxe text color */
+  :root:not(.light) .btn-luxe,
+  :root:not(.light) .btn-luxe * {
+    color: var(--btn-text-on-accent) !important;
+  }
+
+  /* LIGHT MODE: btn-luxe shows WHITE text on black background */
+  :root.light .btn-luxe,
+  :root.light .btn-luxe * {
+    color: #ffffff !important;
+  }
+
+  /* LIGHT MODE: glass-pane buttons with text-accent class show accent color */
+  :root.light button.glass-pane.text-accent,
+  :root.light a.glass-pane.text-accent,
+  :root.light button.glass-pane[class*="!text-accent"],
+  :root.light a.glass-pane[class*="!text-accent"] {
+    color: var(--accent) !important;
+  }
+
+  /* Ensure hover states don't hide text */
+  button:hover,
+  a:hover,
+  .btn-luxe:hover {
+    opacity: 1 !important;
   }
 
   /* Section Reveal Animation */
@@ -882,7 +1051,12 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.15) 50%, transparent 65%);
+    background: linear-gradient(
+      110deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 65%
+    );
     transform: translateX(-120%);
     transition: none;
     pointer-events: none; /* Crucial: ensures clicks pass through the animation layer */
@@ -899,8 +1073,16 @@
 
   .video-gradient-mask {
     background:
-      linear-gradient(180deg, transparent 0%, color-mix(in srgb, #060709 72%, transparent) 100%),
-      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 35%);
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        color-mix(in srgb, #060709 72%, transparent) 100%
+      ),
+      radial-gradient(
+        circle at 20% 0%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 35%
+      );
   }
 
   .video-bg-container {
@@ -936,7 +1118,11 @@
     width: 340px;
     height: 340px;
     border-radius: 999px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent) 0%, transparent 65%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent) 24%, transparent) 0%,
+      transparent 65%
+    );
     top: -120px;
     right: -120px;
     pointer-events: none;
@@ -967,7 +1153,12 @@
     transform: translateX(-50%);
     width: min(1100px, 88vw);
     height: 1px;
-    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent) 20%, var(--border)), transparent);
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--accent) 20%, var(--border)),
+      transparent
+    );
     opacity: 0.4;
     pointer-events: none;
   }
@@ -1006,13 +1197,17 @@
   }
 
   .shopping-brand-tile:active {
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent), 0 14px 30px rgba(0, 0, 0, 0.35);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent),
+      0 14px 30px rgba(0, 0, 0, 0.35);
     transform: translateY(1px) scale(0.99);
   }
 
   .shopping-brand-tile:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent), 0 12px 24px rgba(0, 0, 0, 0.25);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent),
+      0 12px 24px rgba(0, 0, 0, 0.25);
   }
 
   .shopping-board-shell a {
@@ -1080,12 +1275,25 @@
 
   :root.light .video-gradient-mask {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(12, 15, 24, 0.24) 100%),
-      radial-gradient(circle at 22% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 38%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.02) 0%,
+        rgba(12, 15, 24, 0.24) 100%
+      ),
+      radial-gradient(
+        circle at 22% 0%,
+        color-mix(in srgb, var(--accent) 12%, transparent),
+        transparent 38%
+      );
   }
 
   .bg-gradient-premium {
-    background: linear-gradient(135deg, var(--accent-soft), var(--accent), #9f853f);
+    background: linear-gradient(
+      135deg,
+      var(--accent-soft),
+      var(--accent),
+      #9f853f
+    );
     color: #000;
     box-shadow: var(--shadow-gold);
   }
@@ -1101,12 +1309,19 @@
   input,
   textarea,
   select {
-    transition: border-color 0.25s ease, box-shadow 0.3s ease, background-color 0.35s ease;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.3s ease,
+      background-color 0.35s ease;
   }
 
   .nav-language-select {
     color: var(--text-main) !important;
-    background-color: color-mix(in srgb, var(--page-bg) 75%, transparent) !important;
+    background-color: color-mix(
+      in srgb,
+      var(--page-bg) 75%,
+      transparent
+    ) !important;
   }
 
   .nav-language-select option {
@@ -1160,12 +1375,14 @@
     outline: none;
   }
 
-
-
   /* Standardized Interactive Transitions */
   a,
   button {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, color 0.25s ease, border-color 0.25s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1211,21 +1428,21 @@
     }
 
     .digideck-slide {
-       min-height: -webkit-fill-available;
+      min-height: -webkit-fill-available;
     }
 
     .video-bg {
-       object-position: center;
-       height: 102%;
-       width: 102%;
-       transform: scale(1.05) translateZ(0); /* Hide edges and force hardware acceleration */
-       will-change: transform;
+      object-position: center;
+      height: 102%;
+      width: 102%;
+      transform: scale(1.05) translateZ(0); /* Hide edges and force hardware acceleration */
+      will-change: transform;
     }
 
     /* Keep hero text readable on extremely small devices */
     .hero-video-title {
-       font-size: clamp(2.5rem, 9vw, 4rem) !important;
-       line-height: 1 !important;
+      font-size: clamp(2.5rem, 9vw, 4rem) !important;
+      line-height: 1 !important;
     }
   }
 
@@ -1233,5 +1450,138 @@
   .digideck-slide {
     transform: translateZ(0);
     will-change: opacity, transform;
+  }
+
+  /* ═══════════ COMPREHENSIVE TEXT VISIBILITY FIX ═══════════ */
+
+  /* Fix: glass-pane span/p rules were forcing --text-dim on ALL spans/paragraphs.
+     Override to ensure critical UI text (prices, labels, names) remains visible. */
+  .glass-pane .text-ink-gradient,
+  .glass-pane .text-accent,
+  .glass-pane h1,
+  .glass-pane h2,
+  .glass-pane h3,
+  .glass-pane h4,
+  .lighting-card h1,
+  .lighting-card h2,
+  .lighting-card h3,
+  .lighting-card h4 {
+    color: var(--text-main);
+  }
+
+  .glass-pane .text-accent,
+  .lighting-card .text-accent {
+    color: var(--accent) !important;
+  }
+
+  /* Ensure select dropdowns and option text are visible in both modes */
+  select,
+  select option {
+    color: var(--text-main);
+    background-color: var(--page-bg);
+  }
+
+  :root.light select,
+  :root.light select option {
+    color: #1d1d1f !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Input fields - guaranteed readable in both modes */
+  input,
+  textarea {
+    color: var(--text-main);
+    caret-color: var(--accent);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  :root.light input,
+  :root.light textarea {
+    color: #1d1d1f !important;
+  }
+
+  :root.light input::placeholder,
+  :root.light textarea::placeholder {
+    color: #6e6e73 !important;
+    opacity: 0.6;
+  }
+
+  /* Fix font-black spans inside glass-pane (price labels, category tags etc.) */
+  .glass-pane span.font-black,
+  .glass-pane p.font-black,
+  .lighting-card span.font-black,
+  .lighting-card p.font-black {
+    color: var(--text-main);
+  }
+
+  /* Light mode: ensure all body/page text has proper contrast */
+  :root.light .page-wrapper {
+    color: #1d1d1f;
+  }
+
+  :root.light .page-wrapper p,
+  :root.light .page-wrapper span,
+  :root.light .page-wrapper li {
+    color: inherit;
+  }
+
+  /* Light mode glass pane text contrast fix */
+  :root.light .glass-pane p,
+  :root.light .glass-pane span,
+  :root.light .lighting-card p,
+  :root.light .lighting-card span {
+    color: #3d3d42;
+  }
+
+  :root.light .glass-pane h1,
+  :root.light .glass-pane h2,
+  :root.light .glass-pane h3,
+  :root.light .glass-pane h4,
+  :root.light .lighting-card h1,
+  :root.light .lighting-card h2,
+  :root.light .lighting-card h3,
+  :root.light .lighting-card h4 {
+    color: #1d1d1f;
+  }
+
+  /* Ensure accent text stays accent-colored in light mode */
+  :root.light .text-accent {
+    color: var(--accent) !important;
+  }
+
+  :root.light [class*="text-accent/"] {
+    color: var(--accent) !important;
+  }
+
+  /* Fix: text-[color:var(--text-dim)] must be readable in light mode */
+  :root.light [style*="color:var(--text-dim)"],
+  :root.light .text-\\[color\\:var\\(--text-dim\\)\\] {
+    color: #6e6e73 !important;
+  }
+
+  /* Fix border visibility in light mode */
+  :root.light .border-white\\/10,
+  :root.light .border-white\\/20,
+  :root.light .border-white\\/5 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Fix: Dark mode card backgrounds shouldn't fight with text */
+  :root:not(.light) .glass-pane p,
+  :root:not(.light) .glass-pane span {
+    color: var(--text-dim);
+  }
+
+  :root:not(.light) .glass-pane h1,
+  :root:not(.light) .glass-pane h2,
+  :root:not(.light) .glass-pane h3,
+  :root:not(.light) .glass-pane h4,
+  :root:not(.light) .glass-pane .font-black {
+    color: var(--text-main);
   }
 }

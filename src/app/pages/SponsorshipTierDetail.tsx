@@ -84,7 +84,7 @@ export function SponsorshipTierDetail() {
 
   const handleDownload = () => {
     // Simulate PDF download
-    const content = `UB City - ${detail.title} Prospectus\n\nMetric: ${detail.metric}\n\nDescription: ${detail.desc}`;
+    const content = `Mall of America - ${detail.title} Prospectus\n\nMetric: ${detail.metric}\n\nDescription: ${detail.desc}`;
     const blob = new Blob([content], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

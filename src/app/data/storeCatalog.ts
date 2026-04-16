@@ -91,35 +91,25 @@ const BRAND_SEEDS: Record<string, ProductSeed[]> = {
     { name: "Trucker Jacket", price: 110, category: "lifestyle-apparel", description: "Iconic Levi's denim trucker jacket.", image: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=700" },
     { name: "Graphic Tee Pack", price: 45, category: "lifestyle-apparel", description: "Soft cotton tees with archival Levi's graphics.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=700" },
   ],
-  "marks-spencer": [
-    { name: "Tailored Suit Set", price: 320, category: "department-stores", description: "Formal suit set from M&S contemporary tailoring range.", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=700" },
-    { name: "Premium Home Linen Bundle", price: 165, category: "department-stores", description: "Signature home textiles and linen essentials.", image: "https://images.unsplash.com/photo-1484101403633-562f891dc89a?q=80&w=700" },
-    { name: "Kids Essentials Combo", price: 78, category: "department-stores", description: "Everyday essentials for children curated by M&S.", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?q=80&w=700" },
+  nordstrom: [
+    { name: "Nordstrom Signature Cashmere Sweater", price: 295, category: "luxury-wing", description: "Premium Italian cashmere with a relaxed, modern fit.", image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=700" },
+    { name: "Zella Live In High Waist Leggings", price: 59, category: "experiential-retail", description: "The fan-favorite leggings for performance and lounging.", image: "https://images.unsplash.com/photo-1506629905607-45f5f2d8d8f3?q=80&w=700" },
   ],
-  "shoppers-stop": [
-    { name: "Premium Fragrance Collection", price: 135, category: "department-stores", description: "Assorted luxury fragrance picks from top labels.", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=700" },
-    { name: "Designer Handbag Edit", price: 210, category: "department-stores", description: "Curated handbag line blending utility and fashion.", image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=700" },
-    { name: "Festive Occasion Wear", price: 175, category: "department-stores", description: "Celebration-ready outfits from multiple partner brands.", image: "https://images.unsplash.com/photo-1463107971871-fbac9ddb920f?q=80&w=700" },
-  ],
-  "lifestyle-store": [
-    { name: "Contemporary Home Accent Set", price: 142, category: "department-stores", description: "Decor accents with modern textures and tones.", image: "https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=700" },
-    { name: "Smart Casual Collection", price: 128, category: "department-stores", description: "Lifestyle's trending casual line for all-day wear.", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=700" },
-    { name: "Beauty Discovery Box", price: 72, category: "department-stores", description: "Top-rated personal care picks in one combo.", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=700" },
+  macy_s: [
+    { name: "Charter Club Cashmere Crew", price: 139, category: "experiential-retail", description: "Macy's exclusive luxury cashmere with exceptional softness.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=700" },
+    { name: "Levis 501 Original Fit Jeans", price: 89, category: "experiential-retail", description: "A classic look that never goes out of style.", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=700" },
   ],
   puma: [
     { name: "RS-X Heritage", price: 130, category: "footwear", description: "Chunky silhouette sneaker with bold PUMA style.", image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=700" },
     { name: "Velocity Nitro 3", price: 160, category: "footwear", description: "Lightweight running shoe with NITRO foam cushioning.", image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=700" },
     { name: "Essentials Training Tee", price: 48, category: "sportswear", description: "Sweat-wicking training tee for gym sessions.", image: "https://images.unsplash.com/photo-1492447166138-50c3889fccb1?q=80&w=700" },
   ],
-  bata: [
-    { name: "Formal Derby Shoes", price: 95, category: "footwear", description: "Polished leather derby shoes for formal office looks.", image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=700" },
-    { name: "Comfit Walking Shoes", price: 72, category: "footwear", description: "Cushioned comfort shoes designed for daily wear.", image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=700" },
-    { name: "Casual Loafers", price: 68, category: "footwear", description: "Slip-on loafers with lightweight sole construction.", image: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=700" },
+  "h-m": [
+    { name: "Oversized Cotton Hoodie", price: 34, category: "experiential-retail", description: "H&M Conscious collection hoodie in soft jersey.", image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?q=80&w=700" },
+    { name: "Slim Fit Linen Suit", price: 159, category: "experiential-retail", description: "Breathable linen blend for warm weather formal occasions.", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=700" },
   ],
-  woodland: [
-    { name: "Trek Outdoor Boots", price: 140, category: "footwear", description: "Rugged boots built for outdoor terrain and travel.", image: "https://images.unsplash.com/photo-1608256246200-53e8b47b8f1f?q=80&w=700" },
-    { name: "Adventure Utility Backpack", price: 110, category: "footwear", description: "Durable backpack with multi-pocket utility layout.", image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=700" },
-    { name: "Leather Trail Sandals", price: 84, category: "footwear", description: "Trail-ready sandals with cushioned footbed support.", image: "https://images.unsplash.com/photo-1494496195158-c3becb4f2475?q=80&w=700" },
+  patagonia: [
+    { name: "Nano Puff Jacket", price: 239, category: "experiential-retail", description: "Warm, windproof and water-resistant technical layer.", image: "https://images.unsplash.com/photo-1608256246200-53e8b47b8f1f?q=80&w=700" },
   ],
   samsung: [
     { name: "Galaxy S25 Ultra", price: 1299, category: "electronics", description: "Flagship Android smartphone with advanced AI camera system.", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=700" },
@@ -131,10 +121,9 @@ const BRAND_SEEDS: Record<string, ProductSeed[]> = {
     { name: "PlayStation 5 Pro", price: 699, category: "electronics", description: "Next-gen console gaming with enhanced graphics performance.", image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=700" },
     { name: "Alpha Mirrorless Camera", price: 1899, category: "electronics", description: "Pro-grade camera system for creators and filmmakers.", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=700" },
   ],
-  "nykaa-luxe": [
-    { name: "Luxe Skin Ritual Kit", price: 96, category: "beauty-personal-care", description: "Premium skincare ritual set curated by Nykaa Luxe.", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=700" },
-    { name: "Exclusive Fragrance Wardrobe", price: 165, category: "beauty-personal-care", description: "High-end fragrance miniatures for every occasion.", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=700" },
-    { name: "Pro Makeup Artist Set", price: 122, category: "beauty-personal-care", description: "Curated makeup essentials for full glam looks.", image: "https://images.unsplash.com/photo-1596704017254-9f7dc9c2dc64?q=80&w=700" },
+  "chanel-beauty": [
+    { name: "Rouge Allure Velvet", price: 45, category: "luxury-wing", description: "Luminous matte lip colour for a bold finish.", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=700" },
+    { name: "N°5 Eau de Parfum", price: 160, category: "luxury-wing", description: "The world's most iconic fragrance.", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=700" },
   ],
   "mac-cosmetics": [
     { name: "Studio Fix Fluid Foundation", price: 48, category: "beauty-personal-care", description: "Long-wear foundation with medium to full coverage.", image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=700" },
@@ -155,6 +144,22 @@ const BRAND_SEEDS: Record<string, ProductSeed[]> = {
     { name: "Tiffany T Wire Bracelet", price: 2900, category: "luxury", description: "Fine jewelry bracelet inspired by clean architectural lines.", image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=700" },
     { name: "Elsa Peretti Pendant", price: 1450, category: "luxury", description: "Minimal pendant necklace in premium precious metal.", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700" },
     { name: "Diamond Stud Earrings", price: 3600, category: "luxury", description: "Classic Tiffany diamond studs for timeless elegance.", image: "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?q=80&w=700" },
+  ],
+  "louis-vuitton": [
+    { name: "Speedy Bandoulière 25", price: 1800, category: "luxury", description: "Iconic Louis Vuitton bag with monogram canvas.", image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=700" },
+    { name: "LV Initiales Belt", price: 590, category: "luxury", description: "Reversible leather belt with LV buckle.", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=700" },
+  ],
+  "under-armour": [
+    { name: "Project Rock Training Shoes", price: 150, category: "sportswear", description: "Performance training shoe built for intense workouts.", image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=700" },
+    { name: "Tech 2.0 Short Sleeve Tee", price: 25, category: "sportswear", description: "Sweat-wicking, quick-drying training tee.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=700" },
+  ],
+  "bluemercury": [
+    { name: "M-61 Power Glow Peel", price: 32, category: "beauty-personal-care", description: "1-minute exfoliating glycolic & salicylic acid peel.", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=700" },
+    { name: "Lune+Aster CC Cream", price: 48, category: "beauty-personal-care", description: "Medium coverage CC cream with broad spectrum SPF.", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=700" },
+  ],
+  "kiehls": [
+    { name: "Ultra Facial Cream", price: 38, category: "beauty-personal-care", description: "24-hour daily lightweight hydrating moisturizer.", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=700" },
+    { name: "Midnight Recovery Concentrate", price: 56, category: "beauty-personal-care", description: "Nighttime facial oil that visibly restores skin.", image: "https://images.unsplash.com/photo-1526045478516-99145907023c?q=80&w=700" },
   ],
 };
 

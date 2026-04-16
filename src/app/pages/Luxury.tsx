@@ -42,10 +42,10 @@ export function Luxury() {
                </Link>
             </div>
             <p className="text-accent text-[10px] font-black tracking-[0.6em] uppercase mb-8 shadow-2xl">The Luxury Collection</p>
-            <h1 className="text-5xl md:text-8xl lg:text-[10rem] font-black font-['Outfit'] mb-8 leading-none text-ink-gradient tracking-tighter uppercase drop-shadow-2xl">
+            <h1 className="text-5xl md:text-8xl lg:text-8xl font-black font-['Outfit'] mb-8 leading-none text-ink-gradient tracking-tighter uppercase drop-shadow-2xl">
               Elevated<br /><span className="text-gradient">Elegance.</span>
             </h1>
-            <p className="text-lg md:text-2xl text-[color:var(--text-dim)] font-medium max-w-3xl mx-auto leading-relaxed mb-12">
+            <p className="text-base md:text-xl text-[color:var(--text-dim)] font-medium max-w-2xl mx-auto leading-relaxed mb-10">
               Experience a sovereign destination of luxury—a curated ecosystem where the world’s most iconic fashion houses converge.
             </p>
             <div className="pointer-events-auto flex flex-col sm:flex-row gap-6 justify-center">
@@ -72,9 +72,9 @@ export function Luxury() {
 
             <motion.div style={{ opacity: opacityText1 }} className="md:w-1/2 flex flex-col items-start text-left pl-0 md:pl-20">
               <p className="font-black uppercase tracking-[0.4em] text-[10px] mb-4 text-accent">Maison Louis Vuitton</p>
-              <h2 className="text-4xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">The Art of <br/>Living.</h2>
-              <div className="glass-pane rounded-[3rem] p-10 max-w-lg pointer-events-auto border border-[var(--border)]">
-                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">Experience the definitive luxury flagship. Featuring exclusive leather goods, private styling suites, and signature valet service.</p>
+              <h2 className="text-4xl md:text-7xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">The Art of <br/>Living.</h2>
+              <div className="glass-pane rounded-3xl p-8 max-w-lg pointer-events-auto border border-[var(--border)]">
+                <p className="text-[color:var(--text-dim)] text-base leading-relaxed mb-8 font-medium">Experience the definitive luxury flagship. Featuring exclusive leather goods, private styling suites, and signature valet service.</p>
                 <Link to="/shopping" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
                   Explore Brand
                 </Link>
@@ -90,9 +90,9 @@ export function Luxury() {
 
             <motion.div style={{ opacity: opacityText2 }} className="md:w-1/2 flex flex-col items-start text-left pr-0 md:pr-20">
               <p className="font-black uppercase tracking-[0.4em] text-[10px] mb-4 text-accent">Innovation Studio</p>
-              <h2 className="text-4xl md:text-8xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">Redefining <br/>Mobility.</h2>
-              <div className="glass-pane rounded-[3rem] p-10 max-w-lg pointer-events-auto border border-[var(--border)]">
-                <p className="text-[color:var(--text-dim)] text-lg leading-relaxed mb-10 font-medium">An experiential gallery where innovation meets premium design. Discover the future of sustainable luxury in our flagship studio.</p>
+              <h2 className="text-4xl md:text-7xl font-black font-['Outfit'] text-ink-gradient mb-8 uppercase tracking-tighter leading-none">Redefining <br/>Mobility.</h2>
+              <div className="glass-pane rounded-3xl p-8 max-w-lg pointer-events-auto border border-[var(--border)]">
+                <p className="text-[color:var(--text-dim)] text-base leading-relaxed mb-8 font-medium">An experiential gallery where innovation meets premium design. Discover the future of sustainable luxury in our flagship studio.</p>
                 <Link to="/reach-us" className="text-accent text-[10px] font-black tracking-widest border-b-2 border-accent hover:opacity-50 transition-colors uppercase pb-2">
                   Visit Studio
                 </Link>
@@ -113,12 +113,12 @@ export function Luxury() {
             ].map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1, margin: "-10px" }} transition={{ delay: i * 0.1, duration: 0.8 }}
                 className="group relative">
-                <Link to={f.to} className="glass-pane active-card lighting-card rounded-[3.5rem] p-12 block h-full border border-[var(--border)] group-hover:border-accent transition-all duration-700 relative overflow-hidden">
+                <Link to={f.to} className="glass-pane active-card lighting-card rounded-3xl p-8 md:p-10 block h-full border border-[var(--border)] group-hover:border-accent transition-all duration-700 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-10 opacity-40 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700">
                     <Sparkles className="w-10 h-10 text-accent" />
                   </div>
                   <p className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 opacity-60">Luxury Collection</p>
-                  <h3 className="text-2xl md:text-3xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none group-hover:text-accent transition-colors">{f.title}</h3>
+                  <h3 className="text-xl md:text-2xl font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-8 leading-none group-hover:text-accent transition-colors">{f.title}</h3>
                   <p className="text-[color:var(--text-dim)] text-xs font-black uppercase tracking-[0.2em] leading-relaxed mb-12 opacity-80 group-hover:opacity-100">{f.desc}</p>
                   <div className="flex items-center justify-between">
                      <span className="text-[10px] font-black text-accent uppercase tracking-widest border-b border-accent/30 pb-1">Learn More</span>

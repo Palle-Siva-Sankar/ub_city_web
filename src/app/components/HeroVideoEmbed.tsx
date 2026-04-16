@@ -27,6 +27,7 @@ function getOptimizedEmbedUrl(embedUrl: string): string {
       url.searchParams.set("fs", "0");
       url.searchParams.set("cc_load_policy", "0");
       url.searchParams.set("showinfo", "0");
+      url.searchParams.set("autohide", "1");
       if (!url.searchParams.get("playlist")) {
         const parts = url.pathname.split("/");
         const videoId = parts[parts.length - 1];
@@ -51,7 +52,13 @@ function getOptimizedEmbedUrl(embedUrl: string): string {
   }
 }
 
-export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideImages }: HeroVideoEmbedProps) {
+export function HeroVideoEmbed({
+  embedUrl,
+  videoSrc,
+  posterImage,
+  title,
+  slideImages,
+}: HeroVideoEmbedProps) {
   const optimizedEmbedUrl = embedUrl ? getOptimizedEmbedUrl(embedUrl) : "";
   const [isVisible, setIsVisible] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
@@ -69,13 +76,13 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
 
   const slides = useMemo(
     () =>
-      (slideImages && slideImages.length >= 3
+      slideImages && slideImages.length >= 3
         ? slideImages.slice(0, 3)
         : [
             posterImage,
             "https://images.unsplash.com/photo-1481437156560-3205f6a55735?q=80&w=2000",
             "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?q=80&w=2000",
-          ]),
+          ],
     [posterImage, slideImages],
   );
 
@@ -91,7 +98,7 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (videoRef.current) {
@@ -112,35 +119,46 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-      {/* Background Poster (visible while video loads or on mobile) */}
-      {/* Background Poster (visible while video loads) */}
+      {/* Background Poster (visible while video loads or if video fails) */}
       <img
         src={posterImage}
         alt={title}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-          isVideoReady ? "opacity-0" : "opacity-100"
+          isVideoReady && !hasVideoError ? "opacity-0" : "opacity-100"
         }`}
         loading="eager"
       />
 
-      {/* Interactive Slider Layers */}
-      <div className="absolute inset-0 z-[5]">
-        {slides.map((slide, index) => (
-          <div
-            key={slide}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-              index === activeSlide ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
-            }`}
-          >
-            <img src={slide} alt={`Slide ${index}`} className="w-full h-full object-cover" />
-          </div>
-        ))}
-      </div>
+      {/* Interactive Slider Layers - Only show if NO video source or embed */}
+      {!videoSrc && !embedUrl && (
+        <div className="absolute inset-0 z-[5]">
+          {slides.map((slide, index) => {
+            if (index !== activeSlide && !isVideoReady) return null; // Optimization: only render active
+            return (
+              <div
+                key={slide}
+                className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                  index === activeSlide
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-105 pointer-events-none"
+                }`}
+              >
+                <img
+                  src={slide}
+                  alt={`Slide ${index}`}
+                  className="w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {videoSrc ? (
         <video
           ref={videoRef}
-          className={`absolute inset-0 z-10 w-full h-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 z-10 w-full h-full object-cover transition-opacity duration-1000 compositor-layer ${
             isVideoReady && !hasVideoError ? "opacity-100" : "opacity-0"
           }`}
           src={videoSrc}
@@ -148,7 +166,12 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
           loop
           playsInline
           autoPlay
-          onLoadedData={() => setIsVideoReady(true)}
+          preload="auto"
+          onLoadedData={() => {
+            setHasVideoError(false);
+            setIsVideoReady(true);
+          }}
+          onCanPlay={() => setIsVideoReady(true)}
           onPlaying={() => setIsVideoReady(true)}
           onError={() => {
             setHasVideoError(true);
@@ -156,7 +179,7 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
           }}
         />
       ) : embedUrl ? (
-        <div className="absolute inset-x-0 inset-y-0 z-10 scale-[1.35] pointer-events-none origin-center">
+        <div className="absolute inset-x-0 inset-y-0 z-10 scale-[1.35] pointer-events-none origin-center compositor-layer">
           <iframe
             className="absolute inset-0 w-full h-full"
             src={optimizedEmbedUrl}
@@ -171,7 +194,9 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
       {/* Navigation Arrows Hidden by Request */}
       <div className="hidden absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-6 md:px-12 md:flex justify-between pointer-events-none opacity-0">
         <button
-          onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+          onClick={() =>
+            setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)
+          }
           className="w-16 h-16 rounded-full glass-pane border border-accent/30 flex items-center justify-center text-accent hover:bg-accent hover:text-black transition-all pointer-events-auto backdrop-blur-3xl shadow-gold group"
           aria-label="Previous Slide"
         >
@@ -193,7 +218,9 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
             key={i}
             onClick={() => setActiveSlide(i)}
             className={`transition-all duration-500 rounded-full h-1.5 ${
-              i === activeSlide ? "w-12 bg-accent" : "w-1.5 bg-accent/20 hover:bg-accent/40"
+              i === activeSlide
+                ? "w-12 bg-accent"
+                : "w-1.5 bg-accent/20 hover:bg-accent/40"
             }`}
           />
         ))}
@@ -204,4 +231,3 @@ export function HeroVideoEmbed({ embedUrl, videoSrc, posterImage, title, slideIm
     </div>
   );
 }
-

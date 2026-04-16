@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Package, X, Clock, MapPin, CheckCircle2, AlertCircle, ShoppingBag, ArrowRight, Truck } from "lucide-react";
 import { useOrders } from "../hooks/useFeatures";
-import { formatINR } from "../utils/currency";
+import { formatUSD } from "../utils/currency";
 import { Link } from "react-router";
 
 interface OrdersHubProps {
@@ -54,7 +54,7 @@ export function OrdersHub({ isOpen, onClose }: OrdersHubProps) {
                </div>
               <button
                 onClick={onClose}
-                className="w-12 h-12 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                className="w-12 h-12 rounded-full glass-pane border border-[var(--border)] flex items-center justify-center hover:bg-accent hover:text-on-accent transition-all"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -133,7 +133,7 @@ function OrderCard({ order, getStatusColor }: { order: any; getStatusColor: (sta
             {order.status}
           </span>
         </div>
-        <p className="text-xl font-black font-['Outfit'] text-accent">{formatINR(order.total * 83)}</p>
+        <p className="text-xl font-black font-['Outfit'] text-accent">{formatUSD(order.total)}</p>
       </div>
 
       <div className="space-y-3 mb-6">

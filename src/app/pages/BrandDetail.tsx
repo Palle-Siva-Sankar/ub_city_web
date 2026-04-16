@@ -84,15 +84,15 @@ export function BrandDetail() {
               animate={{ scale: 1, y: 0 }}
               className="relative w-full max-w-6xl aspect-video glass-pane lighting-card rounded-[4rem] border border-[var(--border)] p-12 overflow-hidden shadow-gold"
             >
-              <button onClick={() => setShowMap(false)} className="absolute top-10 right-10 w-16 h-16 flex items-center justify-center glass-pane border border-[var(--border)] rounded-full hover:bg-accent hover:text-black transition-all z-20">
+              <button onClick={() => setShowMap(false)} className="absolute top-10 right-10 w-16 h-16 flex items-center justify-center glass-pane border border-[var(--border)] rounded-full hover:bg-accent hover:text-on-accent transition-all z-20">
                 <X className="w-8 h-8" />
               </button>
               
               <div className="flex flex-col h-full relative z-10">
                 <div className="mb-12">
-                   <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-accent text-[10px] font-black text-black uppercase tracking-[0.4em] mb-6 shadow-gold">Live Navigator</div>
+                   <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-accent text-[10px] font-black text-on-accent uppercase tracking-[0.4em] mb-6 shadow-gold">Live Navigator</div>
                    <h2 className="text-5xl md:text-[6rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter mb-4 leading-none">{item.name} <span className="text-gradient">Sector.</span></h2>
-                   <p className="text-accent text-sm font-black tracking-[0.5em] uppercase">{item.floor} • UB City Nexus</p>
+                   <p className="text-accent text-sm font-black tracking-[0.5em] uppercase">{item.floor} • Mall of America Nexus</p>
                 </div>
                 
                 <div className="flex-1 glass-pane rounded-[3.5rem] border border-[var(--border)] flex items-center justify-center relative overflow-hidden group/map shadow-inner">
@@ -131,7 +131,7 @@ export function BrandDetail() {
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pb-24">
           <div className="mb-16">
-             <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-6 px-8 py-4 glass-pane border border-accent/30 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-black transition-all shadow-gold">
+             <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-6 px-8 py-4 glass-pane border border-accent/30 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-accent hover:bg-accent hover:text-on-accent transition-all shadow-gold">
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" /> Return to Sector Index
              </button>
           </div>
@@ -139,7 +139,7 @@ export function BrandDetail() {
           <motion.div initial={{ opacity: 0, y: 50, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 1.2 }}>
             <div className="flex items-center gap-6 mb-10">
                <div className="w-16 h-[2px] bg-accent" />
-               <span className="text-[10px] font-black tracking-[0.8em] text-accent uppercase">Authorized UB City Landmark</span>
+               <span className="text-[10px] font-black tracking-[0.8em] text-accent uppercase">Authorized Mall of America Landmark</span>
             </div>
             <h1 className="text-7xl md:text-[10rem] xl:text-[13rem] font-black font-['Outfit'] text-ink-gradient tracking-tighter leading-none mb-12 uppercase">
               {item.name}<span className="text-gradient">.</span>
@@ -281,7 +281,7 @@ export function BrandDetail() {
               <h2 className="text-6xl md:text-[9rem] font-black font-['Outfit'] text-ink-gradient uppercase tracking-tighter leading-none mb-10">
                 {reviewCount > 0 ? "Visitor <span className='text-gradient'>Testimonies.</span>" : "Unrivaled <span className='text-gradient'>Journeys.</span>"}
               </h2>
-              <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic italic leading-relaxed">Verified account experiences from the UB City inner circle.</p>
+              <p className="text-xl md:text-2xl text-[color:var(--text-dim)] font-medium italic italic leading-relaxed">Verified account experiences from the Mall of America inner circle.</p>
             </div>
             <button
               onClick={() => setShowReviewForm(!showReviewForm)}

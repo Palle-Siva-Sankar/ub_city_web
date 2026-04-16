@@ -22,7 +22,7 @@ export function BrandStyleGuide() {
                             Brand <span className="text-gradient">Assets.</span>
                         </h1>
                         <p className="text-xl hero-video-subtitle font-medium max-w-2xl mx-auto leading-relaxed text-[color:var(--text-dim)]">
-                            A showcase of the strategic design elements, typography, and interactive components that define the UB City digital experience.
+                            A showcase of the strategic design elements, typography, and interactive components that define the Mall of America digital experience.
                         </p>
                     </motion.div>
                 </div>
@@ -65,7 +65,7 @@ export function BrandStyleGuide() {
                                 <div>
                                     <p className="text-ghost text-[10px] mb-4">Main Body (18px SF Pro)</p>
                                     <p className="text-lg font-medium text-[color:var(--text-dim)] leading-relaxed">
-                                        UB City is Bengaluru's first luxury mall, designed as a premium high-intent destination for the world's most discerning audiences.
+                                        Mall of America is Bloomington, MN's first luxury mall, designed as a premium high-intent destination for the world's most discerning audiences.
                                     </p>
                                 </div>
                                 <div>
@@ -106,7 +106,7 @@ export function BrandStyleGuide() {
                         {/* SECONDARY GHOST */}
                         <div className="glass-pane rounded-[3rem] p-10 flex flex-col items-center justify-center text-center border border-[var(--border)]">
                             <p className="text-ghost text-[10px] mb-8 font-black uppercase tracking-widest">Ghost Outline (Secondary)</p>
-                            <button className="px-12 py-5 rounded-full border border-accent/30 text-[10px] font-black uppercase tracking-[0.4em] hover:bg-accent hover:text-black transition-all w-full flex items-center justify-center gap-4">
+                            <button className="px-12 py-5 rounded-full border border-accent/30 text-[10px] font-black uppercase tracking-[0.4em] hover:bg-accent hover:text-on-accent transition-all w-full flex items-center justify-center gap-4">
                                 Discover More <ArrowRight className="w-4 h-4" />
                             </button>
                             <p className="mt-8 text-[11px] text-[color:var(--text-dim)] font-medium">Used for informational depth and non-primary explorations.</p>
@@ -116,7 +116,7 @@ export function BrandStyleGuide() {
                         <div className="glass-pane rounded-[3rem] p-10 flex flex-col items-center justify-center text-center border border-[var(--border)]">
                             <p className="text-ghost text-[10px] mb-8 font-black uppercase tracking-widest">Iconic Trap (System)</p>
                             <div className="flex gap-6">
-                                <button className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/30 flex items-center justify-center transition-all hover:bg-accent hover:text-black shadow-gold">
+                                <button className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/30 flex items-center justify-center transition-all hover:bg-accent hover:text-on-accent shadow-gold">
                                     <ExternalLink className="w-6 h-6" />
                                 </button>
                                 <button className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all hover:border-accent">
@@ -146,7 +146,7 @@ export function BrandStyleGuide() {
                         {/* LIGHTING CARD */}
                         <div className="glass-pane lighting-card rounded-[3.5rem] p-12 border border-[var(--border)]">
                              <div className="flex items-center gap-4 mb-10">
-                                <span className="px-6 py-2 rounded-full bg-accent text-[10px] font-black text-black uppercase tracking-widest">Interactive</span>
+                                <span className="px-6 py-2 rounded-full bg-accent text-[10px] font-black text-on-accent uppercase tracking-widest">Interactive</span>
                                 <div className="h-px flex-1 bg-accent/20" />
                              </div>
                              <h3 className="text-3xl font-black text-ink-gradient mb-4 uppercase tracking-tighter leading-none">The Lighting Card.</h3>

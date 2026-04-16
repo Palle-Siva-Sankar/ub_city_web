@@ -40,7 +40,7 @@ const opMap: Record<string, OpMeta> = {
       { label: "Avg Footfall", value: "25k/day", icon: Users },
       { label: "Visibility", value: "A+", icon: MapPin }
     ],
-    content: "Maximize brand exposure by positioning your storefront along the high-frequency paths of Bengaluru's most affluent demographics."
+    content: "Maximize brand exposure by positioning your storefront along the high-frequency paths of Bloomington, MN's most affluent demographics."
   },
   "short-window-deployment": {
     title: "Short-Window Deployment",

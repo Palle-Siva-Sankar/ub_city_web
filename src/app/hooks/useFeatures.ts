@@ -261,7 +261,7 @@ export function useOrders() {
         if (nextStatus === "Processing") {
             nextOrder = appendUpdateIfMissing(nextOrder, "Processing", "info", "Payment verified and items are being prepared.");
         } else if (nextStatus === "Shipped") {
-            nextOrder = appendUpdateIfMissing(nextOrder, "Shipped", "warning", "Your package has left the UB City dispatch center.");
+            nextOrder = appendUpdateIfMissing(nextOrder, "Shipped", "warning", "Your package has left the Mall of America dispatch center.");
         } else if (nextStatus === "Out for Delivery") {
             nextOrder = appendUpdateIfMissing(nextOrder, "Out for Delivery", "warning", "Delivery partner is on the way with your order.");
         } else if (nextStatus === "Delivered") {

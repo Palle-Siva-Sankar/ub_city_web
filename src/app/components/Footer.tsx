@@ -6,13 +6,13 @@ import { NewsletterSignup } from "./NewsletterSignup";
 const footerNav = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Why UB City", to: "/demographics" },
+  { label: "Why MOA", to: "/demographics" },
   { label: "Retail", to: "/retail" },
   { label: "Luxury", to: "/luxury" },
-  { label: "Dining & Lifestyle", to: "/dining" },
+  { label: "Dining", to: "/dine" },
   { label: "Attractions", to: "/attractions" },
   { label: "Events", to: "/events" },
-  { label: "Terms & Conditions", to: "/terms" },
+  { label: "Terms", to: "/terms" },
 ];
 
 const businessNav = [
@@ -35,10 +35,10 @@ const designNav = [
 
 export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
   const socialLinks = [
-    { label: "Instagram", href: "https://www.instagram.com/ubcity.bangalore/", icon: Instagram },
-    { label: "Facebook", href: "https://www.facebook.com/ubcity/", icon: Facebook },
-    { label: "X", href: "https://x.com/ubcitybangalore", icon: Twitter },
-    { label: "Website", href: "https://www.ubcity.com/", icon: Globe },
+    { label: "Instagram", href: "https://www.instagram.com/mallofamerica/", icon: Instagram },
+    { label: "Facebook", href: "https://www.facebook.com/MallofAmerica/", icon: Facebook },
+    { label: "X", href: "https://x.com/mallofamerica", icon: Twitter },
+    { label: "Website", href: "https://www.mallofamerica.com/", icon: Globe },
   ];
 
   return (
@@ -55,10 +55,10 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
                    <p className="text-accent text-[11px] font-black tracking-[0.6em] uppercase">Sector Opportunities</p>
                 </div>
                 <h2 className="text-4xl sm:text-6xl md:text-7xl font-black font-['Outfit'] mb-8 text-ink-gradient uppercase tracking-tighter leading-none">
-                  Initialize Your <span className="text-gradient">Legacy Presence.</span>
+                  Initialize Your <span className="text-gradient">Global Presence.</span>
                 </h2>
                 <p className="text-2xl text-[color:var(--text-dim)] font-medium italic border-l-2 border-accent/20 pl-8 leading-relaxed">
-                  Join premium global brands at Bengaluru's iconic luxury nexus. Deploy your vision within our curated ecosystem.
+                  Join the world's most iconic retail and entertainment platform. Deploy your brand within our 40-million-guest ecosystem.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 w-full lg:w-auto shrink-0">
@@ -69,8 +69,8 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
                   Explore Nexus <ArrowRight className="w-5 h-5 ml-4" />
                 </Link>
                 <a
-                  href="mailto:contact@ubcitybangalore.in"
-                  className="px-12 py-5 rounded-full glass-pane border border-[var(--border)] text-ink-gradient font-black tracking-[0.4em] uppercase text-[10px] hover:border-accent hover:text-accent transition-all duration-500"
+                  href="mailto:guestservice@mallofamerica.com"
+                  className="px-12 py-5 rounded-full glass-pane border border-[var(--border)] font-black tracking-[0.4em] uppercase text-[10px] hover:border-accent hover:text-accent transition-all duration-500 !text-accent"
                 >
                   Secure Dialogue
                 </a>
@@ -87,11 +87,11 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
             <div className="space-y-10 lg:col-span-1">
               <div>
                 <Link to="/" className="text-2xl font-black tracking-tighter text-ink-gradient flex items-center gap-3 mb-8">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-gold flex items-center justify-center text-black text-xs shadow-gold">UB</div>
-                    UB CITY BENGALURU
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-gold flex items-center justify-center text-white text-[10px] shadow-gold">MOA</div>
+                    MALL OF AMERICA
                 </Link>
                 <p className="text-[color:var(--text-dim)] text-sm font-black uppercase tracking-[0.1em] leading-relaxed mb-10 opacity-60">
-                  The Collection at UB City - high-fidelity luxury shopping, gastronomy, and cultural vault destination.
+                  Mall of America - North America's premier high-fidelity retail, gastronomy, and attraction destination.
                 </p>
               </div>
               <div className="space-y-6">
@@ -99,13 +99,13 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
                   <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
                     <MapPin className="w-4 h-4 text-accent" />
                   </div>
-                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">The Collection, Vittal Mallya Road</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">60 East Broadway, Bloomington, MN</span>
                 </div>
                 <div className="flex items-center gap-5 group">
                   <div className="w-10 h-10 rounded-xl glass-pane border border-[var(--border)] flex items-center justify-center group-hover:border-accent transition-colors">
                     <Phone className="w-4 h-4 text-accent" />
                   </div>
-                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">+91 80 4177 1111</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-ink-gradient opacity-80 group-hover:opacity-100">+1 952 883 8800</span>
                 </div>
               </div>
             </div>
@@ -165,7 +165,7 @@ export function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
       {/* Bottom */}
       <div className="border-t border-[var(--border)] bg-page-bg-alt transition-colors duration-500">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[9px] font-black uppercase tracking-[0.5em] text-ink-gradient opacity-40">© {new Date().getFullYear()} UB CITY BENGALURU. HIGH-FIDELITY EXPERIENCE.</p>
+          <p className="text-[9px] font-black uppercase tracking-[0.5em] text-ink-gradient opacity-40">© {new Date().getFullYear()} MALL OF AMERICA. NORTH AMERICA'S ICONIC DESTINATION.</p>
           <div className="flex items-center gap-8">
              <p className="text-[9px] font-black uppercase tracking-[0.5em] text-ink-gradient opacity-40">Operational Status: Optimal</p>
              <p className="text-[9px] font-black uppercase tracking-[0.5em] text-accent">Internal Registry Only</p>
